@@ -4,26 +4,31 @@ using UnityEngine;
 
 public class carMovement2 : MonoBehaviour
 {
-    public float acceleration = 5f;
-    public float maxSpeed = 20f;
-    public float turnSpeed = 0.05f;
-    public float suspensionHeight = 1f;
-    public float suspensionForceMag = 500f;
-    public float lateralFriction = -300f;
-    public float extraGravity = 2000f;
-    public float rayCastDistance = 1f;
+    public float acceleration = 50f;
+    public float maxSpeed = 100f;
+    public float turnSpeed = 0.01f;
+    public float suspensionHeight = 2f;
+    public float suspensionForceMag = 5f;
+    public float lateralFriction = 0f;
+    public float extraGravity = 10f;
+    public float rayCastDistance = 0.6f;
+    public Transform rayCastStartPosition;
     public LayerMask groundLayer;
-
+    ///public Transform centerOfMass;
+    
     private Rigidbody rb;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        rb.centerOfMass = new Vector3(0, -0.5f, 0);
+        rb.centerOfMass = new Vector3(0, 0.1f, 0);
+        
     }
 
     void Update()
     {
+        //centerOfMass.position = rb.transform.position + rb.centerOfMass;
+        //rb.centerOfMass = centerOfMass.position;
         float moveInput = Input.GetAxis("Vertical");
         float turnInput = Input.GetAxis("Horizontal");
         if (!IsGrounded())
@@ -39,10 +44,14 @@ public class carMovement2 : MonoBehaviour
         
         if (moveInput < 0) { 
             accelerationForce /= 3;
-            rb.AddForce(transform.forward * accelerationForce * 100);
+            rb.AddForce(transform.forward * accelerationForce * 100 );
 
         }
-        if (moveInput >0) rb.AddForce(transform.forward * accelerationForce * 100);
+        if (moveInput > 0)
+        {
+            rb.AddForce(transform.forward * accelerationForce * 100);
+            //rb.AddForceAtPosition(transform.forward * accelerationForce * 100, centerOfMass.position);
+        }
 
         // Limit the maximum speed
         if (rb.velocity.magnitude > maxSpeed)
@@ -60,12 +69,11 @@ public class carMovement2 : MonoBehaviour
         Vector3 lateralFrictionForce = -rb.velocity.magnitude * lateralFriction * Vector3.Cross( Vector3.Cross(rb.velocity.normalized , transform.forward) , transform.forward);
         Debug.DrawRay(this.transform.position, lateralFrictionForce,Color.yellow );
         rb.AddForce(lateralFrictionForce);
-
+        Debug.DrawRay(rayCastStartPosition.position, -transform.up * rayCastDistance, Color.yellow);
         // Apply suspension force
         RaycastHit hit;
         if (Physics.Raycast(transform.position, -transform.up, out hit, suspensionHeight + 0.1f))
         {
-            Debug.Log("afaga");
             float suspensionCompression = 1f - (hit.distance / suspensionHeight);
             Vector3 suspensionForce = transform.up * suspensionCompression * suspensionForceMag;
             rb.AddForceAtPosition(suspensionForce, transform.position);
@@ -76,7 +84,7 @@ public class carMovement2 : MonoBehaviour
     
     private bool IsGrounded()
     {
-        bool hit = Physics.Raycast(transform.position, -transform.up, rayCastDistance);
+        bool hit = Physics.Raycast(rayCastStartPosition.position, -transform.up, rayCastDistance);
         return hit;
     }
 
