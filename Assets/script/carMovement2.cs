@@ -14,12 +14,17 @@ public class carMovement2 : MonoBehaviour
     public float rayCastDistance = 0.6f;
     public Transform rayCastStartPosition;
     public LayerMask groundLayer;
+
+    Animator animator;
+    int val;
     ///public Transform centerOfMass;
-    
+
     private Rigidbody rb;
 
     void Start()
     {
+        animator = GetComponent<Animator>();
+        val = Animator.StringToHash("horizontal");
         rb = GetComponent<Rigidbody>();
         rb.centerOfMass = new Vector3(0, 0.1f, 0);
         
@@ -31,6 +36,9 @@ public class carMovement2 : MonoBehaviour
         //rb.centerOfMass = centerOfMass.position;
         float moveInput = Input.GetAxis("Vertical");
         float turnInput = Input.GetAxis("Horizontal");
+
+        animator.SetFloat(val, (turnInput + 1) / 2);
+
         if (!IsGrounded())
         {
             rb.AddForce(-transform.up * extraGravity);
@@ -42,7 +50,8 @@ public class carMovement2 : MonoBehaviour
         float desiredSpeed = moveInput * maxSpeed;
         float accelerationForce = (desiredSpeed - currentSpeed) * acceleration;
         
-        if (moveInput < 0) { 
+        if (moveInput < 0) {
+            turnInput = -turnInput;
             accelerationForce /= 3;
             rb.AddForce(transform.forward * accelerationForce * 100 );
 
