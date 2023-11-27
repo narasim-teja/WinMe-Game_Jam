@@ -15,7 +15,7 @@ public class carMovement2 : MonoBehaviour
     public Transform rayCastStartPosition;
     public LayerMask groundLayer;
 
-    Animator animator;
+    public Animator animator;
     int val;
     ///public Transform centerOfMass;
 
@@ -23,7 +23,7 @@ public class carMovement2 : MonoBehaviour
 
     void Start()
     {
-        animator = GetComponent<Animator>();
+        //animator = GetComponent<Animator>();
         val = Animator.StringToHash("horizontal");
         rb = GetComponent<Rigidbody>();
         rb.centerOfMass = new Vector3(0, 0.1f, 0);
