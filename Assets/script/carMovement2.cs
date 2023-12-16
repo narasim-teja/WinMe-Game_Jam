@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class carMovement2 : MonoBehaviour
 {
-    public float acceleration = 50f;
-    public float maxSpeed = 100f;
-    public float turnSpeed = 0.01f;
-    public float suspensionHeight = 2f;
-    public float suspensionForceMag = 5f;
-    public float lateralFriction = 0f;
-    public float extraGravity = 10f;
-    public float rayCastDistance = 0.6f;
+    public float acceleration = 5f;
+    public float maxSpeed = 20f;
+    public float turnSpeed = 0.04f;
+    public float suspensionHeight = 1f;
+    public float suspensionForceMag = 300f;
+    public float lateralFriction = -300f;
+    public float extraGravity = 1000f;
+    public float rayCastDistance = 0.55f;
     public Transform rayCastStartPosition;
     public LayerMask groundLayer;
 
