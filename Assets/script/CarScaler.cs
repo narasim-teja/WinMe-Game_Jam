@@ -1,6 +1,6 @@
 using UnityEngine;
-
-public class CarScaler : MonoBehaviour
+using Unity.Netcode;
+public class CarScaler : NetworkBehaviour
 {
     public float scaleSpeed = 0.5f;
     public float minYScale = 0.5f;
@@ -10,7 +10,9 @@ public class CarScaler : MonoBehaviour
 
     void Update()
     {
-        
+        if (!IsOwner) return;
+
+
         float scaleInput = Input.GetAxis("Mouse ScrollWheel");
 
         float scalex = transform.localScale.x + transform.localScale.x * scaleInput * scaleSpeed;
