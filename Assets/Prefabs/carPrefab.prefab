@@ -3707,7 +3707,8 @@ GameObject:
   - component: {fileID: 3895059666751091118}
   - component: {fileID: 3682544532945441326}
   - component: {fileID: 9130006868287894040}
-  - component: {fileID: 490758657042663548}
+  - component: {fileID: 1097115649347544791}
+  - component: {fileID: 4621528945429444593}
   m_Layer: 0
   m_Name: GKRacer (1)
   m_TagString: Untagged
@@ -3883,18 +3884,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &490758657042663548
+--- !u!65 &1097115649347544791
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8044583707200657416}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 0.41904628, z: 1.3989562}
+  m_Center: {x: 1.1057994e-16, y: 0.29047686, z: 0.054718614}
+--- !u!114 &4621528945429444593
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8044583707200657416}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a1d84b9ac7c1874a9fc3c5807e70cf0, type: 3}
+  m_Script: {fileID: 11500000, guid: dad7c87c1d32de74e9c0c75392ba4e9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TransitionStateInfoList: []
+  m_Animator: {fileID: 586920758707008097}
 --- !u!1 &8168385344068594491
 GameObject:
   m_ObjectHideFlags: 0

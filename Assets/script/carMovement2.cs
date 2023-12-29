@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
+using System;
 
 public class carMovement2 : NetworkBehaviour
 {
@@ -14,6 +15,7 @@ public class carMovement2 : NetworkBehaviour
     public float extraGravity = 1000f;
     public float rayCastDistance = 0.55f;
     public Transform rayCastStartPosition;
+    Vector3 rotationSmoothVelocity;
     public LayerMask groundLayer;
 
     public Animator animator;
@@ -63,12 +65,14 @@ public class carMovement2 : NetworkBehaviour
     {
         animator.SetFloat(val, (turnInput + 1) / 2);
 
+        rotationRestrictions();
         if (!IsGrounded())
         {
-            rb.AddForce(-transform.up * extraGravity);
+            rb.AddForce(-Vector3.up * extraGravity);
             //Debug.DrawRay(this.transform.position, -Vector3.up * extraGravity, Color.red);
             return;
         }
+
         // Accelerate and decelerate
         float currentSpeed = Vector3.Dot(rb.velocity, transform.forward);
         float desiredSpeed = moveInput * maxSpeed;
@@ -102,7 +106,7 @@ public class carMovement2 : NetworkBehaviour
         Vector3 lateralFrictionForce = -rb.velocity.magnitude * lateralFriction * Vector3.Cross(Vector3.Cross(rb.velocity.normalized, transform.forward), transform.forward);
         // Debug.DrawRay(this.transform.position, lateralFrictionForce, Color.yellow);
         rb.AddForce(lateralFrictionForce);
-        //Debug.DrawRay(rayCastStartPosition.position, -transform.up * rayCastDistance, Color.yellow);
+        Debug.DrawRay(rayCastStartPosition.position, -transform.up * rayCastDistance, Color.yellow);
 
         // Apply suspension force
         RaycastHit hit;
@@ -112,6 +116,26 @@ public class carMovement2 : NetworkBehaviour
             Vector3 suspensionForce = transform.up * suspensionCompression * suspensionForceMag;
             rb.AddForceAtPosition(suspensionForce, transform.position);
         }
+    }
+
+    private void rotationRestrictions()
+    {
+        float currentRotationx = transform.eulerAngles.x;
+        float currentRotationz = transform.eulerAngles.z;
+        Debug.Log(currentRotationz);
+
+        float clampedRotationx = 0f;
+        if (currentRotationx > 150f)  clampedRotationx = Mathf.Clamp(currentRotationx, 340f,360f );
+        else clampedRotationx = Mathf.Clamp(currentRotationx, 0f, 20f);
+
+        float clampedRotationz = 0f;
+        if (currentRotationz > 150f) clampedRotationz = Mathf.Clamp(currentRotationz, 340f, 360f);
+        else clampedRotationz = Mathf.Clamp(currentRotationz, 0f, 20f);
+
+        Vector3 currentRotation = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z);
+        Vector3 newRotation = new Vector3(clampedRotationx, transform.eulerAngles.y, clampedRotationz);
+        transform.eulerAngles = Vector3.SmoothDamp(currentRotation, newRotation, ref rotationSmoothVelocity, 0.02f);
+        //transform.eulerAngles = new Vector3( clampedRotationx, transform.eulerAngles.y, clampedRotationz);
     }
 
     [ServerRpc]
