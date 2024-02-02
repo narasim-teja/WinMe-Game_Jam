@@ -122,7 +122,7 @@ public class carMovement2 : NetworkBehaviour
     {
         float currentRotationx = transform.eulerAngles.x;
         float currentRotationz = transform.eulerAngles.z;
-        Debug.Log(currentRotationz);
+        //Debug.Log(currentRotationz);
 
         float clampedRotationx = 0f;
         if (currentRotationx > 150f)  clampedRotationx = Mathf.Clamp(currentRotationx, 340f,360f );
