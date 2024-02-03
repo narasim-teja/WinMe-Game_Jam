@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Unity.Netcode;
-public class CarFollowCamera : NetworkBehaviour
+public class CarFollowCamera : MonoBehaviour
 {
     [SerializeField] private GameObject _camera;
     public float moveSmoothness = 1f;
@@ -15,7 +14,6 @@ public class CarFollowCamera : NetworkBehaviour
 
     void FixedUpdate()
     {
-        if (!IsOwner) return;
         _camera.SetActive(true);
         FollowTarget();
     }

@@ -1,10 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Unity.Netcode;
 using System;
 
-public class carMovement2 : NetworkBehaviour
+public class carMovement2 : MonoBehaviour
 {
     public float acceleration = 5f;
     public float maxSpeed = 33f;
@@ -35,21 +34,15 @@ public class carMovement2 : NetworkBehaviour
         
     }
 
-    public override void OnNetworkSpawn()
-    {
-        if (!IsOwner) return;
-    }
     void FixedUpdate()
     {
-        if (!IsOwner) return;
 
         //centerOfMass.position = rb.transform.position + rb.centerOfMass;
         //rb.centerOfMass = centerOfMass.position;
         float moveInput = Input.GetAxis("Vertical");
         float turnInput = Input.GetAxis("Horizontal");
 
-        if(IsServer && IsLocalPlayer) move(moveInput, turnInput);
-        else if(IsClient && IsLocalPlayer) move(moveInput, turnInput);
+        move(moveInput, turnInput);
 
 
 
@@ -138,10 +131,6 @@ public class carMovement2 : NetworkBehaviour
         //transform.eulerAngles = new Vector3( clampedRotationx, transform.eulerAngles.y, clampedRotationz);
     }
 
-    [ServerRpc]
-    private void MoveServerRPC(float moveInput, float turnInput)
-    {
-        move(moveInput, turnInput);
-    }
+  
 
 }
