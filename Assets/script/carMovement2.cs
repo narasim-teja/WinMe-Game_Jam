@@ -16,6 +16,8 @@ public class carMovement2 : MonoBehaviour
     public Transform rayCastStartPosition;
     Vector3 rotationSmoothVelocity;
     public LayerMask groundLayer;
+    public bool isOnOil = false;
+    public bool isOnSlime = false;
 
     private Quaternion originalRotation;
     public float rotationSpeed = 2f;
@@ -93,18 +95,39 @@ public class carMovement2 : MonoBehaviour
         float temp = rb.velocity.magnitude;
         if (temp > 8) { temp = 8; }
         transform.Rotate(Vector3.up * turnInput * turnSpeed * temp);
-
         Vector3 rightVector = Vector3.Cross(Vector3.up, transform.forward);
 
 
         //LateralFriction to prevent drifting
-        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+        if(isOnOil == true)
+        {
+            acceleration = 5f;
+            leftTrail.emitting = true;
+            rightTrail.emitting = true;
+
+            leftTrail.startColor = Color.black;
+            rightTrail.startColor = Color.black;
+        }
+        else if(isOnSlime == true)
+        {
+            acceleration = 0.5f;
+            rb.velocity /=(rb.velocity.magnitude /5f) ;
+
+            leftTrail.emitting = true;
+            rightTrail.emitting = true;
+            
+            leftTrail.startColor = Color.green;
+            rightTrail.startColor = Color.green;
+        }
+        else if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
         {
             lateralFriction = -50;
             acceleration = 1f;
             leftTrail.emitting = true;
             rightTrail.emitting = true;
 
+            leftTrail.startColor = Color.black;
+            rightTrail.startColor = Color.black;
         }
         else
         {
@@ -112,6 +135,9 @@ public class carMovement2 : MonoBehaviour
             acceleration = 5f;
             leftTrail.emitting = false;
             rightTrail.emitting = false ;
+
+            leftTrail.startColor = Color.black;
+            rightTrail.startColor = Color.black;
         }
 
         Vector3 lateralFrictionForce = -rb.velocity.magnitude * lateralFriction * Vector3.Cross(Vector3.Cross(rb.velocity.normalized, transform.forward), transform.forward);
