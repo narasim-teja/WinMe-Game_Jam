@@ -6,8 +6,8 @@ using System;
 public class carMovement2 : MonoBehaviour
 {
     public float acceleration = 5f;
-    public float maxSpeed = 33f;
-    public float turnSpeed = 0.04f;
+    public float maxSpeed = 35f;
+    public float turnSpeed = 0.3f;
     public float suspensionHeight = 1f;
     public float suspensionForceMag = 300f;
     public float lateralFriction = -300f;
@@ -20,7 +20,7 @@ public class carMovement2 : MonoBehaviour
     public bool isOnSlime = false;
 
     private Quaternion originalRotation;
-    public float rotationSpeed = 2f;
+    public float rotationSpeed = 10f;
 
     [SerializeField] private TrailRenderer leftTrail;
     [SerializeField] private TrailRenderer rightTrail;
@@ -30,6 +30,9 @@ public class carMovement2 : MonoBehaviour
 
     private Rigidbody rb;
 
+
+    private float offGroundTime = 0f;
+    public float raycastDistance = 5.0f;
     void Awake()
     {
         val = Animator.StringToHash("horizontal");
@@ -57,15 +60,34 @@ public class carMovement2 : MonoBehaviour
     private void move(float moveInput , float turnInput)
     {
         animator.SetFloat(val, (turnInput + 1) / 2);
-
-        //rotationRestrictions();
     
         // preventing car from going haywire while in air 
         if (!IsGrounded())
         {
-            reverseRotation();
+            offGroundTime += Time.deltaTime;
+
+            if (offGroundTime > 0.5f)
+            {
+                RaycastHit hit1;
+                if (Physics.Raycast(transform.position, Vector3.down, out hit1, raycastDistance))
+                {
+                    Debug.DrawRay(transform.position, Vector3.down * raycastDistance, Color.green);
+                    RotateCar(hit1.normal);
+                }
+                else
+                {
+                    Debug.DrawRay(transform.position, Vector3.down * raycastDistance, Color.red);
+                }
+            }
+
+
             rb.AddForce(-Vector3.up * extraGravity);
             return;
+        }
+        else
+        {
+            offGroundTime = 0f;
+            originalRotation = transform.rotation;
         }
 
         // Accelerate and decelerate
@@ -146,49 +168,24 @@ public class carMovement2 : MonoBehaviour
 
 
         // Apply suspension force
-        RaycastHit hit;
+        /*RaycastHit hit;
         if (Physics.Raycast(transform.position, -transform.up, out hit, suspensionHeight + 0.1f))
         {
             float suspensionCompression = 1f - (hit.distance / suspensionHeight);
             Vector3 suspensionForce = transform.up * suspensionCompression * suspensionForceMag;
             rb.AddForceAtPosition(suspensionForce, transform.position);
-        }
+        }*/
     }
 
-    // preventing car from flipping mid air by always trying to bring it to neutral/original rotation
-    private void reverseRotation()
+
+    void RotateCar(Vector3 surfaceNormal)
     {
-        float originalYRotation = originalRotation.eulerAngles.y;
+        // Calculate the target rotation based on the hit surface normal
+        Quaternion targetRotation = Quaternion.FromToRotation(transform.up, surfaceNormal) * transform.rotation;
 
-        Quaternion targetRotation = Quaternion.Euler(
-            originalRotation.eulerAngles.x,
-            Mathf.MoveTowardsAngle(transform.eulerAngles.y, originalYRotation, Time.deltaTime * rotationSpeed),
-            originalRotation.eulerAngles.z
-        );
-
-        transform.rotation = targetRotation;
+        // Smoothly rotate the car towards the target rotation
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
 
-    // restricting rotation so that car do not flip in mid air
-    // currently not implemented because causing some issue where car was hoping like crazy
-    private void rotationRestrictions()
-    {
-        float currentRotationx = transform.eulerAngles.x;
-        float currentRotationz = transform.eulerAngles.z;
-
-        float clampedRotationx = 0f;
-        if (currentRotationx > 150f)  clampedRotationx = Mathf.Clamp(currentRotationx, 340f,360f );
-        else clampedRotationx = Mathf.Clamp(currentRotationx, 0f, 20f);
-
-        float clampedRotationz = 0f;
-        if (currentRotationz > 150f) clampedRotationz = Mathf.Clamp(currentRotationz, 340f, 360f);
-        else clampedRotationz = Mathf.Clamp(currentRotationz, 0f, 20f);
-
-        Vector3 currentRotation = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z);
-        Vector3 newRotation = new Vector3(clampedRotationx, transform.eulerAngles.y, clampedRotationz);
-        transform.eulerAngles = Vector3.SmoothDamp(currentRotation, newRotation, ref rotationSmoothVelocity, 0.02f);
-    }
-
-  
 
 }
