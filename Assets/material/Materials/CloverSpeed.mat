@@ -8,12 +8,12 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: CloverSpeed
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 4800000, guid: 9b2f9cf7311d60d49b08cbc93277e341, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
+  m_ValidKeywords: []
+  m_InvalidKeywords:
   - _EMISSION
-  m_InvalidKeywords: []
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -78,7 +78,7 @@ Material:
     - _DstBlend: 0
     - _EmissionMultiplier: 0.1
     - _GlossMapScale: 1
-    - _Glossiness: 0
+    - _Glossiness: 0.639
     - _GlossyReflections: 1
     - _Metallic: 0
     - _Mode: 0
@@ -93,6 +93,7 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0.4339623, g: 0.4339623, b: 0.4339623, a: 1}
+    - _Scroll: {r: 0, g: -0.5, b: 0, a: 0}
     - _Tiling: {r: 1, g: 0.5, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &415032691409139227
