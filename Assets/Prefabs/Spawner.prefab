@@ -51,3 +51,16 @@ MonoBehaviour:
   minZ: -4
   maxZ: 9
   numberOfCoins: 30
+  numberOfBatteries: 5
+  numberOfRockets: 5
+  numberOfDaddy: 5
+  numberOfMommy: 5
+  numberOfSlime: 5
+  numberOfOil: 5
+  coins: {fileID: 1643588665180250320, guid: 0b56682054467104bb96df2789a43506, type: 3}
+  battery: {fileID: 919132149155446097, guid: 9945a3b812275fd49bcb313657716c68, type: 3}
+  rocket: {fileID: 919132149155446097, guid: 3c057c4b63a75594093945abbbc15326, type: 3}
+  daddyCactus: {fileID: 919132149155446097, guid: bfc74914eb51cad4392dd4719272d302, type: 3}
+  mommyCactus: {fileID: 919132149155446097, guid: a7dccf9729b56d34eaead54258513779, type: 3}
+  puddleSlime: {fileID: 5425150507376027668, guid: e75d44a9943bcfd4fbf799b496aacd11, type: 3}
+  puddleOil: {fileID: 1664925297243333614, guid: 1727426bc7c48024a9cb740cf3e6bd42, type: 3}
