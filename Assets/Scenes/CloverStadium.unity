@@ -4138,7 +4138,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6015551929072885711, guid: 366431b7f73192141916f5a90498cef5, type: 3}
       propertyPath: raycastDistance
-      value: 1.5
+      value: 1.8
       objectReference: {fileID: 0}
     - target: {fileID: 6879937030182557705, guid: 366431b7f73192141916f5a90498cef5, type: 3}
       propertyPath: m_Size.y
