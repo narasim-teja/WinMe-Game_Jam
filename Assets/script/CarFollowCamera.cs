@@ -1,7 +1,8 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class CarFollowCamera : MonoBehaviour
+public class CarFollowCamera : MonoBehaviourPun
 {
     [SerializeField] private GameObject _camera;
     public float moveSmoothness = 1f;
@@ -14,6 +15,11 @@ public class CarFollowCamera : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (photonView.IsMine == false && PhotonNetwork.IsConnected == true)
+        {
+            return;
+        }
+
         _camera.SetActive(true);
         FollowTarget();
     }

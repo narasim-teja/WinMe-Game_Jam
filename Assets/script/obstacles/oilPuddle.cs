@@ -17,14 +17,14 @@ public class oilPuddle : MonoBehaviour
     IEnumerator oilCoroutine(Collider other)
     {
         
-        float temp = other.GetComponentInParent<carMovement2>().lateralFriction;
-        other.GetComponentInParent<carMovement2>().lateralFriction = 0f;
-        other.GetComponentInParent<carMovement2>().isOnOil = true;
+        float temp = other.GetComponentInParent<CarMovement2>().lateralFriction;
+        other.GetComponentInParent<CarMovement2>().lateralFriction = 0f;
+        other.GetComponentInParent<CarMovement2>().isOnOil = true;
 
         yield return new WaitForSeconds(5f);
 
-        other.GetComponentInParent<carMovement2>().lateralFriction = temp;
-        other.GetComponentInParent<carMovement2>().isOnOil = false;
+        other.GetComponentInParent<CarMovement2>().lateralFriction = temp;
+        other.GetComponentInParent<CarMovement2>().isOnOil = false;
 
     }
 

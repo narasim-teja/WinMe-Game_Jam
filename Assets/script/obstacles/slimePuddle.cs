@@ -16,11 +16,11 @@ public class slimePuddle : MonoBehaviour
 
     IEnumerator slimeCoroutine(Collider other)
     {
-        other.GetComponentInParent<carMovement2>().isOnSlime = true;
+        other.GetComponentInParent<CarMovement2>().isOnSlime = true;
 
         yield return new WaitForSeconds(2f);
 
-        other.GetComponentInParent<carMovement2>().isOnSlime = false;
+        other.GetComponentInParent<CarMovement2>().isOnSlime = false;
 
     }
 }

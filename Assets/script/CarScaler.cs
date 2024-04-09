@@ -20,7 +20,7 @@ public class CarScaler : MonoBehaviour
         if(scaley > Mathf.Ceil(minYScale*10f)/10f && scaley < Mathf.Floor(maxYScale*10f)/10f)
         {
             transform.localScale = new Vector3(scalex, scaley, scalez);
-            parentCar.GetComponent<carMovement2>().rayCastDistance += parentCar.GetComponent<carMovement2>().rayCastDistance * scaleInput * scaleSpeed;
+            parentCar.GetComponent<CarMovement2>().rayCastDistance += parentCar.GetComponent<CarMovement2>().rayCastDistance * scaleInput * scaleSpeed;
             //Debug.Log(this.GetComponent<carMovement2>().rayCastDistance);
 
         }
