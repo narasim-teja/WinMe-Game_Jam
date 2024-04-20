@@ -72,6 +72,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a4f07d9717a22cb4d85342d486c8ced4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4847374637690085488}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a4f07d9717a22cb4d85342d486c8ced4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8361076580258256300}
   m_SourcePrefab: {fileID: 100100000, guid: a4f07d9717a22cb4d85342d486c8ced4, type: 3}
 --- !u!1 &1643588665180250320 stripped
 GameObject:
@@ -91,7 +94,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collectSound: {fileID: 4602119500811675520, guid: c9521a283bb08a14cbda8cdda4fc036a, type: 3}
-  canvas: {fileID: 7630355483809909396, guid: 030eb2496094d524aa385e545af3a874, type: 3}
 --- !u!65 &1332833479714084370
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -135,7 +137,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1643588665180250320}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
@@ -148,3 +150,25 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
+--- !u!114 &8361076580258256300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1643588665180250320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0

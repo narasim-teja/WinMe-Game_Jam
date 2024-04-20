@@ -8,6 +8,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using Photon.Pun.Demo.PunBasics;
 using Com.MyCompany.MyGame;
+using UnityEngine.UI;
 
 namespace Com.MyCompany.MyGame
 {
@@ -16,8 +17,87 @@ namespace Com.MyCompany.MyGame
         public static GameManager Instance;
         
         public GameObject playerPrefab;
+        public int TimerNumberOfSpawn = 0;
+
+        public int getSpawn()
+        {
+            return TimerNumberOfSpawn;
+        }
+
+        public void inrSpawn()
+        {
+            TimerNumberOfSpawn = TimerNumberOfSpawn + 1;
+        }
+        /*public int matchLength = 180;
+        public Text timerUI;
+
+        private int currentMatchTime;
+        private Coroutine timerCoroutine;
+
+        public enum EventCodes : byte
+        {
+            NewPlayer,
+            UpdatePlayers,
+            ChangeStat,
+            NewMatch,
+            RefreshTimer
+        }
+
+        private void RefreshTimerUI()
+        {
+            int minutes = Mathf.FloorToInt(currentMatchTime / 60F);
+            int seconds = Mathf.FloorToInt(currentMatchTime % 60F);
+            timerUI.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        }
+
+        private void InitializeTimer()
+        {
+            currentMatchTime = matchLength;
+            RefreshTimerUI();
+
+            if(PhotonNetwork.IsMasterClient)
+            {
+                timerCoroutine = StartCoroutine(Timer());
+            }
+            
+        }
+        private IEnumerator Timer()
+        {
+            yield return new WaitForSeconds(1f);
+            currentMatchTime -= 1;
+
+            if(currentMatchTime <= 0 ) {
+                timerCoroutine = null;
+                
+            }
+            else
+            {
+                RefreshTimer_S();
+                timerCoroutine = StartCoroutine(Timer());
+            }
+        }
+
+        public void RefreshTimer_S()
+        {
+            object[] package = new object[] { currentMatchTime };
+            PhotonNetwork.RaiseEvent(
+                (byte)EventCodes.RefreshTimer,
+                package,
+                new RaiseEventOptions { Receivers = ReceiverGroup.All},
+                new ExitGames.Client.Photon.SendOptions { Reliability = true } );
+        }
+
+        public void RefreshTimer_R(object[] data)
+        {
+            currentMatchTime = (int)data[0];
+            RefreshTimerUI();   
+        }*/
         private void Start()
         {
+            //timerUI = GameObject.Find("carPrefabPUN/scoreCanvas/Left/timer").GetComponent<Text>();
+            //InitializeTimer();
+            
+
             Instance = this;
             
             if ( PlayerManager.LocalPlayerInstance == null)

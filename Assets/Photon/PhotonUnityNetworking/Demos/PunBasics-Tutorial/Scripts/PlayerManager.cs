@@ -44,6 +44,10 @@ namespace Photon.Pun.Demo.PunBasics
             {
                 PlayerManager.LocalPlayerInstance = this.gameObject;
             }
+            else
+            {
+                return;
+            }
             //DontDestroyOnLoad(this.gameObject);
 
             #if UNITY_5_4_OR_NEWER

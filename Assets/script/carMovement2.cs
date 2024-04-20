@@ -91,14 +91,14 @@ using Com.MyCompany.MyGame;
             // preventing car from going haywire while in 
             if (!IsGrounded())
             {
-                Debug.Log("in air");
+                //Debug.Log("in air");
                 //Debug.Log(rb.velocity);
 
                 offGroundTime += Time.deltaTime;
 
                 if (offGroundTime > 0.5f)
                 {
-                    Debug.Log("in air more");
+                    //Debug.Log("in air more");
                     RotateCar(new Vector3(0, 1, 0), 2f);
                     RaycastHit hit1;
                     if (Physics.Raycast(transform.position, Vector3.down, out hit1, raycastDistance))
@@ -123,7 +123,7 @@ using Com.MyCompany.MyGame;
 
 
             rb.AddForce(-Vector3.up * extraGravity);
-            Debug.Log("on ground");
+            //Debug.Log("on ground");
             // Accelerate and decelerate
             float currentSpeed = Vector3.Dot(rb.velocity, transform.forward);
             float desiredSpeed = moveInput * maxSpeed;

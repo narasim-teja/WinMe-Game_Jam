@@ -12,6 +12,8 @@ public class CoinManager : MonoBehaviour
     Vector3 posOffset = new Vector3();
     Vector3 tempPos = new Vector3();
 
+    public bool pickedUp = false;
+
     void Start()
     {
         //store starting orientation
