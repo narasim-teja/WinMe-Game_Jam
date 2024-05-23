@@ -1,9 +1,11 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class CarFollowCamera : MonoBehaviour
+public class CarFollowCamera : NetworkBehaviour
 {
     [SerializeField] private GameObject _camera;
+    [SerializeField] private GameObject UiGameObject;
     public float moveSmoothness = 1f;
     public float rotSmoothness = 1f;
 
@@ -14,7 +16,11 @@ public class CarFollowCamera : MonoBehaviour
 
     void FixedUpdate()
     {
+        //check for local player
+        if(!isLocalPlayer) return;  
+
         _camera.SetActive(true);
+        UiGameObject.SetActive(true);
         FollowTarget();
     }
 

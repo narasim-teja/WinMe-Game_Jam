@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Unity.VisualScripting;
+using Mirror;
+using Mirror.Examples.MultipleMatch;
+using UnityEditor.Networking.PlayerConnection;
 
-public class carMovement2 : MonoBehaviour
+public class carMovement2 : NetworkBehaviour
 {
     public float acceleration = 5f;
     public float maxSpeed = 35f;
@@ -35,16 +38,22 @@ public class carMovement2 : MonoBehaviour
 
     void Awake()
     {
+        //check for local player
+
         val = Animator.StringToHash("horizontal");
         rb = GetComponent<Rigidbody>();
     }
 
     void FixedUpdate()
     {
+        //check for local player
+        if (!isLocalPlayer) { return; }
+
         // inputs
         float moveInput = Input.GetAxis("Vertical");
         float turnInput = Input.GetAxis("Horizontal");
 
+        testPosition();
         move(moveInput, turnInput);
     }
 
@@ -62,14 +71,14 @@ public class carMovement2 : MonoBehaviour
         // preventing car from going haywire while in 
         if (!IsGrounded())
         {
-            Debug.Log("in air");
+            //Debug.Log("in air");
             //Debug.Log(rb.velocity);
 
             offGroundTime += Time.deltaTime;
 
             if (offGroundTime > 0.5f)
             {
-                Debug.Log("in air more");
+                //Debug.Log("in air more");
                 RotateCar(new Vector3(0, 1, 0), 2f);
                 RaycastHit hit1;
                 if (Physics.Raycast(transform.position, Vector3.down, out hit1, raycastDistance))
@@ -94,7 +103,7 @@ public class carMovement2 : MonoBehaviour
 
 
         rb.AddForce(-Vector3.up * extraGravity);
-        Debug.Log("on ground");
+        //Debug.Log("on ground");
         // Accelerate and decelerate
         float currentSpeed = Vector3.Dot(rb.velocity, transform.forward);
         float desiredSpeed = moveInput * maxSpeed;
@@ -193,5 +202,10 @@ public class carMovement2 : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
 
+    [Command]
+    void testPosition()
+    {
+        Debug.Log(netId+"----"+transform.position);
+    }
 
 }
