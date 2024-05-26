@@ -5305,6 +5305,7 @@ GameObject:
   - component: {fileID: 7513031742541253562}
   - component: {fileID: 7258364022212798142}
   - component: {fileID: 6879937030182557705}
+  - component: {fileID: 22482550140864716}
   m_Layer: 0
   m_Name: GKRacer (1)
   m_TagString: Untagged
@@ -5471,6 +5472,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 0.41904628, z: 1.3989562}
   m_Center: {x: 1.1057994e-16, y: 0.29047686, z: 0.054718614}
+--- !u!114 &22482550140864716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8603264952889298772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9be252bd2a7a6d94780871b3fa3e5117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  coinText: {fileID: 4870453103769677016}
 --- !u!1 &8612569096334342254
 GameObject:
   m_ObjectHideFlags: 0

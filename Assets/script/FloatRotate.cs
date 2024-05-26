@@ -7,6 +7,7 @@ public class CoinManager : MonoBehaviour
     public float degreesPerSecond = 15f;
     public float amplitude = 0.25f; // how high the item floats
     public float frequency = 1f;
+    public bool isPicked = false;
 
     // position storage variables
     Vector3 posOffset = new Vector3();

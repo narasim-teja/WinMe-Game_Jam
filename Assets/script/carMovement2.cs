@@ -205,7 +205,7 @@ public class carMovement2 : NetworkBehaviour
     [Command]
     void testPosition()
     {
-        Debug.Log(netId+"----"+transform.position);
+        //Debug.Log(netId+"----"+transform.position);
     }
 
 }
