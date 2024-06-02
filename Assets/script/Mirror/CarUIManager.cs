@@ -9,6 +9,7 @@ public class CarUIManager : NetworkBehaviour
 {
     [SerializeField] private Text coinText;
     private int coinCount;
+    
     void Awake()
     {
         
