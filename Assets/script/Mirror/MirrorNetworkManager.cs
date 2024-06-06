@@ -64,7 +64,7 @@ public class MirrorNetworkManager : NetworkManager
 
         // Increment player count and check if it is 2
         playerCount++;
-        if (playerCount == 2)
+        if (playerCount == 1)
         {
             LoadGameScene();
         }
