@@ -1,18 +1,21 @@
 using Mirror;
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class CarUIManager : NetworkBehaviour
 {
     [SerializeField] private Text coinText;
-    private int coinCount;
-    
-    void Awake()
+
+    [SyncVar]
+    public int coinCount;
+
+    private EnableDisableCoin enableDisableCoin;
+
+    public override void OnStartServer()
     {
-        
+        base.OnStartServer();
+        setEnableDisableCoin();
     }
 
     // Update is called once per frame
@@ -23,21 +26,53 @@ public class CarUIManager : NetworkBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (!isLocalPlayer) return;
+
         if (other.gameObject.CompareTag("coin"))
         {
             if (!other.gameObject.GetComponent<CoinManager>().isPicked)
             {
-                other.gameObject.GetComponent<CoinManager>().isPicked = true;
-                NetworkServer.Destroy(other.gameObject);
-                UpdateCoinText();
+                //this should be in Command but putting it in command leads to 
+                //picking up of coin multiple time  FIX THIS LATER
+                other.GetComponent<CoinManager>().isPicked = true;
+                
+                CmdHandleCoinPickup(other.gameObject);
             }
         }
     }
 
-    private void UpdateCoinText()
+    [Command]
+    private void setEnableDisableCoin()
     {
-        coinCount++;
-        coinText.text = coinCount.ToString();
+        enableDisableCoin = FindObjectOfType<EnableDisableCoin>();
     }
 
+    [Command]
+    private void CmdHandleCoinPickup(GameObject coin)
+    {
+        
+        enableDisableCoin = FindObjectOfType<EnableDisableCoin>();
+        RpcHandleCoinPickup(coin);
+        //NetworkServer.Destroy(coin);
+        coinCount++;
+        enableDisableCoin.CoinPicked(coin);
+        RpcUpdateCoinText(coinCount);
+    }
+
+    [ClientRpc]
+    private void RpcHandleCoinPickup(GameObject coin)
+    {
+        if (coin != null)
+        {
+            // Destroy the coin on all clients
+            //Destroy(coin);
+            coin.SetActive(false);
+        }
+    }
+
+    [ClientRpc]
+    private void RpcUpdateCoinText(int newCoinCount)
+    {
+        coinText.text = newCoinCount.ToString();
+    }
 }
