@@ -1329,7 +1329,7 @@ GameObject:
   - component: {fileID: 755700735836117983}
   m_Layer: 0
   m_Name: carPrefab
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5584,6 +5584,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   coinText: {fileID: 4870453103769677016}
+  coinCount: 0
 --- !u!1 &8612569096334342254
 GameObject:
   m_ObjectHideFlags: 0

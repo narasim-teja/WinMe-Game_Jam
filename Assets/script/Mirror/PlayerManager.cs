@@ -7,6 +7,25 @@ public class PlayerManager : NetworkBehaviour
     {
         DontDestroyOnLoad(gameObject);
     }
+
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+        // Add your client-specific initialization code here
+        Debug.Log("Client started for player: " + netId);
+
+        // Example: Disabling the canvas
+        DisableCanvas();
+    }
+
+    [Client]
+    private void DisableCanvas()
+    {
+        GameObject networkManager = GameObject.Find("NetworkManager").gameObject;
+        Transform firstChild = networkManager.transform.GetChild(0);
+        firstChild.gameObject.SetActive(false);
+    }
+
     /*private static int playerCount = 0;
 
     public override void OnStartServer()

@@ -33,16 +33,16 @@ public class lineCoinSpawner : NetworkBehaviour
             Collider[] collidersInsideOverlapBox = new Collider[1];
             int numberOfCollidersFound = Physics.OverlapBoxNonAlloc(hit.point, overlapTestBoxScale, collidersInsideOverlapBox, spawnRotation, spawnedObjectLayer);
 
-            Debug.Log("number of colliders found " + numberOfCollidersFound);
+            //Debug.Log("number of colliders found " + numberOfCollidersFound);
 
             if (numberOfCollidersFound == 0)
             {
-                Debug.Log("spawned robot");
+                //Debug.Log("spawned robot");
                 Pick(hit.point, spawnRotation);
             }
             else
             {
-                Debug.Log("name of collider 0 found " + collidersInsideOverlapBox[0].name);
+                //Debug.Log("name of collider 0 found " + collidersInsideOverlapBox[0].name);
             }
         }
     }

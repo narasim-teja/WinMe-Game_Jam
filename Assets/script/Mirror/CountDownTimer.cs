@@ -5,45 +5,61 @@ using UnityEngine.UI;
 public class CountDownTimer : NetworkBehaviour
 {
     [SyncVar(hook = nameof(OnTimerUpdate))]
-    public float timeRemaining = 600f; // 10 minutes in seconds
+    public int timeRemaining = 10; 
 
     public Text timerText;
+    GameManager gameManager;
+    MirrorNetworkManager networkManager;
 
     public override void OnStartServer()
     {
-        Debug.Log("check1");
+        networkManager = GameObject.Find("NetworkManager").GetComponent<MirrorNetworkManager>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+
+        if (gameManager == null)
+        {
+            Debug.Log("GameManager EMPTY");
+        }
         InvokeRepeating(nameof(UpdateTimer), 1.0f, 1.0f); // Start the timer on the server
-        Debug.Log("check2");
     }
 
     [ServerCallback]
     void UpdateTimer()
     {
-        if (timeRemaining > 0)
+        timeRemaining -= 1;
+
+        if (timeRemaining == 0)
         {
-            timeRemaining -= 1f;
-            Debug.Log(timeRemaining);
-            //UpdateTimerText(timeRemaining);
+            
+            gameManager.GameEnded();
         }
-        else
+        else if (timeRemaining < -5)
         {
             CancelInvoke(nameof(UpdateTimer));
-            // Handle timer reaching zero (e.g., end the game)
+            StopClients();
         }
     }
 
+    [ClientRpc]
+    void StopClients()
+    {
+        networkManager.StopClient();
+    }
 
-    void OnTimerUpdate(float oldTime, float newTime)
+    void OnTimerUpdate(int oldTime, int newTime) 
     {
         UpdateTimerText(newTime);
     }
 
-    void UpdateTimerText(float time)
+    void UpdateTimerText(int time) 
     {
-        int minutes = Mathf.FloorToInt(time / 60F);
-        int seconds = Mathf.FloorToInt(time - minutes * 60);
-        string text = string.Format("{0:0}:{1:00}", minutes, seconds);
-        timerText.text = text;
+        if (timeRemaining >= 0)
+        {
+            int minutes = time / 60;
+            int seconds = time % 60;
+            string text = string.Format("{0:0}:{1:00}", minutes, seconds);
+            timerText.text = text;
+        }
     }
 
     void Update()
