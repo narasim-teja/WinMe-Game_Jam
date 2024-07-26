@@ -1,7 +1,6 @@
 using Mirror;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Netcode;
 using UnityEngine;
 
 public class EnableDisableCoin : Mirror.NetworkBehaviour
@@ -36,22 +35,34 @@ public class EnableDisableCoin : Mirror.NetworkBehaviour
 
         // Wait for a random time between minWaitTime and maxWaitTime
         float waitTime = Random.Range(minWaitTime, maxWaitTime);
-        float remainingTime = waitTime;
-
-        while (remainingTime > 0)
-        {
-            yield return new WaitForSeconds(1f); // Wait for 1 second
-            remainingTime -= 1f;
-        }
+        yield return new WaitForSeconds(waitTime);
 
         // Enable the coin
-        coin.SetActive(true);
-        
+        // coin.SetActive(true);
+        UpdateCoinStatus(coin);
         RpcUpdateCoinStatus(coin);
     }
 
-    [Mirror.ClientRpc]
-    private void RpcUpdateCoinStatus(GameObject coin) {
+    // Method to update the coin status on the server
+    private void UpdateCoinStatus(GameObject coin)
+    {
+        if (coin == null)
+        {
+            Debug.LogError("Coin object is null in UpdateCoinStatus");
+            return;
+        }
+        coin.SetActive(true);
+        coin.GetComponent<CoinManager>().isPicked = false;
+    }
+
+    [ClientRpc] // This will be called on clients
+    private void RpcUpdateCoinStatus(GameObject coin)
+    {
+        if (coin == null)
+        {
+            Debug.LogError("Coin object is null in RpcUpdateCoinStatus");
+            return;
+        }
         coin.SetActive(true);
         coin.GetComponent<CoinManager>().isPicked = false;
     }

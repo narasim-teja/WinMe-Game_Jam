@@ -12,8 +12,8 @@ public class coinCollector : MonoBehaviour
         //print("collected!");
         //theScore += 1;
 
-        //scoringSystem.theScore += 1;
-        //Destroy(gameObject);
+        // scoringSystem.theScore += 1;
+        // Destroy(gameObject);
         collectSound.Play();
     }
 

@@ -16,6 +16,7 @@ public class CarUIManager : NetworkBehaviour
     {
         base.OnStartServer();
         setEnableDisableCoin();
+         
     }
 
     // Update is called once per frame
@@ -27,6 +28,8 @@ public class CarUIManager : NetworkBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (!isLocalPlayer) return;
+        
+        if(enableDisableCoin == null) setEnableDisableCoin();
 
         if (other.gameObject.CompareTag("coin"))
         {
@@ -50,13 +53,16 @@ public class CarUIManager : NetworkBehaviour
     [Command]
     private void CmdHandleCoinPickup(GameObject coin)
     {
-        
-        enableDisableCoin = FindObjectOfType<EnableDisableCoin>();
-        RpcHandleCoinPickup(coin);
-        //NetworkServer.Destroy(coin);
-        coinCount++;
-        enableDisableCoin.CoinPicked(coin);
-        RpcUpdateCoinText(coinCount);
+        if (coin != null && !coin.GetComponent<CoinManager>().isPicked)
+        {
+            coin.GetComponent<CoinManager>().isPicked = true;
+            coinCount++;
+
+            // Update the coin status and notify clients
+            enableDisableCoin.CoinPicked(coin);
+            RpcHandleCoinPickup(coin);
+            RpcUpdateCoinText(coinCount);
+        }
     }
 
     [ClientRpc]
@@ -64,8 +70,6 @@ public class CarUIManager : NetworkBehaviour
     {
         if (coin != null)
         {
-            // Destroy the coin on all clients
-            //Destroy(coin);
             coin.SetActive(false);
         }
     }
@@ -73,6 +77,9 @@ public class CarUIManager : NetworkBehaviour
     [ClientRpc]
     private void RpcUpdateCoinText(int newCoinCount)
     {
-        coinText.text = newCoinCount.ToString();
+        if (coinText != null)
+        {
+            coinText.text = newCoinCount.ToString();
+        }
     }
 }

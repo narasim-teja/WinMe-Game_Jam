@@ -3,18 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Unity.VisualScripting;
+using Mirror;
 
-public class carMovement2 : MonoBehaviour
+public class carMovement3 : NetworkBehaviour
 {
-    public float acceleration = 5f;
+    public float acceleration = 1000f;
     public float maxSpeed = 35f;
     public float turnSpeed = 0.3f;
     public float suspensionHeight = 1f;
-    public float suspensionForceMag = 300f;
-    public float lateralFriction = -300f;
-    public float extraGravity = 1000f;
-    public float rayCastDistance = 0.55f;
-    public Transform rayCastStartPosition;
+    public float suspensionForceMag = 350f;
+    public float lateralFriction = -3500f;
+    public float extraGravity = 100f;
+    public float rayCastDistance = 1f;
+    public Transform[] rayCastStartPositions;
     Vector3 rotationSmoothVelocity;
     public LayerMask groundLayer;
     public bool isOnOil = false;
@@ -24,95 +25,84 @@ public class carMovement2 : MonoBehaviour
     [SerializeField] private TrailRenderer leftTrail;
     [SerializeField] private TrailRenderer rightTrail;
 
-    public Animator animator;
+    //public Animator animator;
     int val;
 
     private Rigidbody rb;
 
 
     private float offGroundTime = 0f;
+    private float originalAcceleration;
+    private float originalLaterationFriction;
+
     public float raycastDistance = 1.8f;
 
     void Awake()
     {
+        originalAcceleration = acceleration;
+        originalLaterationFriction = lateralFriction;
         val = Animator.StringToHash("horizontal");
         rb = GetComponent<Rigidbody>();
     }
 
     void FixedUpdate()
     {
+        if (!isLocalPlayer) { return; }
+        Vector3 worldCenterOfMass = rb.transform.TransformPoint(rb.centerOfMass);
+        //Debug.DrawRay(worldCenterOfMass, transform.up * raycastDistance, Color.red);
+
         // inputs
         float moveInput = Input.GetAxis("Vertical");
         float turnInput = Input.GetAxis("Horizontal");
 
         move(moveInput, turnInput);
+
     }
 
     private bool IsGrounded()
     {
-        bool hit = Physics.Raycast(rayCastStartPosition.position, -transform.up, rayCastDistance);
+        bool hit = false;
+        foreach (Transform rayCastStartPosition in rayCastStartPositions) {
+            hit = hit || Physics.Raycast(rayCastStartPosition.position, -transform.up, rayCastDistance);
+        }
         return hit;
     }
 
     private void move(float moveInput, float turnInput)
     {
-        animator.SetFloat(val, (turnInput + 1) / 2);
+        //animator.SetFloat(val, (turnInput + 1) / 2);
         RotateCar(new Vector3(0, 1, 0), 1f);
 
         // preventing car from going haywire while in 
-        if (!IsGrounded())
-        {
-            //Debug.Log("in air");
-            //Debug.Log(rb.velocity);
-
-            offGroundTime += Time.deltaTime;
-
-            if (offGroundTime > 0.5f)
-            {
-                //Debug.Log("in air more");
-                RotateCar(new Vector3(0, 1, 0), 2f);
-                RaycastHit hit1;
-                if (Physics.Raycast(transform.position, Vector3.down, out hit1, raycastDistance))
-                {
-                    //Debug.DrawRay(transform.position, Vector3.down * raycastDistance, Color.green);
-                    RotateCar(new Vector3(0, 1, 0), 100f);
-                }
-                else
-                {
-                    //Debug.DrawRay(transform.position, Vector3.down * raycastDistance, Color.red);
-                }
-            }
 
 
-            rb.AddForce(-Vector3.up * extraGravity);
-            return;
-        }
-        else
-        {
-            offGroundTime = 0f;
-        }
-
-
-        rb.AddForce(-Vector3.up * extraGravity);
+        //rb.AddForce(-Vector3.up * extraGravity);
         //Debug.Log("on ground");
         // Accelerate and decelerate
+        if (!IsGrounded()) return; 
         float currentSpeed = Vector3.Dot(rb.velocity, transform.forward);
         float desiredSpeed = moveInput * maxSpeed;
         float accelerationForce = (desiredSpeed - currentSpeed) * acceleration;
 
+
+        //rb.AddForce(transform.forward * accelerationForce);
         if (moveInput < 0)
         {
             turnInput = -turnInput;
             accelerationForce /= 3;
-            rb.AddForce(transform.forward * accelerationForce * 100);
+            rb.AddForce(transform.forward * accelerationForce );
 
         }
-        if (moveInput > 0)
+        else if (moveInput >= 0)
         {
-            rb.AddForce(transform.forward * accelerationForce * 100);
+            rb.AddForce(transform.forward * accelerationForce );
         }
-
+        /*else if(moveInput == 0) {
+            
+        }*/
+        //rb.AddForceAtPosition(transform.forward * accelerationForce, this.transform.position - new Vector3(0, 0.5f, 0));
         // Limit the maximum speed
+        Debug.Log(rb.velocity.magnitude);
         if (rb.velocity.magnitude > maxSpeed)
         {
             rb.velocity = rb.velocity.normalized * maxSpeed;
@@ -126,11 +116,11 @@ public class carMovement2 : MonoBehaviour
 
 
         //LateralFriction to prevent drifting
-        float lateralFrictionVar = lateralFriction;
+
         if (isOnOil == true)
         {
-            acceleration = 5f;
-            leftTrail.emitting = true;
+            //acceleration = 5f;
+            //leftTrail.emitting = true;
             rightTrail.emitting = true;
 
             leftTrail.startColor = Color.black;
@@ -138,8 +128,8 @@ public class carMovement2 : MonoBehaviour
         }
         else if (isOnSlime == true)
         {
-            acceleration = 0.5f;
-            rb.velocity /= (rb.velocity.magnitude / 5f);
+            //acceleration = 0.5f;
+            //rb.velocity /= (rb.velocity.magnitude / 5f);
 
             leftTrail.emitting = true;
             rightTrail.emitting = true;
@@ -149,8 +139,8 @@ public class carMovement2 : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
         {
-            lateralFrictionVar = -50;
-            acceleration = 1f;
+            lateralFriction = originalLaterationFriction/ 3;
+            acceleration = originalAcceleration /4;
             leftTrail.emitting = true;
             rightTrail.emitting = true;
 
@@ -159,8 +149,8 @@ public class carMovement2 : MonoBehaviour
         }
         else
         {
-            lateralFrictionVar = lateralFriction;
-            acceleration = 5f;
+            lateralFriction = originalLaterationFriction;
+            acceleration = originalAcceleration;
             leftTrail.emitting = false;
             rightTrail.emitting = false;
 
@@ -168,19 +158,10 @@ public class carMovement2 : MonoBehaviour
             rightTrail.startColor = Color.black;
         }
 
-        Vector3 lateralFrictionForce = -rb.velocity.magnitude * lateralFrictionVar * Vector3.Cross(Vector3.Cross(rb.velocity.normalized, transform.forward), transform.forward);
+        Vector3 lateralFrictionForce = -rb.velocity.magnitude * lateralFriction * Vector3.Cross(Vector3.Cross(rb.velocity.normalized, transform.forward), transform.forward);
         rb.AddForce(lateralFrictionForce);
         //Debug.DrawRay(rayCastStartPosition.position, -transform.up * rayCastDistance, Color.yellow);
-
-
-        // Apply suspension force
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, -transform.up, out hit, suspensionHeight + 0.1f))
-        {
-            float suspensionCompression = 1f - (hit.distance / suspensionHeight);
-            Vector3 suspensionForce = transform.up * suspensionCompression * suspensionForceMag;
-            rb.AddForceAtPosition(suspensionForce, transform.position);
-        }
+        
     }
 
 
@@ -192,6 +173,4 @@ public class carMovement2 : MonoBehaviour
         // Smoothly rotate the car towards the target rotation
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
-
-
 }

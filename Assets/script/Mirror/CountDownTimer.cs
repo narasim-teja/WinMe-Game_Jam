@@ -27,13 +27,13 @@ public class CountDownTimer : NetworkBehaviour
     void UpdateTimer()
     {
         timeRemaining -= 1;
-
+        Debug.Log("timerText :" + timeRemaining);
         if (timeRemaining == 0)
         {
             
             gameManager.GameEnded();
         }
-        else if (timeRemaining < -5)
+        else if (timeRemaining == -7)
         {
             CancelInvoke(nameof(UpdateTimer));
             StopClients();

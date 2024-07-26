@@ -20,8 +20,8 @@ public class GameManager : NetworkBehaviour
     [Server]
     public void GameEnded()
     {
+        Debug.Log("-----------");
         Tuple<uint, int> winner = calculateWinner();
-        Debug.Log("!!!!!!!");
         showWinner(winner.Item1,winner.Item2);
     }
 
@@ -30,7 +30,6 @@ public class GameManager : NetworkBehaviour
     {
         uint winnerNetId = 0;
         int highestCoinCount = -1;
-
         for (int x = 0; x < players.Length; x++)
         {
             NetworkIdentity networkIdentity = players[x].GetComponent<NetworkIdentity>();
@@ -39,7 +38,7 @@ public class GameManager : NetworkBehaviour
             if (networkIdentity != null && carUIManager != null)
             {
                 int coinCount = carUIManager.coinCount;
-                //Debug.Log(networkIdentity.netId + "----" + coinCount);
+                Debug.Log(networkIdentity.netId + "----" + coinCount);
 
                 if (coinCount > highestCoinCount)
                 {

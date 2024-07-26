@@ -30,7 +30,7 @@ public class MirrorNetworkManager : Mirror.NetworkManager
     {
         Debug.Log("Entered OnServerAddPlayer");
         //Transform start = spawnLocation;
-        Vector3 start = new Vector3(0,10f,0);
+        Vector3 start = new Vector3(0,40f,0);
         GameObject player = Instantiate(playerPrefab, start, Quaternion.identity);
         NetworkServer.AddPlayerForConnection(conn, player);
         Debug.Log("Player spawned");

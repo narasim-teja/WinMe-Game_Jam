@@ -21706,7 +21706,7 @@ Transform:
   m_GameObject: {fileID: 1212856078}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 7.41, z: -32.54}
+  m_LocalPosition: {x: 0, y: 47.49, z: -32.54}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -42136,7 +42136,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  coinPrefab: {fileID: 0}
+  coinPrefab: {fileID: 1643588665180250320, guid: 0b56682054467104bb96df2789a43506, type: 3}
   minWaitTime: 3
   maxWaitTime: 10
 --- !u!224 &6382940730209027328
@@ -42269,7 +42269,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  timeRemaining: 10
+  timeRemaining: 100
   timerText: {fileID: 6668884178966030718}
 --- !u!114 &7513663686647809180
 MonoBehaviour:

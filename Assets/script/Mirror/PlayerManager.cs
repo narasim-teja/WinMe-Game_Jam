@@ -3,6 +3,7 @@ using Mirror;
 
 public class PlayerManager : NetworkBehaviour
 {
+    [SerializeField] private GameObject coinCountCanvas;
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
@@ -15,11 +16,13 @@ public class PlayerManager : NetworkBehaviour
         Debug.Log("Client started for player: " + netId);
 
         // Example: Disabling the canvas
-        DisableCanvas();
+        DisableWaitingRoomCanvas();
+
+        if(isLocalPlayer) coinCountCanvas.gameObject.SetActive(true);
     }
 
     [Client]
-    private void DisableCanvas()
+    private void DisableWaitingRoomCanvas()
     {
         GameObject networkManager = GameObject.Find("NetworkManager").gameObject;
         Transform firstChild = networkManager.transform.GetChild(0);
