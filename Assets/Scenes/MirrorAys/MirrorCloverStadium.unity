@@ -42269,7 +42269,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  timeRemaining: 100
+  timeRemaining: 10
   timerText: {fileID: 6668884178966030718}
 --- !u!114 &7513663686647809180
 MonoBehaviour:
