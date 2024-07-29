@@ -7,13 +7,13 @@ using Unity.VisualScripting;
 public class carMovement3 : MonoBehaviour
 {
     public float acceleration = 1000f;
-    public float maxSpeed = 35f;
+    public float maxSpeed = 32f;
     public float turnSpeed = 0.3f;
-    public float suspensionHeight = 1f;
+    public float suspensionHeight = 0.55f;
     public float suspensionForceMag = 350f;
     public float lateralFriction = -3500f;
-    public float extraGravity = 100f;
-    public float rayCastDistance = 1f;
+    public float extraGravity = 500f;
+    public float rayCastDistance = 0.55f;
     public Transform[] rayCastStartPositions;
     Vector3 rotationSmoothVelocity;
     public LayerMask groundLayer;
@@ -34,7 +34,7 @@ public class carMovement3 : MonoBehaviour
     private float originalAcceleration;
     private float originalLaterationFriction;
 
-    public float raycastDistance = 1.8f;
+    // public float raycastDistance = 1.8f;
 
     void Awake()
     {
@@ -54,14 +54,15 @@ public class carMovement3 : MonoBehaviour
         float turnInput = Input.GetAxis("Horizontal");
 
         move(moveInput, turnInput);
-
     }
 
     private bool IsGrounded()
     {
         bool hit = false;
+        int groundLayerMask = LayerMask.GetMask("ground");
+
         foreach (Transform rayCastStartPosition in rayCastStartPositions) {
-            hit = hit || Physics.Raycast(rayCastStartPosition.position, -transform.up, rayCastDistance);
+            hit = hit || Physics.Raycast(rayCastStartPosition.position, -transform.up, rayCastDistance,groundLayerMask);
         }
         return hit;
     }
@@ -77,7 +78,11 @@ public class carMovement3 : MonoBehaviour
         //rb.AddForce(-Vector3.up * extraGravity);
         //Debug.Log("on ground");
         // Accelerate and decelerate
-        if (!IsGrounded()) return; 
+        if (!IsGrounded()) {
+            leftTrail.emitting = false;
+            rightTrail.emitting = false;
+            return;
+        } 
         float currentSpeed = Vector3.Dot(rb.velocity, transform.forward);
         float desiredSpeed = moveInput * maxSpeed;
         float accelerationForce = (desiredSpeed - currentSpeed) * acceleration;
@@ -135,10 +140,10 @@ public class carMovement3 : MonoBehaviour
             leftTrail.startColor = Color.green;
             rightTrail.startColor = Color.green;
         }
-        else if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+        else if(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
         {
             lateralFriction = originalLaterationFriction/ 3;
-            acceleration = originalAcceleration /4;
+            acceleration = originalAcceleration /2;
             leftTrail.emitting = true;
             rightTrail.emitting = true;
 
@@ -156,6 +161,7 @@ public class carMovement3 : MonoBehaviour
             rightTrail.startColor = Color.black;
         }
 
+
         Vector3 lateralFrictionForce = -rb.velocity.magnitude * lateralFriction * Vector3.Cross(Vector3.Cross(rb.velocity.normalized, transform.forward), transform.forward);
         rb.AddForce(lateralFrictionForce);
         //Debug.DrawRay(rayCastStartPosition.position, -transform.up * rayCastDistance, Color.yellow);
@@ -171,6 +177,7 @@ public class carMovement3 : MonoBehaviour
         // Smoothly rotate the car towards the target rotation
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
+
 
 
 }
