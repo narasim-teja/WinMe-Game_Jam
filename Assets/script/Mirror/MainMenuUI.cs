@@ -56,11 +56,21 @@ public class MainMenuUI : MonoBehaviour
 
             manager.StartServer();
 
+            // Player.localPlayer.HostGame(false);
+            // this.GetComponent<Player>().HostGame(false);
+
             Debug.Log("Server Started");
             if (Transport.active is PortTransport portTransport)
             {
                 Debug.Log(portTransport.Port);
+                Debug.Log(manager.networkAddress);
             }
         }
+    }
+
+    public void hostGame()
+    {
+        startButtonClicked();
+        // this.GetComponent<Player>().HostGame(false);
     }
 }

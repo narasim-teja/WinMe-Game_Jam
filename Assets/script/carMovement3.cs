@@ -62,7 +62,8 @@ public class carMovement3 : NetworkBehaviour
     private bool IsGrounded()
     {
         bool hit = false;
-        foreach (Transform rayCastStartPosition in rayCastStartPositions) {
+        foreach (Transform rayCastStartPosition in rayCastStartPositions)
+        {
             hit = hit || Physics.Raycast(rayCastStartPosition.position, -transform.up, rayCastDistance);
         }
         return hit;
@@ -79,7 +80,7 @@ public class carMovement3 : NetworkBehaviour
         //rb.AddForce(-Vector3.up * extraGravity);
         //Debug.Log("on ground");
         // Accelerate and decelerate
-        if (!IsGrounded()) return; 
+        if (!IsGrounded()) return;
         float currentSpeed = Vector3.Dot(rb.velocity, transform.forward);
         float desiredSpeed = moveInput * maxSpeed;
         float accelerationForce = (desiredSpeed - currentSpeed) * acceleration;
@@ -90,19 +91,19 @@ public class carMovement3 : NetworkBehaviour
         {
             turnInput = -turnInput;
             accelerationForce /= 3;
-            rb.AddForce(transform.forward * accelerationForce );
+            rb.AddForce(transform.forward * accelerationForce);
 
         }
         else if (moveInput >= 0)
         {
-            rb.AddForce(transform.forward * accelerationForce );
+            rb.AddForce(transform.forward * accelerationForce);
         }
         /*else if(moveInput == 0) {
             
         }*/
         //rb.AddForceAtPosition(transform.forward * accelerationForce, this.transform.position - new Vector3(0, 0.5f, 0));
         // Limit the maximum speed
-        Debug.Log(rb.velocity.magnitude);
+        // Debug.Log(rb.velocity.magnitude);
         if (rb.velocity.magnitude > maxSpeed)
         {
             rb.velocity = rb.velocity.normalized * maxSpeed;
@@ -139,8 +140,8 @@ public class carMovement3 : NetworkBehaviour
         }
         else if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
         {
-            lateralFriction = originalLaterationFriction/ 3;
-            acceleration = originalAcceleration /4;
+            lateralFriction = originalLaterationFriction / 3;
+            acceleration = originalAcceleration / 4;
             leftTrail.emitting = true;
             rightTrail.emitting = true;
 
@@ -161,7 +162,7 @@ public class carMovement3 : NetworkBehaviour
         Vector3 lateralFrictionForce = -rb.velocity.magnitude * lateralFriction * Vector3.Cross(Vector3.Cross(rb.velocity.normalized, transform.forward), transform.forward);
         rb.AddForce(lateralFrictionForce);
         //Debug.DrawRay(rayCastStartPosition.position, -transform.up * rayCastDistance, Color.yellow);
-        
+
     }
 
 

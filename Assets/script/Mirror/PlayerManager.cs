@@ -1,5 +1,6 @@
 using UnityEngine;
 using Mirror;
+using Unity.VisualScripting;
 
 public class PlayerManager : NetworkBehaviour
 {
@@ -13,12 +14,14 @@ public class PlayerManager : NetworkBehaviour
     {
         base.OnStartClient();
         // Add your client-specific initialization code here
+        // Player.localPlayer.HostGame(false);
+        GameObject.Find("NetworkManager").GetComponent<Player>().HostGame(false);
         Debug.Log("Client started for player: " + netId);
 
         // Example: Disabling the canvas
         DisableWaitingRoomCanvas();
 
-        if(isLocalPlayer) coinCountCanvas.gameObject.SetActive(true);
+        if (isLocalPlayer) coinCountCanvas.gameObject.SetActive(true);
     }
 
     [Client]
