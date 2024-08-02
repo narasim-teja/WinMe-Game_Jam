@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Mirror;
+using TMPro;
 
 public class MainMenuUI : MonoBehaviour
 {
     NetworkManager manager;
+    [SerializeField] private GameObject playerNameInputField;
+    private string playerName;
 
     void Awake()
     {
@@ -20,10 +23,8 @@ public class MainMenuUI : MonoBehaviour
         }
     }
 
-    public void startButtonClicked()
+    public void StartButtonClicked()
     {
-        Debug.Log("Start Button Clicked");
-
         if (manager == null)
         {
             Debug.LogError("NetworkManager not found");
@@ -31,18 +32,40 @@ public class MainMenuUI : MonoBehaviour
         }
 
         manager.StartClient();
-        if (NetworkClient.isConnected && !NetworkClient.ready)
-        {
-            NetworkClient.Ready();
-            if (NetworkClient.localPlayer == null)
-                NetworkClient.AddPlayer();
-        }
-
-        Debug.Log("Client Started");
-        Debug.Log(manager.networkAddress);
+        StartCoroutine(WaitForLocalPlayerAndSetPlayerName());
     }
 
-    public void startServerButtonClicked()
+    private IEnumerator WaitForLocalPlayerAndSetPlayerName()
+    {
+        
+        // while (!NetworkClient.ready)
+        // {
+        //     Debug.Log("Waiting for local readyyy...");
+        //     yield return null;
+        // }
+        // if (!NetworkClient.ready)
+        // {
+        //     // NetworkClient.Ready();
+        // }
+        // if (NetworkClient.localPlayer == null )
+        // {
+        //     Debug.Log("Attempting to add player");
+
+        //     // NetworkClient.AddPlayer();
+        // }
+        while (NetworkClient.localPlayer == null)   
+        {
+            Debug.Log("Waiting for local player...");
+            yield return null;
+        }
+
+        PlayerManager localPlayer = NetworkClient.localPlayer.GetComponent<PlayerManager>();
+        playerName = playerNameInputField.GetComponent<TMP_InputField>().text.ToString();
+        
+        localPlayer.SetPlayerName(playerName);
+    }
+
+    public void StartServerButtonClicked()
     {
         if (!NetworkClient.active)
         {

@@ -3290,7 +3290,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 0
-  _assetId: 1062995639
+  _assetId: 3793405936
   serverOnly: 0
   visibility: 0
   hasSpawned: 0
@@ -3461,6 +3461,8 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   coinCountCanvas: {fileID: 1475259823272686073}
+  playerName: 
+  playerNameText: {fileID: 0}
 --- !u!114 &1693190905333830706
 MonoBehaviour:
   m_ObjectHideFlags: 0

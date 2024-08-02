@@ -27,7 +27,7 @@ public class CountDownTimer : NetworkBehaviour
     void UpdateTimer()
     {
         timeRemaining -= 1;
-        Debug.Log("timerText :" + timeRemaining);
+        // Debug.Log("timerText :" + timeRemaining);
         if (timeRemaining == 0)
         {
             

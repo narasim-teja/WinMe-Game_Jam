@@ -1,6 +1,7 @@
 using Mirror;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnableDisableCoin : Mirror.NetworkBehaviour
@@ -20,10 +21,13 @@ public class EnableDisableCoin : Mirror.NetworkBehaviour
             coins.Add(coin);
         }
     }
+    public void Start(){
+        DontDestroyOnLoad(this);
+    }
 
     public void CoinPicked(GameObject coin)
     {
-        Debug.Log(coin.name);
+        // Debug.Log(coin.name);
         // Start the coroutine to disable and enable the coin
         StartCoroutine(EnableDisableRoutine(coin)); // This needs to be implemented as per your game logic
     }

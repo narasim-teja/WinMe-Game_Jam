@@ -1,12 +1,90 @@
+// using UnityEngine;
+// using Mirror;
+// using UnityEngine.SceneManagement;
+// using TMPro;
+
+// public class MirrorNetworkManager : NetworkManager
+// {
+//     private int playerCount = 0;
+//     public int noOfPlayers = 1;
+
+//     private void Start()
+//     {
+//         Transform firstChild = transform.GetChild(0);
+//         firstChild.gameObject.SetActive(true);
+//     }
+
+//     public override void OnServerConnect(NetworkConnectionToClient conn)
+//     {
+//         base.OnServerConnect(conn);
+//         Debug.Log("Client connected: " + conn.connectionId);
+//     }
+
+//     public override void OnServerReady(NetworkConnectionToClient conn)
+//     {
+//         base.OnServerReady(conn);
+//         Debug.Log("Client is ready: " + conn.connectionId);
+//     }
+
+//     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
+//     {
+//         Debug.Log("Entered OnServerAddPlayer");
+
+//         // Check if the connection already has a player
+        
+//         Vector3 start = new Vector3(0, 40f, 0);
+//         GameObject player = Instantiate(playerPrefab, start, Quaternion.identity);
+        
+//         NetworkServer.AddPlayerForConnection(conn, player);
+//         Debug.Log("Player spawned");
+
+//         playerCount++;
+//         if (playerCount == noOfPlayers)
+//         {
+//             LoadGameScene();
+//         }
+        
+//     }
+
+//     public override void OnServerDisconnect(NetworkConnectionToClient conn)
+//     {
+//         Debug.Log("OnServerDisconnect called");
+//         Debug.Log(playerCount);
+//         base.OnServerDisconnect(conn);
+
+//         playerCount--;
+
+//         if (playerCount == 0)
+//         {
+//             string newSceneName = "MirrorWaitingRoom"; // Replace with your scene name
+//             Debug.Log("player Disconnected!!!");
+//             ServerChangeScene(newSceneName);
+//         }
+//     }
+
+//     [Server]
+//     private void LoadGameScene()
+//     {
+//         string newSceneName = "MirrorCloverStadium"; // Replace with your scene name
+//         ServerChangeScene(newSceneName);
+//     }
+
+//     public override void OnStopClient()
+//     {
+//         base.OnStopClient();
+//         Debug.Log("Client has stopped.");
+//     }
+// }
+
 using UnityEngine;
 using Mirror;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
+using TMPro;
+using System.Collections;
 
-public class MirrorNetworkManager : Mirror.NetworkManager
+public class MirrorNetworkManager : NetworkManager
 {
-    //public Transform spawnLocation;
-    private int playerCount = 0; // Moved the playerCount here for integration
+    private int playerCount = 0;
     public int noOfPlayers = 1;
 
     private void Start()
@@ -14,6 +92,7 @@ public class MirrorNetworkManager : Mirror.NetworkManager
         Transform firstChild = transform.GetChild(0);
         firstChild.gameObject.SetActive(true);
     }
+
     public override void OnServerConnect(NetworkConnectionToClient conn)
     {
         base.OnServerConnect(conn);
@@ -29,13 +108,20 @@ public class MirrorNetworkManager : Mirror.NetworkManager
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
         Debug.Log("Entered OnServerAddPlayer");
-        //Transform start = spawnLocation;
-        Vector3 start = new Vector3(0,40f,0);
+
+        // Check if the connection already has a player
+        if (conn.identity != null)
+        {
+            Debug.LogWarning("Connection already has a player");
+            return;
+        }
+
+        Vector3 start = new Vector3(0, 40f, 0);
         GameObject player = Instantiate(playerPrefab, start, Quaternion.identity);
+        
         NetworkServer.AddPlayerForConnection(conn, player);
         Debug.Log("Player spawned");
 
-        // Increment player count and check if it is 2
         playerCount++;
         if (playerCount == noOfPlayers)
         {
@@ -46,65 +132,28 @@ public class MirrorNetworkManager : Mirror.NetworkManager
     public override void OnServerDisconnect(NetworkConnectionToClient conn)
     {
         Debug.Log("OnServerDisconnect called");
-        Debug.Log(playerCount);
         base.OnServerDisconnect(conn);
 
-        // Decrement player count
         playerCount--;
 
-        if(playerCount == 0)
+        if (playerCount == 0)
         {
-
             string newSceneName = "MirrorWaitingRoom"; // Replace with your scene name
-            Debug.Log("player Disconnected!!!");
+            Debug.Log("Player Disconnected!!!");
             ServerChangeScene(newSceneName);
-        } 
+        }
     }
 
     [Server]
     private void LoadGameScene()
     {
-        /*if (transform.childCount > 0) // Ensure there is at least one child
-        {
-            Transform firstChild = transform.GetChild(0);
-            if (firstChild != null)
-            {
-                firstChild.gameObject.SetActive(false);
-                Debug.Log("First child deactivated: " + firstChild.gameObject.name);
-            }
-            else
-            {
-                Debug.LogWarning("First child transform is null.");
-            }
-        }
-        else
-        {
-            Debug.LogWarning("No children to deactivate.");
-        }*/
-        // Make sure to add the scene you want to load to the build settings
         string newSceneName = "MirrorCloverStadium"; // Replace with your scene name
         ServerChangeScene(newSceneName);
     }
 
-    /*public void DisconnectOnGameOver()
-    {
-        Debug.Log("111111111");
-        if (isNetworkActive)
-        {
-            Debug.Log("222222222222");
-            //if (NetworkClient.isConnected)
-            //{
-                Debug.Log("3333333333");
-                StopClient();
-            //}
-        }
-    }*/
-
     public override void OnStopClient()
     {
-        base.OnStopClient(); 
+        base.OnStopClient();
         Debug.Log("Client has stopped.");
-        //SceneManager.LoadScene("MirrorWaitingRoom");
     }
-
 }
