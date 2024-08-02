@@ -15,7 +15,7 @@ public class PlayerManager : NetworkBehaviour
         base.OnStartClient();
         // Add your client-specific initialization code here
         // Player.localPlayer.HostGame(false);
-        GameObject.Find("NetworkManager").GetComponent<Player>().HostGame(false);
+        // GameObject.Find("NetworkManager").GetComponent<Player>().HostGame(false);
         Debug.Log("Client started for player: " + netId);
 
         // Example: Disabling the canvas

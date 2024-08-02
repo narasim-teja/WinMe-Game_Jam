@@ -13,7 +13,7 @@ public class Player : NetworkBehaviour
 
     NetworkMatch networkMatch;
 
-    [SyncVar] public GameMatch currentMatch;
+    // [SyncVar] public GameMatch currentMatch;
 
 
     void Awake()
@@ -24,7 +24,7 @@ public class Player : NetworkBehaviour
     // Host game
     public void HostGame(bool publicMatch)
     {
-        string matchID = MatchMaker.GetRandomMatchID();
+        // string matchID = MatchMaker.GetRandomMatchID();
         Debug.Log("sfsaf");
         CmdHostGame(matchID, publicMatch);
         Debug.Log("sfsaf222");
@@ -34,18 +34,18 @@ public class Player : NetworkBehaviour
     void CmdHostGame(string _matchID, bool publicMatch)
     {
         Debug.Log("dsdf");
-        matchID = _matchID;
-        if (MatchMaker.instance.HostGame(_matchID, this, publicMatch, out playerIndex))
-        {
-            Debug.Log($"<color=green>Game hosted successfully</color>");
-            networkMatch.matchId = _matchID.ToGuid();
-            TargetHostGame(true, _matchID, playerIndex);
-        }
-        else
-        {
-            Debug.Log($"<color=red>Game hosted failed</color>");
-            TargetHostGame(false, _matchID, playerIndex);
-        }
+        // matchID = _matchID;
+        // if (MatchMaker.instance.HostGame(_matchID, this, publicMatch, out playerIndex))
+        // {
+        //     Debug.Log($"<color=green>Game hosted successfully</color>");
+        //     networkMatch.matchId = _matchID.ToGuid();
+        //     TargetHostGame(true, _matchID, playerIndex);
+        // }
+        // else
+        // {
+        //     Debug.Log($"<color=red>Game hosted failed</color>");
+        //     TargetHostGame(false, _matchID, playerIndex);
+        // }
     }
 
     [TargetRpc]
@@ -67,7 +67,8 @@ public class Player : NetworkBehaviour
     void CmdJoinGame(string _matchID)
     {
         matchID = _matchID;
-        if (MatchMaker.instance.JoinGame(_matchID, this, out playerIndex))
+        /*
+        if (MatchMaker.Instance.JoinGame(_matchID, this, out playerIndex))
         {
             Debug.Log($"<color=green>Game Joined successfully</color>");
             networkMatch.matchId = _matchID.ToGuid();
@@ -84,6 +85,7 @@ public class Player : NetworkBehaviour
             Debug.Log($"<color=red>Game Joined failed</color>");
             TargetJoinGame(false, _matchID, playerIndex);
         }
+        */
     }
 
     [TargetRpc]

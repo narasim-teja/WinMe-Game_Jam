@@ -31,15 +31,16 @@ public class MainMenuUI : MonoBehaviour
         }
 
         manager.StartClient();
-        if (NetworkClient.isConnected && !NetworkClient.ready)
-        {
-            NetworkClient.Ready();
-            if (NetworkClient.localPlayer == null)
-                NetworkClient.AddPlayer();
-        }
+        StartCoroutine(WaitForLocalPlayer());
+        // if (NetworkClient.isConnected && !NetworkClient.ready)
+        // {
+        //     NetworkClient.Ready();
+        //     if (NetworkClient.localPlayer == null)
+        //         NetworkClient.AddPlayer();
+        // }
 
-        Debug.Log("Client Started");
-        Debug.Log(manager.networkAddress);
+        // Debug.Log("Client Started");
+        // Debug.Log(manager.networkAddress);
     }
 
     public void startServerButtonClicked()
@@ -67,6 +68,45 @@ public class MainMenuUI : MonoBehaviour
             }
         }
     }
+
+    // public void StartButtonClicked()
+    // {
+    //     if (manager == null)
+    //     {
+    //         Debug.LogError("NetworkManager not found");
+    //         return;
+    //     }
+
+    //     manager.StartClient();
+    //     StartCoroutine(WaitForLocalPlayer());
+    // }
+
+    private IEnumerator WaitForLocalPlayer()
+    {
+
+
+        while (!NetworkClient.isConnected)
+        {
+            yield return null;
+        }
+        if (!NetworkClient.ready)
+        {
+            NetworkClient.Ready();
+        }
+        if (NetworkClient.localPlayer == null)
+        {
+            NetworkClient.AddPlayer();
+        }
+        while (NetworkClient.localPlayer == null)
+        {
+            Debug.Log("Waiting for local player...");
+            yield return null;
+        }
+
+
+        GameObject.Find("MatchMaker").GetComponent<MatchMaker>().CreateLobby();
+    }
+
 
     public void hostGame()
     {

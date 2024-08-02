@@ -6,13 +6,13 @@ using Mirror;
 using UnityEngine;
 
 [System.Serializable]
-public class GameMatch
+public class GameMatch : NetworkBehaviour
 {
     public string matchID;
     public bool publicMatch;
     public bool inMatch;
     public bool matchFull;
-    public List<Player> players = new List<Player>();
+    public List<Player> players = new();
 
     public GameMatch(string matchID, Player player, bool publicMatch)
     {
@@ -28,18 +28,43 @@ public class GameMatch
 
 public class MatchMaker : NetworkBehaviour
 {
-    public static MatchMaker instance;
+    public static MatchMaker Instance { get; private set; }
 
-    public SyncList<GameMatch> matches = new();
-    public SyncList<String> matchIDs = new();
+    // public List<GameMatch> matches = new();
+    public List<String> matchIDs = new();
 
     // [SerializeField] int maxMatchPlayers = 12;
 
-    void Start()
+    void Awake()
     {
-        instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
+    [Command]
+    public void Cmd()
+    {
+        string code = GetRandomMatchID();
+        matchIDs.Add(code);
+        Debug.Log(matchIDs.Count);
+    }
+
+    public void CreateLobby()
+    {
+        Cmd();
+        // string code = GetRandomMatchID();
+        // matchIDs.Add(code);
+        // Debug.Log(matchIDs.Count);
+    }
+
+    /*
     public bool HostGame(string _matchID, Player _player, bool publicMatch, out int playerIndex)
     {
         playerIndex = -1;
@@ -103,6 +128,7 @@ public class MatchMaker : NetworkBehaviour
             return false;
         }
     }
+    */
 
     public static string GetRandomMatchID()
     {
