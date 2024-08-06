@@ -1407,7 +1407,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 35.5
+  m_fontSize: 51.35
   m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3785,72 +3785,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 625717507}
   m_Mesh: {fileID: -4481896081433106570, guid: f05e1bf94d68cbd48a787e3932be107c, type: 3}
---- !u!1 &658955178
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 658955180}
-  - component: {fileID: 658955179}
-  - component: {fileID: 658955181}
-  m_Layer: 0
-  m_Name: MatchMaker
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &658955179
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 658955178}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6262ce676c38f234ab474a642ca49a4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  matchIDs: []
---- !u!4 &658955180
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 658955178}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 528.0096, y: 253.45251, z: 257.44467}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &658955181
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 658955178}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneId: 1888531442
-  _assetId: 0
-  serverOnly: 0
-  visibility: 0
-  hasSpawned: 0
 --- !u!1 &664162076
 GameObject:
   m_ObjectHideFlags: 0
@@ -9466,6 +9400,7 @@ MonoBehaviour:
   - {fileID: 1643588665180250320, guid: 0b56682054467104bb96df2789a43506, type: 3}
   - {fileID: 1205363166874645003, guid: 1c4f29ec1c23232479adadc256970473, type: 3}
   - {fileID: 1205363166874645003, guid: fe5c650b3ab388441948e86038d50cf9, type: 3}
+  - {fileID: 1205363166874645003, guid: a86b6f056ec87cf4786d92f56146f0f8, type: 3}
   exceptionsDisconnect: 1
   snapshotSettings:
     bufferTimeMultiplier: 2
@@ -9481,7 +9416,8 @@ MonoBehaviour:
   evaluationMethod: 0
   evaluationInterval: 3
   timeInterpolationGui: 0
-  noOfPlayers: 2
+  matchmaker: {fileID: 0}
+  noOfPlayers: 1
 --- !u!114 &1945648348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9494,6 +9430,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbc657277f2ec6c47976d3be43db8848, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefab: {fileID: 1404036664961805560, guid: 55366595ecb9cdf47843b21cc45b1c18, type: 3}
 --- !u!1 &1950931108
 GameObject:
   m_ObjectHideFlags: 0
@@ -10726,7 +10663,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 45.95
+  m_fontSize: 61.75
   m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -10901,7 +10838,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 46.8
+  m_fontSize: 62.6
   m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -11848,7 +11785,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 44.25
+  m_fontSize: 60.05
   m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -13101,4 +13038,3 @@ SceneRoots:
   - {fileID: 8697118872939596107}
   - {fileID: 1309049355}
   - {fileID: 1334776426}
-  - {fileID: 658955180}

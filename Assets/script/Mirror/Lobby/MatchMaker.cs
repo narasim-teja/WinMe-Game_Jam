@@ -28,40 +28,40 @@ public class GameMatch : NetworkBehaviour
 
 public class MatchMaker : NetworkBehaviour
 {
-    public static MatchMaker Instance { get; private set; }
+    // public static MatchMaker Instance { get; private set; }
 
     // public List<GameMatch> matches = new();
-    public List<String> matchIDs = new();
+    public List<string> matchIDs = new();
 
     // [SerializeField] int maxMatchPlayers = 12;
 
-    void Awake()
+    void Start()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        Debug.Log("helloasdfdsgs");
+        Swaaaaan();
+        // if (Instance == null)
+        // {
+        //     Instance = this;
+        //     DontDestroyOnLoad(gameObject);
+        // }
+        // else
+        // {
+        //     Destroy(gameObject);
+        // }
+    }
+
+    public void Swaaaaan()
+    {
+        // NetworkServer.Spawn(gameObject);
+        CreateLobby();
     }
 
     [Command]
-    public void Cmd()
+    public void CreateLobby()
     {
         string code = GetRandomMatchID();
         matchIDs.Add(code);
         Debug.Log(matchIDs.Count);
-    }
-
-    public void CreateLobby()
-    {
-        Cmd();
-        // string code = GetRandomMatchID();
-        // matchIDs.Add(code);
-        // Debug.Log(matchIDs.Count);
     }
 
     /*

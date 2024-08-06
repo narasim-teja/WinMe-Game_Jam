@@ -7,6 +7,7 @@ using Mirror;
 public class MainMenuUI : MonoBehaviour
 {
     NetworkManager manager;
+    [SerializeField] private GameObject prefab;
 
     void Awake()
     {
@@ -104,7 +105,9 @@ public class MainMenuUI : MonoBehaviour
         }
 
 
-        GameObject.Find("MatchMaker").GetComponent<MatchMaker>().CreateLobby();
+        // GameObject spawnedObject = Instantiate(prefab, new Vector3(), Quaternion.identity);
+
+        // GameObject.Find("MatchMaker(Clone)").GetComponent<MatchMaker>().Swaaaaan();
     }
 
 

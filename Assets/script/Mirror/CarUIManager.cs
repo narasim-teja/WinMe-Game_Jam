@@ -16,7 +16,7 @@ public class CarUIManager : NetworkBehaviour
     {
         base.OnStartServer();
         setEnableDisableCoin();
-         
+
     }
 
     // Update is called once per frame
@@ -28,8 +28,8 @@ public class CarUIManager : NetworkBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (!isLocalPlayer) return;
-        
-        if(enableDisableCoin == null) setEnableDisableCoin();
+
+        if (enableDisableCoin == null) setEnableDisableCoin();
 
         if (other.gameObject.CompareTag("coin"))
         {
@@ -38,7 +38,7 @@ public class CarUIManager : NetworkBehaviour
                 //this should be in Command but putting it in command leads to 
                 //picking up of coin multiple time  FIX THIS LATER
                 other.GetComponent<CoinManager>().isPicked = true;
-                
+
                 CmdHandleCoinPickup(other.gameObject);
             }
         }

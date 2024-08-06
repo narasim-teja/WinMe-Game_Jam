@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 public class MirrorNetworkManager : Mirror.NetworkManager
 {
     //public Transform spawnLocation;
+    public GameObject matchmaker;
     private int playerCount = 0; // Moved the playerCount here for integration
     public int noOfPlayers = 1;
 
@@ -30,10 +31,14 @@ public class MirrorNetworkManager : Mirror.NetworkManager
     {
         Debug.Log("Entered OnServerAddPlayer");
         //Transform start = spawnLocation;
-        Vector3 start = new Vector3(0,40f,0);
+        Vector3 start = new Vector3(0, 40f, 0);
         GameObject player = Instantiate(playerPrefab, start, Quaternion.identity);
         NetworkServer.AddPlayerForConnection(conn, player);
         Debug.Log("Player spawned");
+
+        // GetComponent<MatchMaker>().Swaaaaan();
+        // NetworkServer.Spawn(matchmaker);
+        // Instantiate(matchmaker);
 
         // Increment player count and check if it is 2
         playerCount++;
@@ -52,13 +57,13 @@ public class MirrorNetworkManager : Mirror.NetworkManager
         // Decrement player count
         playerCount--;
 
-        if(playerCount == 0)
+        if (playerCount == 0)
         {
 
             string newSceneName = "MirrorWaitingRoom"; // Replace with your scene name
             Debug.Log("player Disconnected!!!");
             ServerChangeScene(newSceneName);
-        } 
+        }
     }
 
     [Server]
@@ -102,7 +107,7 @@ public class MirrorNetworkManager : Mirror.NetworkManager
 
     public override void OnStopClient()
     {
-        base.OnStopClient(); 
+        base.OnStopClient();
         Debug.Log("Client has stopped.");
         //SceneManager.LoadScene("MirrorWaitingRoom");
     }

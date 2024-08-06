@@ -3253,6 +3253,7 @@ GameObject:
   - component: {fileID: 4774128115340097857}
   - component: {fileID: 7306304596497200345}
   - component: {fileID: 1693190905333830706}
+  - component: {fileID: 5561669853756797320}
   m_Layer: 0
   m_Name: kart
   m_TagString: Player
@@ -3479,6 +3480,22 @@ MonoBehaviour:
   syncInterval: 0
   coinText: {fileID: 3200223492848529388}
   coinCount: 0
+--- !u!114 &5561669853756797320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4804685132883225272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6262ce676c38f234ab474a642ca49a4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  matchIDs: []
 --- !u!1 &4829751232304856288
 GameObject:
   m_ObjectHideFlags: 0

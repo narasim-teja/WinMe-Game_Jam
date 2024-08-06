@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class CountDownTimer : NetworkBehaviour
 {
     [SyncVar(hook = nameof(OnTimerUpdate))]
-    public int timeRemaining = 10; 
+    public int timeRemaining = 10;
 
     public Text timerText;
     GameManager gameManager;
@@ -27,10 +27,10 @@ public class CountDownTimer : NetworkBehaviour
     void UpdateTimer()
     {
         timeRemaining -= 1;
-        Debug.Log("timerText :" + timeRemaining);
+        // Debug.Log("timerText :" + timeRemaining);
         if (timeRemaining == 0)
         {
-            
+
             gameManager.GameEnded();
         }
         else if (timeRemaining == -7)
@@ -46,12 +46,12 @@ public class CountDownTimer : NetworkBehaviour
         networkManager.StopClient();
     }
 
-    void OnTimerUpdate(int oldTime, int newTime) 
+    void OnTimerUpdate(int oldTime, int newTime)
     {
         UpdateTimerText(newTime);
     }
 
-    void UpdateTimerText(int time) 
+    void UpdateTimerText(int time)
     {
         if (timeRemaining >= 0)
         {
