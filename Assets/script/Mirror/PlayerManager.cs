@@ -106,7 +106,6 @@ public class PlayerManager : NetworkBehaviour
     [Command]
     private void CmdSetPlayerName(string name)
     {
-        Debug.Log("player name!!!");
         playerName = name; // This automatically updates the value on the clients because it's a SyncVar
         Debug.Log($"player name: {name}");
         if(playerNameText.GetComponent<TextMeshPro>() == null) Debug.Log("_player name__");

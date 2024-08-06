@@ -4,6 +4,7 @@ using UnityEngine;
 using Mirror;
 using TMPro;
 using System;
+using Org.BouncyCastle.Crypto.Paddings;
 
 public class GameManager : NetworkBehaviour
 {
@@ -21,18 +22,22 @@ public class GameManager : NetworkBehaviour
     public void GameEnded()
     {
         Debug.Log("-----------");
-        Tuple<uint, int> winner = calculateWinner();
-        showWinner(winner.Item1,winner.Item2);
+        Tuple<uint, string, int> winner = calculateWinner();
+        showWinner(winner.Item1, winner.Item2 ,winner.Item3);
     }
 
     [Server]
-    public Tuple<uint,int> calculateWinner()
+    public Tuple<uint, string ,int> calculateWinner()
     {
         uint winnerNetId = 0;
+        string winnerName = "";
         int highestCoinCount = -1;
+
         for (int x = 0; x < players.Length; x++)
         {
             NetworkIdentity networkIdentity = players[x].GetComponent<NetworkIdentity>();
+
+            String playerName = players[x].GetComponent<PlayerManager>().playerName;
             CarUIManager carUIManager = players[x].GetComponentInChildren<CarUIManager>();
 
             if (networkIdentity != null && carUIManager != null)
@@ -43,6 +48,7 @@ public class GameManager : NetworkBehaviour
                 if (coinCount > highestCoinCount)
                 {
                     highestCoinCount = coinCount;
+                    winnerName = playerName;
                     winnerNetId = networkIdentity.netId;
                 }
             }
@@ -52,13 +58,13 @@ public class GameManager : NetworkBehaviour
             }
         }
 
-        //Debug.Log("Winner NetID: " + winnerNetId + " with coin count: " + highestCoinCount);
-        return new Tuple<uint, int>(winnerNetId, highestCoinCount);
+        Debug.Log("Winner name: " + winnerName + " with coin count: " + highestCoinCount);
+        return new Tuple<uint , string, int>(winnerNetId, winnerName ,highestCoinCount);
     }
     [ClientRpc]
-    public void showWinner(uint winnerId, int coinAmount)
+    public void showWinner(uint winnerId, string winnerName ,int coinAmount)
     {
-        winnerUI.transform.Find("winnerId").GetComponent<TextMeshProUGUI>().text = winnerId.ToString();
+        winnerUI.transform.Find("winnerId").GetComponent<TextMeshProUGUI>().text = winnerName;
         winnerUI.transform.Find("winnerCoinCount").GetComponent<TextMeshProUGUI>().text = coinAmount.ToString();
 
         winnerUI.gameObject.SetActive(true);

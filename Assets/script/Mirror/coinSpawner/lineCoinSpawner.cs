@@ -14,7 +14,7 @@ public class lineCoinSpawner : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PositionRaycast();
+        if(isServer) PositionRaycast();
     }
     [Server]
     void PositionRaycast()

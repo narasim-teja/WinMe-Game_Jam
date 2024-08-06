@@ -121,11 +121,12 @@ public class MirrorNetworkManager : NetworkManager
         
         NetworkServer.AddPlayerForConnection(conn, player);
         Debug.Log("Player spawned");
-
+        
         playerCount++;
         if (playerCount == noOfPlayers)
         {
             LoadGameScene();
+            
         }
     }
 

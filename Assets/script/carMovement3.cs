@@ -29,9 +29,6 @@ public class carMovement3 : NetworkBehaviour
     int val;
 
     private Rigidbody rb;
-
-
-    private float offGroundTime = 0f;
     private float originalAcceleration;
     private float originalLaterationFriction;
 

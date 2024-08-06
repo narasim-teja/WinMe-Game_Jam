@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
 
-public class CarFollowCamera : NetworkBehaviour
+public class CarCameraManager : NetworkBehaviour
 {
     [SerializeField] private GameObject camPrefab;
+    [SerializeField] private GameObject playerNameText;
     private GameObject _camera;
     public float moveSmoothness = 2.5f;
     public float rotSmoothness = 4f;
@@ -30,6 +31,7 @@ public class CarFollowCamera : NetworkBehaviour
         if (isLocalPlayer)
         {
             FollowTarget();
+            // rotateText();
         }
     }
 
@@ -52,4 +54,10 @@ public class CarFollowCamera : NetworkBehaviour
 
         _camera.transform.rotation = Quaternion.Lerp(_camera.transform.rotation, rotation, rotSmoothness * Time.deltaTime);
     }
+
+    void rotateText(){
+        playerNameText.transform.LookAt(transform.position + _camera.transform.rotation * Vector3.forward, _camera.transform.rotation * Vector3.up);
+    }
+
+    
 }
