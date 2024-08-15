@@ -6,9 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Mirror Ash/MirrorWaitingRoom.unity
+    guid: 5ac601da00d01ad45ae71a270be4b235
+  - enabled: 1
+    path: Assets/Scenes/Mirror Ash/MirrorCloverStadium.unity
+    guid: 74974710d4533024da66c8eea5093621
+  - enabled: 0
     path: Assets/Scenes/MirrorAys/MirrorWaitingRoom.unity
     guid: c083190a503a1514bac3a09c5247ce98
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MirrorAys/MirrorCloverStadium.unity
     guid: 38db18a9ff612794db61e74977a3c288
   m_configObjects: {}

@@ -24,6 +24,7 @@ public class carMovement3 : NetworkBehaviour
 
     [SerializeField] private TrailRenderer leftTrail;
     [SerializeField] private TrailRenderer rightTrail;
+    [SerializeField] AudioSource kartDriftAudioSource;
 
     //public Animator animator;
     int val;
@@ -60,8 +61,9 @@ public class carMovement3 : NetworkBehaviour
         bool hit = false;
         int groundLayerMask = LayerMask.GetMask("ground");
 
-        foreach (Transform rayCastStartPosition in rayCastStartPositions) {
-            hit = hit || Physics.Raycast(rayCastStartPosition.position, -transform.up, rayCastDistance,groundLayerMask);
+        foreach (Transform rayCastStartPosition in rayCastStartPositions)
+        {
+            hit = hit || Physics.Raycast(rayCastStartPosition.position, -transform.up, rayCastDistance, groundLayerMask);
         }
         return hit;
     }
@@ -77,11 +79,14 @@ public class carMovement3 : NetworkBehaviour
         //rb.AddForce(-Vector3.up * extraGravity);
         //Debug.Log("on ground");
         // Accelerate and decelerate
-        if (!IsGrounded()) {
+        if (!IsGrounded())
+        {
             leftTrail.emitting = false;
             rightTrail.emitting = false;
+
+            kartDriftAudioSource.Stop();
             return;
-        } 
+        }
         float currentSpeed = Vector3.Dot(rb.velocity, transform.forward);
         float desiredSpeed = moveInput * maxSpeed;
         float accelerationForce = (desiredSpeed - currentSpeed) * acceleration;
@@ -92,12 +97,12 @@ public class carMovement3 : NetworkBehaviour
         {
             turnInput = -turnInput;
             accelerationForce /= 3;
-            rb.AddForce(transform.forward * accelerationForce );
+            rb.AddForce(transform.forward * accelerationForce);
 
         }
         else if (moveInput >= 0)
         {
-            rb.AddForce(transform.forward * accelerationForce );
+            rb.AddForce(transform.forward * accelerationForce);
         }
         /*else if(moveInput == 0) {
             
@@ -139,10 +144,10 @@ public class carMovement3 : NetworkBehaviour
             leftTrail.startColor = Color.green;
             rightTrail.startColor = Color.green;
         }
-        else if(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+        else if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
         {
-            lateralFriction = originalLaterationFriction/ 3;
-            acceleration = originalAcceleration /2;
+            lateralFriction = originalLaterationFriction / 3;
+            acceleration = originalAcceleration / 2;
             leftTrail.emitting = true;
             rightTrail.emitting = true;
 
@@ -161,10 +166,22 @@ public class carMovement3 : NetworkBehaviour
         }
 
 
+
+        if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
+        {
+            kartDriftAudioSource.Play();
+        }
+        if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.RightShift)
+            || (rb.velocity.magnitude / 15f < 0.4))
+        {
+            kartDriftAudioSource.Stop();
+        }
+
+
         Vector3 lateralFrictionForce = -rb.velocity.magnitude * lateralFriction * Vector3.Cross(Vector3.Cross(rb.velocity.normalized, transform.forward), transform.forward);
         rb.AddForce(lateralFrictionForce);
         //Debug.DrawRay(rayCastStartPosition.position, -transform.up * rayCastDistance, Color.yellow);
-        
+
     }
 
 
