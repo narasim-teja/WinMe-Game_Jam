@@ -602,7 +602,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 92d370b3f3c6abd418008f6383254ecc, type: 3}
+  m_audioClip: {fileID: 8300000, guid: eb754e3c0b994274fb42342482db3199, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -4692,7 +4692,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: f65bb83c66a708d4f8beaa6210a75af2, type: 3}
+  m_audioClip: {fileID: 8300000, guid: f32d343766d4f7c4c86c3c2626848772, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -5907,7 +5907,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   engineSound: {fileID: 1601506155546306475}
-  driftSound: {fileID: 8483676369493332475}
   minPitch: 0.4
   maxPitch: 1.5
 --- !u!1 &8099963284547202615

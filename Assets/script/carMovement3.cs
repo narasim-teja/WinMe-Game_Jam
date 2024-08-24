@@ -84,7 +84,8 @@ public class carMovement3 : NetworkBehaviour
             leftTrail.emitting = false;
             rightTrail.emitting = false;
 
-            kartDriftAudioSource.Stop();
+            if (kartDriftAudioSource.isPlaying)
+                kartDriftAudioSource.Stop();
             return;
         }
         float currentSpeed = Vector3.Dot(rb.velocity, transform.forward);
@@ -153,6 +154,11 @@ public class carMovement3 : NetworkBehaviour
 
             leftTrail.startColor = Color.black;
             rightTrail.startColor = Color.black;
+
+            if (!kartDriftAudioSource.isPlaying)
+            {
+                kartDriftAudioSource.Play();
+            }
         }
         else
         {
@@ -163,19 +169,24 @@ public class carMovement3 : NetworkBehaviour
 
             leftTrail.startColor = Color.black;
             rightTrail.startColor = Color.black;
-        }
 
 
+            if (kartDriftAudioSource.isPlaying)
+            {
+                kartDriftAudioSource.Stop();
+            }
+        }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
-        {
-            kartDriftAudioSource.Play();
-        }
-        if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.RightShift)
-            || (rb.velocity.magnitude / 15f < 0.4))
-        {
-            kartDriftAudioSource.Stop();
-        }
+        // if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.RightShift)
+        //     || (rb.velocity.magnitude / 15f < 0.08))
+        // {
+        //     if (kartDriftAudioSource.isPlaying)
+        //     {
+
+        //         kartDriftAudioSource.Stop();
+        //         Debug.Log("Stop Drift");
+        //     }
+        // }
 
 
         Vector3 lateralFrictionForce = -rb.velocity.magnitude * lateralFriction * Vector3.Cross(Vector3.Cross(rb.velocity.normalized, transform.forward), transform.forward);
