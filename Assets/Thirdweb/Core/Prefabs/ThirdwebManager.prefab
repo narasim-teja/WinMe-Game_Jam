@@ -55,8 +55,8 @@ MonoBehaviour:
   - identifier: polygon
     chainId: 137
     rpcOverride: 
-  - identifier: mumbai
-    chainId: 80001
+  - identifier: polygon-amoy-testnet
+    chainId: 80002
     rpcOverride: 
   - identifier: fantom
     chainId: 250
@@ -82,6 +82,12 @@ MonoBehaviour:
   - identifier: binance-testnet
     chainId: 97
     rpcOverride: 
+  - identifier: xai
+    chainId: 660279
+    rpcOverride: 
+  - identifier: xai-sepolia
+    chainId: 37714555429
+    rpcOverride: 
   clientId: 
   initializeOnAwake: 1
   showDebugLogs: 1
@@ -97,13 +103,19 @@ MonoBehaviour:
   forwarderDomainOverride: 
   forwaderVersionOverride: 
   walletConnectProjectId: 
+  walletConnectEnableExplorer: 0
   walletConnectExplorerRecommendedWalletIds: []
+  walletConnectWalletImages: []
+  walletConnectDesktopWallets: []
+  walletConnectMobileWallets: []
+  walletConnectThemeMode: 
   factoryAddress: 
-  gasless: 0
-  deployOnSign: 0
+  gasless: 1
+  erc20PaymasterAddress: 
+  erc20TokenAddress: 
   bundlerUrl: 
   paymasterUrl: 
   entryPointAddress: 
   WalletConnectPrefab: {fileID: 3202619366221042887, guid: c8c0099339b6ef54f87b1f049c5eb74f, type: 3}
   MetamaskPrefab: {fileID: 3503421935870801903, guid: f09c6d17b08bed346bec9906a7f17092, type: 3}
-  EmbeddedWalletPrefab: {fileID: 3202619366221042887, guid: bef3cf6334b95f14883fb1b8095a0960, type: 3}
+  InAppWalletPrefab: {fileID: 3202619366221042887, guid: bef3cf6334b95f14883fb1b8095a0960, type: 3}
