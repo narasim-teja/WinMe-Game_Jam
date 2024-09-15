@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Mirror;
 using TMPro;
+using System;
 
 public class MainMenuUI : MonoBehaviour
 {
@@ -11,6 +12,11 @@ public class MainMenuUI : MonoBehaviour
     [SerializeField] private GameObject playerNameInputField;
     private string playerName;
 
+    void Start() {
+        #if UNITY_SERVER
+            StartServerButtonClicked();
+        #endif
+    }
     void Awake()
     {
         manager = GetComponent<NetworkManager>();
@@ -21,6 +27,7 @@ public class MainMenuUI : MonoBehaviour
             if (ushort.TryParse("localhost", out ushort port))
                 portTransport.Port = port;
         }
+
     }
 
     public void StartButtonClicked()
