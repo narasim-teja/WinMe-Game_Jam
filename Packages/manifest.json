@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "com.james-frowen.simplewebtransport": "2.1.1",
     "com.unity.cinemachine": "2.9.7",
     "com.unity.collab-proxy": "2.2.0",
     "com.unity.feature.development": "1.0.1",

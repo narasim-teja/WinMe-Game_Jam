@@ -5,11 +5,14 @@ using UnityEngine.UI;
 using Mirror;
 using TMPro;
 using System;
+using Unity.VisualScripting;
 
 public class MainMenuUI : MonoBehaviour
 {
     NetworkManager manager;
     [SerializeField] private GameObject playerNameInputField;
+    [SerializeField] private TMP_InputField IpInputField;
+    [SerializeField] private TMP_InputField portInputField;
     private string playerName;
 
     void Start() {
@@ -20,14 +23,6 @@ public class MainMenuUI : MonoBehaviour
     void Awake()
     {
         manager = GetComponent<NetworkManager>();
-        manager.networkAddress = "localhost";
-
-        if (Transport.active is PortTransport portTransport)
-        {
-            if (ushort.TryParse("localhost", out ushort port))
-                portTransport.Port = port;
-        }
-
     }
 
     public void StartButtonClicked()
@@ -36,6 +31,21 @@ public class MainMenuUI : MonoBehaviour
         {
             Debug.LogError("NetworkManager not found");
             return;
+        }
+        
+        manager.networkAddress = IpInputField.text.ToString() ;
+
+        if (Transport.active is PortTransport portTransport)
+        {
+            string portInput = portInputField.text.ToString() ;
+            if (ushort.TryParse(portInput, out ushort port))
+            {
+                portTransport.Port = port;
+            }
+            else
+            {
+                Debug.LogError("Invalid port number." + portInput+" "+port);
+            }
         }
 
         manager.StartClient();
