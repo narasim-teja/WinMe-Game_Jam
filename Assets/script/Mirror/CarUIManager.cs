@@ -96,14 +96,18 @@ public class CarUIManager : NetworkBehaviour
     public int coinCount;
 
     private EnableDisableCoin enableDisableCoin;
+    [SerializeField] AudioSource coinPickUpAudioSource;
 
     public override void OnStartServer()
     {
         base.OnStartServer();
         Debug.Log("!!!!!!!!!!!");
+        // carAudio = GameObject.FindGameObjectWithTag("Audio")
+        //     .GetComponent<AudioManager>();
+
         // StartCoroutine(WaitForConnectionAndSetEnableDisableCoin());
-        if(NetworkServer.active == true) Debug.Log("connected");
-        if(NetworkServer.active == false) Debug.Log("NOTconnected");
+        if (NetworkServer.active == true) Debug.Log("connected");
+        if (NetworkServer.active == false) Debug.Log("NOTconnected");
         setEnableDisableCoin();
     }
     // [Client]
@@ -135,6 +139,8 @@ public class CarUIManager : NetworkBehaviour
             if (coinManager != null && !coinManager.isPicked)
             {
                 // Local check for coin pickup, but actual logic will be handled by the server
+                // audioManager.PlaySFX(audioManager.coinPickUp);
+                coinPickUpAudioSource.Play();
                 CmdHandleCoinPickup(other.gameObject);
             }
         }
