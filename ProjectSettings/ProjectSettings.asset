@@ -857,11 +857,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 0
   windowsGamepadBackendHint: 0
-  cloudProjectId: 3c74589b-b9f2-42c0-88e9-7c927bfd15e3
+  cloudProjectId: 6adb0607-6bf0-47a2-a1ba-739def8260a4
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: Win-Me
-  organizationId: ayush273
+  projectName: Win-me
+  organizationId: ashwanikumar97531
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}
