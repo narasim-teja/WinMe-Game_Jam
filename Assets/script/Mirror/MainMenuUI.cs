@@ -6,6 +6,7 @@ using Mirror;
 using TMPro;
 using System;
 using Unity.VisualScripting;
+using UnityEditor;
 
 public class MainMenuUI : MonoBehaviour
 {
@@ -15,10 +16,19 @@ public class MainMenuUI : MonoBehaviour
     [SerializeField] private TMP_InputField portInputField;
     private string playerName;
 
+    // static Variable for Lobby System
+    public static string LobbyAssignedserverIp = null;
+    public static string LobbyAssignedserverPort = null;
+
     void Start() {
         #if UNITY_SERVER
             StartServerButtonClicked();
+        // #else
+        //     if(serverIp != null && serverPort != null){
+        //         StartButtonClicked();
+        //     }
         #endif
+        
     }
     void Awake()
     {
@@ -32,19 +42,21 @@ public class MainMenuUI : MonoBehaviour
             Debug.LogError("NetworkManager not found");
             return;
         }
-        
-        manager.networkAddress = IpInputField.text.ToString() ;
+
+        // For Lobby
+        if(LobbyAssignedserverIp != null) manager.networkAddress = LobbyAssignedserverIp;
+        else manager.networkAddress = IpInputField.text.ToString() ;
 
         if (Transport.active is PortTransport portTransport)
         {
-            string portInput = portInputField.text.ToString() ;
+            //For Lobby
+            string portInput;
+            if(LobbyAssignedserverPort != null) portInput = LobbyAssignedserverPort ;
+            else portInput = portInputField.text.ToString();
+            
             if (ushort.TryParse(portInput, out ushort port))
             {
                 portTransport.Port = port;
-            }
-            else
-            {
-                Debug.LogError("Invalid port number." + portInput+" "+port);
             }
         }
 
