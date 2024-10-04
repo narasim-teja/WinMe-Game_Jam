@@ -6,6 +6,25 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
 
+internal class ServerData
+{
+    public string ip;
+    public string port;
+    public bool isReady;
+    public ServerData(string ip, string port, bool isReady) { 
+        this.ip = ip;
+        this.port = port;
+        this.isReady = isReady;
+    }
+
+    public ServerData(bool isReady)
+    {
+        this.isReady = isReady;
+        ip = null;
+        port = null;
+    }
+}
+
 public class DeployData
 {
     public string app_name;
@@ -21,10 +40,12 @@ public class DeployData
 
 internal class DeployApi 
 {
-    private string token = "";
+    private string token = "token c22c8a31-8b3c-4f81-b778-b27e0d5f8027";
 
     private string deployServerUrl = "https://api.edgegap.com/v1/deploy";
     private string serverStatusUrl = "https://api.edgegap.com/v1/status/";
+
+    private string userIpAddress;
 
     private static readonly Lazy<DeployApi> _instance = new Lazy<DeployApi>(() => new DeployApi());
 
@@ -75,7 +96,7 @@ internal class DeployApi
         }
     }
 
-    public async Task<List<string>> IsServerDeployed(string request_id)
+    public async Task<ServerData> IsServerDeployed(string request_id)
     {
         using (UnityWebRequest webRequest = UnityWebRequest.Get(serverStatusUrl + request_id))
         {
@@ -98,9 +119,9 @@ internal class DeployApi
 
                 string current_status = jsonDict["current_status"].ToString();
                 Debug.Log($"current status: {current_status}");
-                if (current_status == "Status.DEPLOYING")
+                if (current_status == "Status.TERMINATED" || current_status == "Status.ERROR")
                 {
-                    return new List<string>();
+                    return null;
                 }
                 else if (current_status == "Status.READY")
                 {
@@ -108,11 +129,11 @@ internal class DeployApi
                     var ports = jsonDict["ports"] as Newtonsoft.Json.Linq.JObject;
                     var gamePorts = ports["Game Port"] as Newtonsoft.Json.Linq.JObject;
                     string port = gamePorts["external"].ToString();
-                    return new List<string> { ip, port };
+                    return new ServerData(ip,port, true);
                 }
                 else
                 {
-                    return null;
+                    return new ServerData(false);
                 }
             }
         }
@@ -139,6 +160,41 @@ internal class DeployApi
                 string current_ip = jsonDict["ip"].ToString();
                 return current_ip;
             }
+        }
+    }
+
+    public async Task<ServerData> CreateNewServer()
+    {
+        userIpAddress = await GetPublicIp();
+        List<string> ip_list = new List<string> { userIpAddress };
+        string requestId = await DeployServer(ip_list);
+        Debug.Log(userIpAddress);
+        if (requestId != null)
+        {
+            ServerData serverData;
+            while (true)
+            {
+                //await Task.Delay(1000);
+                //Debug.Log("hello2");
+                serverData = await IsServerDeployed(requestId);
+                if (serverData == null)
+                {
+                    //Debug.Log("request failed");
+                    return null;
+                }
+                else if (serverData.isReady)
+                {
+                    //Debug.Log("Deployed");
+                    //break;
+                    return serverData;
+                }
+            }
+            //CreateLobby("first Lobby", false, 2, serverAddress[0], serverAddress[1]);
+        }
+        else
+        {
+            Debug.Log("request failed");
+            return null;
         }
     }
 }

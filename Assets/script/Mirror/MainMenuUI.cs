@@ -41,18 +41,23 @@ public class MainMenuUI : MonoBehaviour
     }
 
     private Lobby joinedLobby;
-    private float heartbeatTimer;
-    private string publicIpAddress;
+    [SerializeField] private TMP_Text lobbyCodeText;
+    [SerializeField] private GameObject lobbyCodeInputField;
+    private string lobbyCode;
 
-    void Start() {
-        //#if UNITY_SERVER
-        //    StartServerButtonClicked();
-        //#endif
+    private float heartbeatTimer;
+    private ServerData serverData;
+
+    void Start()
+    {
+#if UNITY_SERVER
+        StartServerButtonClicked();
+#endif
     }
     void Awake()
     {
         manager = GetComponent<NetworkManager>();
-        transport = GetComponent<SimpleWebTransport>();
+        //transport = GetComponent<SimpleWebTransport>();
 
         if (Transport.active is PortTransport portTransport)
         {
@@ -60,14 +65,14 @@ public class MainMenuUI : MonoBehaviour
                 portTransport.Port = port;
         }
 
-        InitializeUnityAuthentication();
+        //InitializeUnityAuthentication();
 
     }
 
-    private void Update()
-    {
-        HandleHeartbeat();
-    }
+    //private void Update()
+    //{
+    //    HandleHeartbeat();
+    //}
 
 
     private void HandleHeartbeat()
@@ -211,34 +216,14 @@ public class MainMenuUI : MonoBehaviour
             if(e.Reason == LobbyExceptionReason.NoOpenLobbies)
             {
                 //Debug.Log("no open lobbies");
-                publicIpAddress = await DeployApi.Instance.GetPublicIp();
-                List<string> ip_list = new List<string> { publicIpAddress };
-                string requestId = await DeployApi.Instance.DeployServer(ip_list);
-                Debug.Log(publicIpAddress);
-                if (requestId != null)
+                serverData = await DeployApi.Instance.CreateNewServer();
+                if (serverData == null || !serverData.isReady)
                 {
-                    List<string> serverAddress;
-                    while (true)
-                    {
-                        //await Task.Delay(1000);
-                        //Debug.Log("hello2");
-                        serverAddress = await DeployApi.Instance.IsServerDeployed(requestId);
-                        if (serverAddress == null)
-                        {
-                            //Debug.Log("request failed");
-                            return;
-                        }
-                        else if (serverAddress.Count > 0)
-                        {
-                            //Debug.Log("Deployed");
-                            break;
-                        }
-                    }
-                    CreateLobby("first Lobby", false, 2, serverAddress[0], serverAddress[1]);
+                    Debug.Log("server creation failed.");
                 }
                 else
                 {
-                    Debug.Log("request failed");
+                    CreateLobby("first Lobby", false, 2,serverData.ip, serverData.port);
                 }
                 //CreateLobby("first Lobby", false, 2, "abcd", "port 222");
             }
@@ -266,11 +251,11 @@ public class MainMenuUI : MonoBehaviour
             {
                 lobbyList = queryResponse.Results
             });
-            //Debug.Log($"lobbies number: {queryResponse.Results.Count}");
-            //foreach (var lob in queryResponse.Results)
-            //{
-            //    Debug.Log($"id: {lob.Id}, name: {lob.Name}, host id: {lob.HostId}");
-            //}
+            Debug.Log($"lobbies number: {queryResponse.Results.Count}");
+            foreach (var lob in queryResponse.Results)
+            {
+                Debug.Log($"id: {lob.Id}, name: {lob.Name}, host id: {lob.HostId}");
+            }
         }
         catch (LobbyServiceException e)
         {
@@ -278,6 +263,38 @@ public class MainMenuUI : MonoBehaviour
         }
     }
 
+    public async void CreatePrivateLobby()
+    {
+        serverData = await DeployApi.Instance.CreateNewServer();
+        if (serverData == null || !serverData.isReady)
+        {
+            Debug.Log("server creation failed.");
+        }
+        else
+        {
+            CreateLobby("first Lobby", true, 2, serverData.ip, serverData.port);
+        }
+    }
+
+    public async void JoinLobby()
+    { 
+        lobbyCode = lobbyCodeInputField.GetComponent<TMP_InputField>().text.ToString();
+        OnJoinStarted?.Invoke(this, EventArgs.Empty);
+        try
+        {
+            joinedLobby = await LobbyService.Instance.JoinLobbyByCodeAsync(lobbyCode);
+            string serverIP = joinedLobby.Data[SERVER_IP].Value;
+            string serverPort = joinedLobby.Data[SERVER_PORT].Value;
+
+            StartGame(serverIP, serverPort);
+            Debug.Log($"lobby code: {joinedLobby.LobbyCode}, lobby name: {joinedLobby.Name}, lobby id: {joinedLobby.Id}, serverip: {serverIP}, serverport: {serverPort}");
+        }
+        catch(LobbyServiceException e)
+        {
+            lobbyCode = null;
+            Debug.Log(e.Message);
+        }
+    }
 
     public async void CreateLobby(string lobbyName, bool isPrivate, int maxPlayers, string serverIP, string serverPort)
     {
@@ -300,14 +317,17 @@ public class MainMenuUI : MonoBehaviour
                     },
                 }
             });
+            lobbyCodeText.text = $"Code: {joinedLobby.LobbyCode}";
             StartGame(serverIP, serverPort);
 
             //Debug.Log($"id: {joinedLobby.Id}, name: {joinedLobby.Name}, host id: {joinedLobby.HostId}, serverip: {serverIP}, serverPort{serverPort}");
+            Debug.Log($"id: {joinedLobby.Id}, name: {joinedLobby.Name}, host id: {joinedLobby.HostId}, lobby code: {joinedLobby.LobbyCode}");
         }
         catch (LobbyServiceException e)
         {
             Debug.Log(e);
             OnCreateLobbyFailed?.Invoke(this, EventArgs.Empty);
+            joinedLobby = null;
         }
     }
 
