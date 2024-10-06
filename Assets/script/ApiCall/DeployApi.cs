@@ -21,7 +21,7 @@ public class DeployData
 
 internal class DeployApi 
 {
-    private string token = "";
+    private string token = "token 1437094f-86a6-4d5c-9c08-fa35b289cb38";
 
     private string deployServerUrl = "https://api.edgegap.com/v1/deploy";
     private string serverStatusUrl = "https://api.edgegap.com/v1/status/";
@@ -40,7 +40,7 @@ internal class DeployApi
 
     public async Task<string> DeployServer(List<string> ip_list)
     {
-        DeployData data = new DeployData("winme2", "latest", ip_list);
+        DeployData data = new DeployData("winme-ays1", "v3", ip_list);
         string jsonData = JsonUtility.ToJson(data);
 
         using (UnityWebRequest webRequest = new UnityWebRequest(deployServerUrl, "POST"))

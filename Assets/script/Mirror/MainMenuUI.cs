@@ -44,10 +44,15 @@ public class MainMenuUI : MonoBehaviour
     private float heartbeatTimer;
     private string publicIpAddress;
 
-    void Start() {
-        //#if UNITY_SERVER
-        //    StartServerButtonClicked();
-        //#endif
+    async void Start() {
+        #if UNITY_SERVER
+           StartServerButtonClicked();
+        #else
+            await UnityServices.InitializeAsync();
+            Debug.Log("ggggg00f00");
+            await AuthenticationService.Instance.SignInAnonymouslyAsync();
+            Debug.Log("ggggg1111");
+        #endif
     }
     void Awake()
     {
@@ -60,7 +65,7 @@ public class MainMenuUI : MonoBehaviour
                 portTransport.Port = port;
         }
 
-        InitializeUnityAuthentication();
+        // InitializeUnityAuthentication();
 
     }
 
@@ -86,19 +91,20 @@ public class MainMenuUI : MonoBehaviour
         }
     }
 
-    private async void InitializeUnityAuthentication()
-    {
-        if (UnityServices.State != ServicesInitializationState.Initialized)
-        {
-            InitializationOptions initializationOptions = new InitializationOptions();
-            initializationOptions.SetProfile(Guid.NewGuid().ToString()[..8]);
-            //initializationOptions.SetProfile(UnityEngine.Random.Range(0, 10000).ToString());
+    // private async void InitializeUnityAuthentication()
+    // {
+    //     if (UnityServices.State != ServicesInitializationState.Initialized)
+    //     {
+    //         // InitializationOptions initializationOptions = new InitializationOptions();
+    //         // initializationOptions.SetProfile(Guid.NewGuid().ToString()[..8]);
 
-            await UnityServices.InitializeAsync(initializationOptions);
+    //         // initializationOptions.SetProfile(UnityEngine.Random.Range(0, 10000).ToString());
 
-            await AuthenticationService.Instance.SignInAnonymouslyAsync();
-        }
-    }
+    //         // await UnityServices.InitializeAsync(initializationOptions);
+    //         await UnityServices.InitializeAsync();
+    //         await AuthenticationService.Instance.SignInAnonymouslyAsync();
+    //     }
+    // }
 
     public void StartButtonClicked()
     {
@@ -174,7 +180,7 @@ public class MainMenuUI : MonoBehaviour
                 Debug.LogError("NetworkManager not found");
                 return;
             }
-
+            
             manager.StartServer();
 
             Debug.Log("Server Started");
@@ -196,6 +202,7 @@ public class MainMenuUI : MonoBehaviour
     public async void QuickJoinPressed()
     {
         OnJoinStarted?.Invoke(this, EventArgs.Empty);
+
         try
         {
             joinedLobby = await LobbyService.Instance.QuickJoinLobbyAsync();
@@ -207,10 +214,10 @@ public class MainMenuUI : MonoBehaviour
         }
         catch (LobbyServiceException e)
         {
-            //Debug.Log(e);
+            Debug.Log(e);
             if(e.Reason == LobbyExceptionReason.NoOpenLobbies)
             {
-                //Debug.Log("no open lobbies");
+                Debug.Log("ggggggg no open lobbies");
                 publicIpAddress = await DeployApi.Instance.GetPublicIp();
                 List<string> ip_list = new List<string> { publicIpAddress };
                 string requestId = await DeployApi.Instance.DeployServer(ip_list);
@@ -234,7 +241,7 @@ public class MainMenuUI : MonoBehaviour
                             break;
                         }
                     }
-                    CreateLobby("first Lobby", false, 2, serverAddress[0], serverAddress[1]);
+                    // CreateLobby("first Lobby", false, 2, serverAddress[0], serverAddress[1]);
                 }
                 else
                 {
@@ -281,6 +288,7 @@ public class MainMenuUI : MonoBehaviour
 
     public async void CreateLobby(string lobbyName, bool isPrivate, int maxPlayers, string serverIP, string serverPort)
     {
+        Debug.Log("ggggg11121");
         OnCreateLobbyStarted?.Invoke(this, EventArgs.Empty);
         try
         {
@@ -300,6 +308,7 @@ public class MainMenuUI : MonoBehaviour
                     },
                 }
             });
+            Debug.Log("ggggg111212222");
             StartGame(serverIP, serverPort);
 
             //Debug.Log($"id: {joinedLobby.Id}, name: {joinedLobby.Name}, host id: {joinedLobby.HostId}, serverip: {serverIP}, serverPort{serverPort}");
