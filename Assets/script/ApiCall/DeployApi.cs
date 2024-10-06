@@ -40,7 +40,7 @@ internal class DeployApi
 
     public async Task<string> DeployServer(List<string> ip_list)
     {
-        DeployData data = new DeployData("winme-ays1", "v3", ip_list);
+        DeployData data = new DeployData("winme-ays1", "v4", ip_list);
         string jsonData = JsonUtility.ToJson(data);
 
         using (UnityWebRequest webRequest = new UnityWebRequest(deployServerUrl, "POST"))

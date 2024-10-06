@@ -49,9 +49,7 @@ public class MainMenuUI : MonoBehaviour
            StartServerButtonClicked();
         #else
             await UnityServices.InitializeAsync();
-            Debug.Log("ggggg00f00");
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
-            Debug.Log("ggggg1111");
         #endif
     }
     void Awake()
@@ -217,7 +215,6 @@ public class MainMenuUI : MonoBehaviour
             Debug.Log(e);
             if(e.Reason == LobbyExceptionReason.NoOpenLobbies)
             {
-                Debug.Log("ggggggg no open lobbies");
                 publicIpAddress = await DeployApi.Instance.GetPublicIp();
                 List<string> ip_list = new List<string> { publicIpAddress };
                 string requestId = await DeployApi.Instance.DeployServer(ip_list);
@@ -241,7 +238,7 @@ public class MainMenuUI : MonoBehaviour
                             break;
                         }
                     }
-                    // CreateLobby("first Lobby", false, 2, serverAddress[0], serverAddress[1]);
+                    CreateLobby("first Lobby", false, 2, serverAddress[0], serverAddress[1]);
                 }
                 else
                 {
@@ -288,7 +285,6 @@ public class MainMenuUI : MonoBehaviour
 
     public async void CreateLobby(string lobbyName, bool isPrivate, int maxPlayers, string serverIP, string serverPort)
     {
-        Debug.Log("ggggg11121");
         OnCreateLobbyStarted?.Invoke(this, EventArgs.Empty);
         try
         {
@@ -308,7 +304,6 @@ public class MainMenuUI : MonoBehaviour
                     },
                 }
             });
-            Debug.Log("ggggg111212222");
             StartGame(serverIP, serverPort);
 
             //Debug.Log($"id: {joinedLobby.Id}, name: {joinedLobby.Name}, host id: {joinedLobby.HostId}, serverip: {serverIP}, serverPort{serverPort}");
