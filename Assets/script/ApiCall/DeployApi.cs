@@ -28,22 +28,23 @@ internal class ServerData
 public class DeployData
 {
     public string app_name;
-    public string version;
+    public string version_name;
     public List<string> ip_list;
 
-    public DeployData(string app_name, string version, List<string> ip_list) { 
+    public DeployData(string app_name, string version_name, List<string> ip_list) { 
         this.app_name = app_name;
-        this.version = version;
+        this.version_name = version_name;
         this.ip_list = ip_list;
     }
 }
 
 internal class DeployApi 
 {
-    private string token = "token c22c8a31-8b3c-4f81-b778-b27e0d5f8027";
+    private readonly string token = "token c22c8a31-8b3c-4f81-b778-b27e0d5f8027";
 
-    private string deployServerUrl = "https://api.edgegap.com/v1/deploy";
-    private string serverStatusUrl = "https://api.edgegap.com/v1/status/";
+    private readonly string deployServerUrl = "https://api.edgegap.com/v1/deploy";
+    private readonly string serverStatusUrl = "https://api.edgegap.com/v1/status";
+    private readonly string stopServerUrl = "https://api.edgegap.com/v1/stop";
 
     private string userIpAddress;
 
@@ -61,8 +62,9 @@ internal class DeployApi
 
     public async Task<string> DeployServer(List<string> ip_list)
     {
-        DeployData data = new DeployData("winme2", "latest", ip_list);
+        DeployData data = new DeployData("winmetest", "latest", ip_list);
         string jsonData = JsonUtility.ToJson(data);
+        Debug.Log(jsonData);
 
         using (UnityWebRequest webRequest = new UnityWebRequest(deployServerUrl, "POST"))
         {
@@ -98,7 +100,7 @@ internal class DeployApi
 
     public async Task<ServerData> IsServerDeployed(string request_id)
     {
-        using (UnityWebRequest webRequest = UnityWebRequest.Get(serverStatusUrl + request_id))
+        using (UnityWebRequest webRequest = UnityWebRequest.Get($"{serverStatusUrl}/{request_id}"))
         {
             webRequest.SetRequestHeader("Authorization", token);
             var operation = webRequest.SendWebRequest();
@@ -195,6 +197,27 @@ internal class DeployApi
         {
             Debug.Log("request failed");
             return null;
+        }
+    }
+
+    public async Task<bool> StopServer(string request_id)
+    {
+        using (UnityWebRequest webRequest = UnityWebRequest.Get($"{stopServerUrl}/{request_id}"))
+        {
+            webRequest.SetRequestHeader("Authorization", token);
+            var operation = webRequest.SendWebRequest();
+            while (!operation.isDone)
+                await Task.Yield();
+            if (webRequest.result == UnityWebRequest.Result.Success)
+            {
+                Debug.Log("Delete request successful!");
+                return true;
+            }
+            else
+            {
+                Debug.LogError("Error in DELETE request: " + webRequest.error);
+                return false;
+            }
         }
     }
 }

@@ -145,7 +145,12 @@ public class PlayerManager : NetworkBehaviour
     private void DisableWaitingRoomCanvas()
     {
         GameObject networkManager = GameObject.Find("NetworkManager").gameObject;
-        Transform firstChild = networkManager.transform.GetChild(0);
-        firstChild.gameObject.SetActive(false);
+        Transform mainMenuCanvas = networkManager.transform.GetChild(0);
+
+        Transform mainPanel = mainMenuCanvas.transform.GetChild(0);
+        mainPanel.gameObject.SetActive(false);
+        Transform lobbyPanel = mainMenuCanvas.transform.GetChild(2);
+        lobbyPanel.gameObject.SetActive(true);
+        //firstChild.gameObject.SetActive(false);
     }
 }
