@@ -13,13 +13,14 @@ using Unity.Services.Core;
 using Unity.Services.Authentication;
 using System.Threading.Tasks;
 using Mirror.SimpleWeb;
+using Unity.Netcode;
 
 public class MainMenuUI : MonoBehaviour
 {
     private const string SERVER_IP = "serverIP";
     private const string SERVER_PORT = "serverPort";
 
-    NetworkManager manager;
+    Mirror.NetworkManager manager;
     SimpleWebTransport transport;
 
     [SerializeField]
@@ -50,13 +51,25 @@ public class MainMenuUI : MonoBehaviour
 
     void Start()
     {
-#if UNITY_SERVER
-        StartServerButtonClicked();
-#endif
+        #if UNITY_SERVER
+            string[] args = System.Environment.GetCommandLineArgs();
+            if (args.Length > 1 && args[1] == "game-server"){
+                print("yesss");
+                print(args[1]);
+                Debug.Log("eettetetete");
+            }
+            //     StartGameServerButtonClicked();
+            // }
+            // else{ 
+            //     StartMainServerButtonClicked();
+            // }
+            StartGameServerButtonClicked();
+        #endif
+
     }
     void Awake()
     {
-        manager = GetComponent<NetworkManager>();
+        manager = GetComponent<Mirror.NetworkManager>();
         //transport = GetComponent<SimpleWebTransport>();
 
         if (Transport.active is PortTransport portTransport)
@@ -65,7 +78,7 @@ public class MainMenuUI : MonoBehaviour
                 portTransport.Port = port;
         }
 
-        //InitializeUnityAuthentication();
+        InitializeUnityAuthentication(); 
 
     }
 
@@ -155,22 +168,25 @@ public class MainMenuUI : MonoBehaviour
 
         //     // NetworkClient.AddPlayer();
         // }
-        while (NetworkClient.localPlayer == null)   
+        while (Mirror.NetworkClient.localPlayer == null)   
         {
             Debug.Log("Waiting for local player...");
             yield return null;
         }
         canvasCamera.SetActive(false);
 
-        PlayerManager localPlayer = NetworkClient.localPlayer.GetComponent<PlayerManager>();
+        PlayerManager localPlayer = Mirror.NetworkClient.localPlayer.GetComponent<PlayerManager>();
         playerName = playerNameInputField.GetComponent<TMP_InputField>().text.ToString();
         
         localPlayer.SetPlayerName(playerName);
     }
 
-    public void StartServerButtonClicked()
+    public void StartMainServerButtonClicked(){
+
+    }
+    public void StartGameServerButtonClicked()
     {
-        if (!NetworkClient.active)
+        if (!Mirror.NetworkClient.active)
         {
             Debug.Log("Start Server Button Clicked");
 
@@ -198,6 +214,7 @@ public class MainMenuUI : MonoBehaviour
         return joinedLobby != null && joinedLobby.HostId == AuthenticationService.Instance.PlayerId;
     }
 
+    // [ServerRpc]
     public async void QuickJoinPressed()
     {
         OnJoinStarted?.Invoke(this, EventArgs.Empty);

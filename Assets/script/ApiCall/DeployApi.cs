@@ -2,6 +2,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -28,19 +29,21 @@ internal class ServerData
 public class DeployData
 {
     public string app_name;
-    public string version;
+    public string version_name;
     public List<string> ip_list;
+    public List<string> arguments;
 
-    public DeployData(string app_name, string version, List<string> ip_list) { 
+    public DeployData(string app_name, string version_name, List<string> ip_list, List<string> arguments) { 
         this.app_name = app_name;
-        this.version = version;
+        this.version_name = version_name;
         this.ip_list = ip_list;
+        this.arguments = arguments;
     }
 }
 
 internal class DeployApi 
 {
-    private string token = "token c22c8a31-8b3c-4f81-b778-b27e0d5f8027";
+    private string token = "token 1437094f-86a6-4d5c-9c08-fa35b289cb38";
 
     private string deployServerUrl = "https://api.edgegap.com/v1/deploy";
     private string serverStatusUrl = "https://api.edgegap.com/v1/status/";
@@ -61,8 +64,13 @@ internal class DeployApi
 
     public async Task<string> DeployServer(List<string> ip_list)
     {
-        DeployData data = new DeployData("winme2", "latest", ip_list);
+        List<string> args = new List<string>();
+        args.Add("--game-server");
+        
+        DeployData data = new DeployData("winme-test", "v1", ip_list , args);
         string jsonData = JsonUtility.ToJson(data);
+
+        Debug.Log(jsonData);
 
         using (UnityWebRequest webRequest = new UnityWebRequest(deployServerUrl, "POST"))
         {
