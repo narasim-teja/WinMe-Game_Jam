@@ -53,7 +53,10 @@ public class MainMenuUI : MonoBehaviour
     {
         #if UNITY_SERVER
             string[] args = System.Environment.GetCommandLineArgs();
-            if (args.Length > 1 && args[1] == "game-server"){
+            print("!!!!!!!!!!!!1234");
+            Debug.Log("!!!!!!!!!!!!1234");
+            print(args);
+            if (args.Length > 1 && args[1] == "--game-server"){
                 print("yesss");
                 print(args[1]);
                 Debug.Log("eettetetete");
@@ -63,6 +66,7 @@ public class MainMenuUI : MonoBehaviour
             // else{ 
             //     StartMainServerButtonClicked();
             // }
+            // InitializeUnityAuthentication();
             StartGameServerButtonClicked();
         #endif
 
@@ -70,7 +74,7 @@ public class MainMenuUI : MonoBehaviour
     void Awake()
     {
         manager = GetComponent<Mirror.NetworkManager>();
-        //transport = GetComponent<SimpleWebTransport>();
+        transport = GetComponent<SimpleWebTransport>();
 
         if (Transport.active is PortTransport portTransport)
         {

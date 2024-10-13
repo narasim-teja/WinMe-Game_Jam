@@ -31,19 +31,21 @@ public class DeployData
     public string app_name;
     public string version_name;
     public List<string> ip_list;
-    public List<string> arguments;
+    public List<string> tags;
+    public string arguments;
 
-    public DeployData(string app_name, string version_name, List<string> ip_list, List<string> arguments) { 
+    public DeployData(string app_name, string version_name, List<string> ip_list,List<string> tags , string arguments) { 
         this.app_name = app_name;
         this.version_name = version_name;
         this.ip_list = ip_list;
+        this.tags = tags;
         this.arguments = arguments;
     }
 }
 
 internal class DeployApi 
 {
-    private string token = "token 1437094f-86a6-4d5c-9c08-fa35b289cb38";
+    private string token = "token 9503ff36-72d9-4cd6-9e8c-91deece9e8d4";
 
     private string deployServerUrl = "https://api.edgegap.com/v1/deploy";
     private string serverStatusUrl = "https://api.edgegap.com/v1/status/";
@@ -64,10 +66,12 @@ internal class DeployApi
 
     public async Task<string> DeployServer(List<string> ip_list)
     {
-        List<string> args = new List<string>();
-        args.Add("--game-server");
+        List<string> tags = new List<string>();
+        tags.Add("game-server");
+
+        string args = "--game-server";
         
-        DeployData data = new DeployData("winme-test", "v1", ip_list , args);
+        DeployData data = new DeployData("winme3", "v1", ip_list, tags,args);
         string jsonData = JsonUtility.ToJson(data);
 
         Debug.Log(jsonData);
