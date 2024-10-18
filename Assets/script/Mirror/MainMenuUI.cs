@@ -45,6 +45,9 @@ public class MainMenuUI : MonoBehaviour
     [SerializeField] private GameObject lobbyCodeInputField;
     private string lobbyCode;
 
+    [SerializeField]
+    test testing;
+
     private float heartbeatTimer;
     private ServerData serverData;
 
@@ -69,14 +72,14 @@ public class MainMenuUI : MonoBehaviour
                 portTransport.Port = port;
         }
 
-        InitializeUnityAuthentication();
+        //InitializeUnityAuthentication();
 
     }
 
-    private void Update()
-    {
-        HandleHeartbeat();
-    }
+    //private void Update()
+    //{
+    //    HandleHeartbeat();
+    //}
 
 
     private void HandleHeartbeat()
@@ -169,10 +172,16 @@ public class MainMenuUI : MonoBehaviour
         PlayerManager localPlayer = NetworkClient.localPlayer.GetComponent<PlayerManager>();
         playerName = playerNameInputField.GetComponent<TMP_InputField>().text.ToString();
         
+
         localPlayer.SetPlayerName(playerName);
+        Debug.Log($"Request id old: {DeployApi.Instance.GetRequestId()}");
+        DeployApi.Instance.SetRequestID("e28bab1a670f");
+        Debug.Log($"Request id new: {DeployApi.Instance.GetRequestId()}");
+
+        localPlayer.SetRequestID(DeployApi.Instance.GetRequestId());
     }
 
-    public void StartServerButtonClicked()
+    public async void StartServerButtonClicked()
     {
         if (!NetworkClient.active)
         {
@@ -191,12 +200,27 @@ public class MainMenuUI : MonoBehaviour
             {
                 Debug.Log(portTransport.Port);
             }
+            //List<string> ls = new List<string> { "223.185.130.199" };
+            ////await DeployApi.Instance.DeployServer(ls);
+            //await DeployApi.Instance.DeployServerHttp(ls);
+            Debug.Log("kdkakd");
+            string ip = await DeployApi.Instance.GetPublicIp();
+            Debug.Log($"{ip}");
+            Debug.Log("ads");
+
+            //string ip = await testing.GetPublicIp();
+            //Debug.Log($"{ip}");
         }
     }
     #endregion
 
     #region Lobby Functions
 
+    public async void Test()
+    {
+        DeployApi.Instance.SetRequestID("60172edd1814");
+        await DeployApi.Instance.StopServer();
+    }
     private bool IsLobbyHost()
     {
         return joinedLobby != null && joinedLobby.HostId == AuthenticationService.Instance.PlayerId;

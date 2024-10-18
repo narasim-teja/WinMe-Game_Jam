@@ -2,6 +2,8 @@ using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -11,10 +13,13 @@ internal class ServerData
     public string ip;
     public string port;
     public bool isReady;
-    public ServerData(string ip, string port, bool isReady) { 
+
+    public string request_id;
+    public ServerData(string ip, string port, bool isReady, string request_id) { 
         this.ip = ip;
         this.port = port;
         this.isReady = isReady;
+        this.request_id = request_id;
     }
 
     public ServerData(bool isReady)
@@ -40,13 +45,17 @@ public class DeployData
 
 internal class DeployApi 
 {
-    private readonly string token = "token c22c8a31-8b3c-4f81-b778-b27e0d5f8027";
+    private readonly string token = "token c7ed741e-582b-42d4-9099-51c260baaf86";
+
+    private string request_id;
 
     private readonly string deployServerUrl = "https://api.edgegap.com/v1/deploy";
     private readonly string serverStatusUrl = "https://api.edgegap.com/v1/status";
     private readonly string stopServerUrl = "https://api.edgegap.com/v1/stop";
 
     private string userIpAddress;
+
+    private readonly HttpClient client = new();
 
     private static readonly Lazy<DeployApi> _instance = new Lazy<DeployApi>(() => new DeployApi());
 
@@ -60,9 +69,24 @@ internal class DeployApi
 
     private DeployApi() { }
 
+    #region Getter Setter
+
+    public string GetRequestId()
+    {
+        return request_id;
+    }
+    public void SetRequestID(string request_id)
+    {
+        if(this.request_id == null){
+            this.request_id = request_id;
+        }
+        Debug.Log($"deploy api class: {this.request_id}, is null: {this.request_id == null}");
+    }
+    #endregion
+
     public async Task<string> DeployServer(List<string> ip_list)
     {
-        DeployData data = new DeployData("winmetest", "latest", ip_list);
+        DeployData data = new DeployData("winmeash", "v1", ip_list);
         string jsonData = JsonUtility.ToJson(data);
         Debug.Log(jsonData);
 
@@ -131,7 +155,9 @@ internal class DeployApi
                     var ports = jsonDict["ports"] as Newtonsoft.Json.Linq.JObject;
                     var gamePorts = ports["Game Port"] as Newtonsoft.Json.Linq.JObject;
                     string port = gamePorts["external"].ToString();
-                    return new ServerData(ip,port, true);
+
+                    this.request_id = request_id;
+                    return new ServerData(ip,port, true, request_id);
                 }
                 else
                 {
@@ -143,19 +169,25 @@ internal class DeployApi
 
     public async Task<string> GetPublicIp()
     {
+        Debug.Log("dsad");
         using(UnityWebRequest webRequest = UnityWebRequest.Get("https://api.ipify.org?format=json"))
         {
+            Debug.Log("dasd1");
             var operation = webRequest.SendWebRequest();
+            Debug.Log("dsa2");
             while (!operation.isDone)
                 await Task.Yield();
+            Debug.Log("dsa3");
 
             if (webRequest.result == UnityWebRequest.Result.ConnectionError || webRequest.result == UnityWebRequest.Result.ProtocolError)
             {
+                Debug.Log("dsa4");
                 Debug.LogError("Error: " + webRequest.error);
                 return null;
             }
             else
             {
+                Debug.Log("dsa5");
                 // Parse the JSON response to get the IP address
                 string jsonResponse = webRequest.downloadHandler.text;
                 Dictionary<string, object> jsonDict = JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonResponse);
@@ -200,9 +232,10 @@ internal class DeployApi
         }
     }
 
-    public async Task<bool> StopServer(string request_id)
+    public async Task<bool> StopServer()
     {
-        using (UnityWebRequest webRequest = UnityWebRequest.Get($"{stopServerUrl}/{request_id}"))
+        Debug.Log($"stop server: {request_id}");
+        using (UnityWebRequest webRequest = UnityWebRequest.Delete($"{stopServerUrl}/{request_id}"))
         {
             webRequest.SetRequestHeader("Authorization", token);
             var operation = webRequest.SendWebRequest();
@@ -218,6 +251,44 @@ internal class DeployApi
                 Debug.LogError("Error in DELETE request: " + webRequest.error);
                 return false;
             }
+        }
+    }
+
+    public async Task DeployServerHttp(List<string> ip_list)
+    {
+        try
+        {
+
+            DeployData data = new DeployData("winmeash", "v1", ip_list);
+            string jsonData = JsonUtility.ToJson(data);
+            Debug.Log(jsonData);
+            var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+
+            Debug.Log("abc 1");
+
+            client.DefaultRequestHeaders.Add("Authorization", token);
+            Debug.Log("abc 2");
+            // Send the POST request asynchronously
+            HttpResponseMessage response = await client.PostAsync(deployServerUrl, content);
+            Debug.Log("abc 3");
+
+            // Check the response status and log it
+            if (response.IsSuccessStatusCode)
+            {
+                Debug.Log("abc 4");
+                string responseBody = await response.Content.ReadAsStringAsync();
+                Debug.Log("Request successful! Response: " + responseBody);
+            }
+            else
+            {
+                Debug.Log("abc 5");
+                Debug.LogError("Error in API request: " + response.StatusCode);
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.Log("abc 6");
+            Debug.LogError("Exception occurred: " + ex.Message);
         }
     }
 }

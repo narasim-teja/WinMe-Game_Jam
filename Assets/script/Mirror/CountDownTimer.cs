@@ -37,7 +37,14 @@ public class CountDownTimer : NetworkBehaviour
         {
             CancelInvoke(nameof(UpdateTimer));
             StopClients();
+            StopServer();
         }
+    }
+
+    [ServerCallback]
+    async void StopServer()
+    {
+        await DeployApi.Instance.StopServer();
     }
 
     [ClientRpc]
