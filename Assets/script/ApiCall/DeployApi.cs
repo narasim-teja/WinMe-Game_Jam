@@ -40,7 +40,7 @@ public class DeployData
 
 internal class DeployApi 
 {
-    private string token = "token c22c8a31-8b3c-4f81-b778-b27e0d5f8027";
+    private string token = "token 1437094f-86a6-4d5c-9c08-fa35b289cb38";
 
     private string deployServerUrl = "https://api.edgegap.com/v1/deploy";
     private string serverStatusUrl = "https://api.edgegap.com/v1/status/";

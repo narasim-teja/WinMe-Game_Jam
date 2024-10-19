@@ -50,9 +50,9 @@ public class MainMenuUI : MonoBehaviour
 
     void Start()
     {
-#if UNITY_SERVER
-        StartServerButtonClicked();
-#endif
+        #if UNITY_SERVER
+                StartServerButtonClicked();
+        #endif
     }
     void Awake()
     {
@@ -187,7 +187,10 @@ public class MainMenuUI : MonoBehaviour
             {
                 Debug.Log(portTransport.Port);
             }
+            InitializeUnityAuthentication();
+            QuickJoinPressed();
         }
+
     }
     #endregion
 
