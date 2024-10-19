@@ -1,5 +1,16 @@
 {
   "dependencies": {
+    "com.edgegap.unity-servers-plugin": {
+      "version": "https://github.com/edgegap/edgegap-unity-plugin.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.nuget.newtonsoft-json": "3.2.1",
+        "com.unity.toolchain.win-x86_64-linux-x86_64": "2.0.6",
+        "com.unity.modules.uielements": "1.0.0"
+      },
+      "hash": "c143cf568737a01fabd9dd91a08791bb03fc11c4"
+    },
     "com.james-frowen.simplewebtransport": {
       "version": "2.1.1",
       "depth": 0,

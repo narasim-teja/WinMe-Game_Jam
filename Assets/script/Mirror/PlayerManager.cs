@@ -104,17 +104,6 @@ public class PlayerManager : NetworkBehaviour
     }
 
     [Command]
-    private void CmdSetupServerRequestID(string request_id)
-    {
-        DeployApi.Instance.SetRequestID(request_id);
-    }
-
-    public void SetRequestID(string request_id)
-    {
-        CmdSetupServerRequestID(request_id);
-    }
-
-    [Command]
     private void CmdSetPlayerName(string name)
     {
         playerName = name; // This automatically updates the value on the clients because it's a SyncVar
