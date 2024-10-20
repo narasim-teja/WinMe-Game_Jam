@@ -24,10 +24,11 @@ using UnityEngine;
 public class RocketFired : MonoBehaviour
 {
     private int parentID;
-    public float upwardForce = 500f;  // Adjust force value based on your game scale
-    public float explosionForce = 500f;  // Adjust the overall force of the explosion
-    public float torqueForce = 500f;  // Adjust rotational force
+    private float upwardForce = 3f;
+    private float explosionForce = 5000f; 
+    private float torqueForce = 1000f;
 
+    public ParticleSystem explosionEffect;
     public void SetParentID(int id)
     {
         parentID = id;
@@ -35,10 +36,8 @@ public class RocketFired : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // Check if the object hit is not the parent
-        if (other.GetInstanceID() != parentID)
+        if (other.GetInstanceID() != parentID && other.tag == "Player" )
         {
-            // Try to get the Rigidbody component of the object hit
             Rigidbody targetRigidbody = other.attachedRigidbody;
 
             if (targetRigidbody != null)
@@ -46,22 +45,18 @@ public class RocketFired : MonoBehaviour
                 Vector3 forceDirection = (other.transform.position - transform.position).normalized;
                 Vector3 upwardDirection = Vector3.up * upwardForce;
 
-                targetRigidbody.AddForce((forceDirection + upwardDirection/10) * explosionForce, ForceMode.Impulse);
+                targetRigidbody.AddForce((forceDirection + upwardDirection) * explosionForce, ForceMode.Impulse);
 
-                // Apply random torque (rotation) to give the object a spinning effect
-                Vector3 randomTorque = new Vector3(
-                    Random.Range(-1f, 1f),
-                    Random.Range(-1f, 1f),
-                    Random.Range(-1f, 1f)
-                ) * torqueForce;
+                Vector3 randomTorque = new Vector3( 0, Random.Range(-1f, 1f) , 0) * torqueForce;
 
                 targetRigidbody.AddTorque(randomTorque, ForceMode.Impulse);
-            }
 
+                ParticleSystem instance = Instantiate(explosionEffect, transform.position, Quaternion.identity);
+                instance.Play();
+
+                Destroy(instance.gameObject, instance.main.duration);
+            }
             Destroy(this.gameObject);
         }
-
-        // Debugging info for which object is hit
-        Debug.Log("Hit object: " + other.gameObject.name);
     }
 }
