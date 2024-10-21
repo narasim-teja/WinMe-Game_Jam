@@ -47,7 +47,7 @@ internal class DeployApi
     //private readonly string serverStatusUrl = "https://api.edgegap.com/v1/status";
     //private readonly string stopServerUrl = "https://api.edgegap.com/v1/stop";
 
-    private readonly string requestNewServerUrl = "https://4a1042cbc9cf.pr.edgegap.net:31588/deploy";
+    private readonly string requestNewServerUrl = "https://82cebeadb47e.pr.edgegap.net:31031/deploy";
     private readonly string APP_NAME = "winme_game_server";
     private readonly string VERSION_NAME = "v1";
 

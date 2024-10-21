@@ -858,11 +858,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 0
   windowsGamepadBackendHint: 0
-  cloudProjectId: 6adb0607-6bf0-47a2-a1ba-739def8260a4
+  cloudProjectId: 66b12e92-dd0a-4edc-8d97-5c5bcab0630d
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: Win-me
-  organizationId: ashwanikumar97531
+  projectName: WinMe-Game_Jam (3)
+  organizationId: ayush273
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}
