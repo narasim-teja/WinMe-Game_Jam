@@ -21,7 +21,6 @@ public class CarScaler : MonoBehaviour
         {
             transform.localScale = new Vector3(scalex, scaley, scalez);
             parentCar.GetComponent<carMovement2>().rayCastDistance += parentCar.GetComponent<carMovement2>().rayCastDistance * scaleInput * scaleSpeed;
-            //Debug.Log(this.GetComponent<carMovement2>().rayCastDistance);
 
         }
     }

@@ -8,6 +8,8 @@ TagManager:
   - outer track
   - tyre
   - Audio
+  - rocket
+  - burger
   layers:
   - Default
   - TransparentFX

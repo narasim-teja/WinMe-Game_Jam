@@ -206,10 +206,17 @@ public class carMovementOffline : MonoBehaviour
     }
 
     void PowerUpManager() {
-        Transform powerup1 = this.transform.Find("powerup1");
-        if (powerup1 != null) {
-            if (powerup1.childCount > 0) {
-                FirePowerUp(powerup1.GetChild(0).gameObject);
+        Transform powerup_loc1 = this.transform.Find("powerup_loc1");
+        if (powerup_loc1 != null) {
+            if (powerup_loc1.childCount > 0) {
+                GameObject powerup = powerup_loc1.GetChild(0).gameObject;
+
+                if(powerup.gameObject.CompareTag("rocket")){
+                    FireRocket(powerup);
+                }
+                if(powerup.gameObject.CompareTag("burger")){
+                    StartCoroutine(ConsumeBurger(powerup));
+                }
             } else {
                 Debug.Log("!!! No Powerup picked up yet !!!");
             }
@@ -218,7 +225,7 @@ public class carMovementOffline : MonoBehaviour
         }
     }
 
-    void FirePowerUp(GameObject child_powerup){
+    void FireRocket(GameObject child_powerup){
         child_powerup.transform.SetParent(null,true);
         Rigidbody rocketRb = child_powerup.GetComponent<Rigidbody>(); 
         if (rocketRb != null)
@@ -227,5 +234,21 @@ public class carMovementOffline : MonoBehaviour
             float launchForce = 1500f;
             rocketRb.AddForce(child_powerup.transform.up * launchForce);
         }
+    }
+
+    IEnumerator ConsumeBurger(GameObject child_powerup){
+        float scaleX = 2 * transform.localScale.x;
+        float scaleY = 2 * transform.localScale.y;
+        float scaleZ = 2 * transform.localScale.z;
+
+        transform.localScale = new Vector3(scaleX, scaleY, scaleZ);
+
+        rayCastDistance = rayCastDistance * 2;
+        Destroy(child_powerup);
+
+        yield return new WaitForSeconds(10);
+        transform.localScale = new Vector3(scaleX / 2, scaleY / 2, scaleZ / 2);
+        rayCastDistance = rayCastDistance / 2;
+
     }
 }
