@@ -44,6 +44,7 @@ public class MainMenuUI : MonoBehaviour
     [SerializeField] private TMP_Text lobbyCodeText;
     [SerializeField] private GameObject lobbyCodeInputField;
     private string lobbyCode;
+    private int maxPlayerInLobby = 3;
 
     private float heartbeatTimer;
     private ServerData serverData;
@@ -193,7 +194,7 @@ public class MainMenuUI : MonoBehaviour
                 Debug.Log(portTransport.Port);
             }
 
-            Debug.Log("letest");
+            Debug.Log("recent new file");
 
         }
     }
@@ -235,7 +236,7 @@ public class MainMenuUI : MonoBehaviour
                 }
                 else
                 {
-                    CreateLobby("first Lobby", false, 2,serverData.ip, serverData.port);
+                    CreateLobby("first Lobby", false, maxPlayerInLobby,serverData.ip, serverData.port);
                 }
                 //CreateLobby("first Lobby", false, 2, "abcd", "port 222");
             }
@@ -295,7 +296,7 @@ public class MainMenuUI : MonoBehaviour
         }
         else
         {
-            CreateLobby("first Lobby", true, 2, serverData.ip, serverData.port);
+            CreateLobby("first Lobby", true, maxPlayerInLobby, serverData.ip, serverData.port);
         }
     }
 
