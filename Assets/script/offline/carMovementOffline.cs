@@ -34,6 +34,11 @@ public class carMovementOffline : MonoBehaviour
     private float originalLaterationFriction;
 
     // public float raycastDistance = 1.8f;
+    //powerUps
+    int burgerCount = 0;
+    public bool isShieldActive = false;
+    public ParticleSystem shieldPowerupParticleEffect;
+
 
     void Awake()
     {
@@ -215,7 +220,14 @@ public class carMovementOffline : MonoBehaviour
                     FireRocket(powerup);
                 }
                 if(powerup.gameObject.CompareTag("burger")){
-                    StartCoroutine(ConsumeBurger(powerup));
+                    if(burgerCount < 2) {
+                        burgerCount++;
+                        StartCoroutine(ConsumeBurger(powerup));
+                    }
+                }
+                if(powerup.gameObject.CompareTag("shield") ){
+                    if(isShieldActive == false) StartCoroutine(ConsumeShield(powerup));
+                    else Debug.Log("!!! Shield already in use !!!");
                 }
             } else {
                 Debug.Log("!!! No Powerup picked up yet !!!");
@@ -237,18 +249,39 @@ public class carMovementOffline : MonoBehaviour
     }
 
     IEnumerator ConsumeBurger(GameObject child_powerup){
-        float scaleX = 2 * transform.localScale.x;
-        float scaleY = 2 * transform.localScale.y;
-        float scaleZ = 2 * transform.localScale.z;
+        float scalingFactor = 1.5f;
+        float scaleX = scalingFactor * transform.localScale.x;
+        float scaleY = scalingFactor * transform.localScale.y;
+        float scaleZ = scalingFactor * transform.localScale.z;
+        wheelLogic[] wheelLogicScripts = this.gameObject.GetComponentsInChildren<wheelLogic>();
+
+        foreach(wheelLogic wheelLogicScript in wheelLogicScripts )
+            wheelLogicScript.suspensionHeight = wheelLogicScript.suspensionHeight * scalingFactor ;
 
         transform.localScale = new Vector3(scaleX, scaleY, scaleZ);
 
-        rayCastDistance = rayCastDistance * 2;
         Destroy(child_powerup);
 
         yield return new WaitForSeconds(10);
-        transform.localScale = new Vector3(scaleX / 2, scaleY / 2, scaleZ / 2);
-        rayCastDistance = rayCastDistance / 2;
+        wheelLogicScripts = this.gameObject.GetComponentsInChildren<wheelLogic>();
+        foreach(wheelLogic wheelLogicScript in wheelLogicScripts )
+            wheelLogicScript.suspensionHeight = wheelLogicScript.suspensionHeight/ scalingFactor ;
+        scaleX = transform.localScale.x;
+        scaleY = transform.localScale.y;
+        scaleZ = transform.localScale.z;
+        transform.localScale = new Vector3(scaleX / scalingFactor, scaleY / scalingFactor, scaleZ / scalingFactor);
+        burgerCount--;
+    }
 
+    IEnumerator ConsumeShield(GameObject child_powerup){
+        ParticleSystem instance = Instantiate(shieldPowerupParticleEffect, transform.position, Quaternion.identity);
+        instance.transform.SetParent(transform);
+        isShieldActive = true;
+        Destroy(child_powerup);
+
+        yield return new WaitForSeconds(10);
+
+        isShieldActive = false;
+        Destroy(instance.gameObject);
     }
 }

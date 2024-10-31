@@ -22,7 +22,7 @@ public class BurgerPickup : MonoBehaviour
 
             if (powerupSlot != null)
             {
-                GameObject rocketInstance = Instantiate(
+                GameObject burgerInstance = Instantiate(
                     burger_active_prefab, 
                     powerupSlot.position, 
                     quaternion.identity,

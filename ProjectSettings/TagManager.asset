@@ -10,6 +10,7 @@ TagManager:
   - Audio
   - rocket
   - burger
+  - shield
   layers:
   - Default
   - TransparentFX

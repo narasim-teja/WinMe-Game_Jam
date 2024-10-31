@@ -36,7 +36,7 @@ public class RocketFired : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetInstanceID() != parentID && other.tag == "Player" )
+        if (other.GetInstanceID() != parentID && other.tag == "Player" && other.GetComponent<carMovementOffline>().isShieldActive == false)
         {
             Rigidbody targetRigidbody = other.attachedRigidbody;
 
@@ -56,6 +56,12 @@ public class RocketFired : MonoBehaviour
 
                 Destroy(instance.gameObject, instance.main.duration);
             }
+            Destroy(this.gameObject);
+        }
+        else if(other.GetInstanceID() != parentID){
+            ParticleSystem instance = Instantiate(explosionEffect, transform.position, Quaternion.identity);
+            instance.Play();
+            Destroy(instance.gameObject, instance.main.duration);
             Destroy(this.gameObject);
         }
     }
