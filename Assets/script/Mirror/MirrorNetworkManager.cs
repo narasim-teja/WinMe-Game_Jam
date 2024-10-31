@@ -87,6 +87,8 @@ public class MirrorNetworkManager : NetworkManager
     private int playerCount = 0;
     public int noOfPlayers = 1;
 
+    private readonly int waitForSecondsBeforeWhenNoPlayers = 60;
+
     private void Start()
     {
         Transform firstChild = transform.GetChild(0);
@@ -121,12 +123,23 @@ public class MirrorNetworkManager : NetworkManager
         
         NetworkServer.AddPlayerForConnection(conn, player);
         Debug.Log("Player spawned");
+
+        StopCoroutine(StopServerWhenNoPlayers());
         
         playerCount++;
         if (playerCount == noOfPlayers)
         {
             LoadGameScene();
-            
+        }
+    }
+
+    IEnumerator StopServerWhenNoPlayers()
+    {
+        yield return new WaitForSeconds(waitForSecondsBeforeWhenNoPlayers);
+
+        if(playerCount == 0)
+        {
+            yield return new WaitUntil(()=> DeployApi.Instance.StopServerGracefully().IsCompleted);
         }
     }
 
@@ -139,6 +152,7 @@ public class MirrorNetworkManager : NetworkManager
 
         if (playerCount == 0)
         {
+            StartCoroutine(StopServerWhenNoPlayers());
             string newSceneName = "MirrorWaitingRoom"; // Replace with your scene name
             Debug.Log("Player Disconnected!!!");
             ServerChangeScene(newSceneName);

@@ -44,9 +44,14 @@ public class MainMenuUI : MonoBehaviour
     [SerializeField] private TMP_Text lobbyCodeText;
     [SerializeField] private GameObject lobbyCodeInputField;
     private string lobbyCode;
+    private int maxPlayerInLobby = 3;
 
     private float heartbeatTimer;
     private ServerData serverData;
+
+    [SerializeField]
+    GameObject loadingPanel;
+    private bool isLoading = false;
 
     void Start()
     {
@@ -57,7 +62,7 @@ public class MainMenuUI : MonoBehaviour
     void Awake()
     {
         manager = GetComponent<NetworkManager>();
-        //transport = GetComponent<SimpleWebTransport>();
+        transport = GetComponent<SimpleWebTransport>();
 
         if (Transport.active is PortTransport portTransport)
         {
@@ -65,14 +70,14 @@ public class MainMenuUI : MonoBehaviour
                 portTransport.Port = port;
         }
 
-        //InitializeUnityAuthentication();
+        InitializeUnityAuthentication();
 
     }
 
-    //private void Update()
-    //{
-    //    HandleHeartbeat();
-    //}
+    private void Update()
+    {
+        HandleHeartbeat();
+    }
 
 
     private void HandleHeartbeat()
@@ -165,6 +170,7 @@ public class MainMenuUI : MonoBehaviour
         PlayerManager localPlayer = NetworkClient.localPlayer.GetComponent<PlayerManager>();
         playerName = playerNameInputField.GetComponent<TMP_InputField>().text.ToString();
         
+
         localPlayer.SetPlayerName(playerName);
     }
 
@@ -187,8 +193,9 @@ public class MainMenuUI : MonoBehaviour
             {
                 Debug.Log(portTransport.Port);
             }
-            InitializeUnityAuthentication();
-            QuickJoinPressed();
+
+            Debug.Log("recent new file");
+
         }
 
     }
@@ -203,7 +210,9 @@ public class MainMenuUI : MonoBehaviour
 
     public async void QuickJoinPressed()
     {
-        OnJoinStarted?.Invoke(this, EventArgs.Empty);
+        if (isLoading) return;
+        LoadingStart();
+
         try
         {
             joinedLobby = await LobbyService.Instance.QuickJoinLobbyAsync();
@@ -211,6 +220,7 @@ public class MainMenuUI : MonoBehaviour
             string serverPort = joinedLobby.Data[SERVER_PORT].Value;
 
             StartGame(serverIP, serverPort);
+            LoadingEnd();
             //Debug.Log($"joined lobby,lobby name: {joinedLobby.Name}, lobby id: {joinedLobby.Id}, serverip: {serverIP}, serverport: {serverPort}");
         }
         catch (LobbyServiceException e)
@@ -223,19 +233,26 @@ public class MainMenuUI : MonoBehaviour
                 if (serverData == null || !serverData.isReady)
                 {
                     Debug.Log("server creation failed.");
+                    LoadingEnd();
                 }
                 else
                 {
-                    CreateLobby("first Lobby", false, 2,serverData.ip, serverData.port);
+                    CreateLobby("first Lobby", false, maxPlayerInLobby,serverData.ip, serverData.port);
                 }
                 //CreateLobby("first Lobby", false, 2, "abcd", "port 222");
             }
             else
             {
+                LoadingEnd();
                 Debug.Log(e);
             }
             OnQuickJoinFailed?.Invoke(this, EventArgs.Empty);
         }
+    }
+
+    public void UpdateCurLobbyDetails()
+    {
+        lobbyCodeText.text = $"Code: {joinedLobby.LobbyCode}";
     }
 
     public async void ListLobbies()
@@ -268,19 +285,28 @@ public class MainMenuUI : MonoBehaviour
 
     public async void CreatePrivateLobby()
     {
+        if (isLoading) return;
+
+        LoadingStart();
+
         serverData = await DeployApi.Instance.CreateNewServer();
         if (serverData == null || !serverData.isReady)
         {
             Debug.Log("server creation failed.");
+            LoadingEnd();
         }
         else
         {
-            CreateLobby("first Lobby", true, 2, serverData.ip, serverData.port);
+            CreateLobby("first Lobby", true, maxPlayerInLobby, serverData.ip, serverData.port);
         }
     }
 
     public async void JoinLobby()
-    { 
+    {
+        if (isLoading) return;
+
+        LoadingStart();
+
         lobbyCode = lobbyCodeInputField.GetComponent<TMP_InputField>().text.ToString();
         OnJoinStarted?.Invoke(this, EventArgs.Empty);
         try
@@ -290,11 +316,14 @@ public class MainMenuUI : MonoBehaviour
             string serverPort = joinedLobby.Data[SERVER_PORT].Value;
 
             StartGame(serverIP, serverPort);
+            LoadingEnd();
+
             Debug.Log($"lobby code: {joinedLobby.LobbyCode}, lobby name: {joinedLobby.Name}, lobby id: {joinedLobby.Id}, serverip: {serverIP}, serverport: {serverPort}");
         }
         catch(LobbyServiceException e)
         {
             lobbyCode = null;
+            LoadingEnd();
             Debug.Log(e.Message);
         }
     }
@@ -320,10 +349,11 @@ public class MainMenuUI : MonoBehaviour
                     },
                 }
             });
-            lobbyCodeText.text = $"Code: {joinedLobby.LobbyCode}";
-            StartGame(serverIP, serverPort);
 
-            //Debug.Log($"id: {joinedLobby.Id}, name: {joinedLobby.Name}, host id: {joinedLobby.HostId}, serverip: {serverIP}, serverPort{serverPort}");
+            UpdateCurLobbyDetails();
+            StartGame(serverIP, serverPort);
+            LoadingEnd();
+
             Debug.Log($"id: {joinedLobby.Id}, name: {joinedLobby.Name}, host id: {joinedLobby.HostId}, lobby code: {joinedLobby.LobbyCode}");
         }
         catch (LobbyServiceException e)
@@ -353,6 +383,20 @@ public class MainMenuUI : MonoBehaviour
     #endregion
 
 
+
+    #region Loading region
+    private void LoadingStart()
+    {
+        loadingPanel.SetActive(true);
+        isLoading = true;
+    }
+
+    private void LoadingEnd()
+    {
+        loadingPanel.SetActive(false);
+        isLoading= false;
+    }
+    #endregion
 
 
     public string GetLocalIPv4()
