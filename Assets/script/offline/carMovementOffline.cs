@@ -237,11 +237,13 @@ public class carMovementOffline : MonoBehaviour
         }
     }
 
+
     void FireRocket(GameObject child_powerup){
         child_powerup.transform.SetParent(null,true);
         Rigidbody rocketRb = child_powerup.GetComponent<Rigidbody>(); 
         if (rocketRb != null)
         {
+            // rocketRb.GetComponent<RocketFired>().isFired = true;
             rocketRb.isKinematic = false;
             float launchForce = 1500f;
             rocketRb.AddForce(child_powerup.transform.up * launchForce);

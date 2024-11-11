@@ -2626,6 +2626,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2126994746733061282}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3143852379618444781
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2386717870444212575}
+  m_Layer: 0
+  m_Name: powerup_loc1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2386717870444212575
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3143852379618444781}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.48180482, y: 0, z: 0, w: 0.87627864}
+  m_LocalPosition: {x: 0, y: 0.557, z: 0.502}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8321479322719015881}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3212528597682932836
 GameObject:
   m_ObjectHideFlags: 0
@@ -3509,6 +3540,7 @@ GameObject:
   - component: {fileID: 4774128115340097857}
   - component: {fileID: 7306304596497200345}
   - component: {fileID: 1693190905333830706}
+  - component: {fileID: 4170088520099402215}
   m_Layer: 0
   m_Name: kart
   m_TagString: Player
@@ -3529,6 +3561,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2386717870444212575}
   - {fileID: 170109275984896101}
   - {fileID: 2267918604972780224}
   - {fileID: 808640726200936647}
@@ -3582,7 +3615,7 @@ MonoBehaviour:
   target: {fileID: 8321479322719015881}
   syncPosition: 1
   syncRotation: 1
-  syncScale: 0
+  syncScale: 1
   onlySyncOnChange: 1
   compressRotation: 1
   interpolatePosition: 1
@@ -3623,7 +3656,7 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 2
+  m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 2
 --- !u!65 &3447797977279522668
@@ -3741,6 +3774,30 @@ MonoBehaviour:
   coinText: {fileID: 3200223492848529388}
   coinCount: 0
   coinPickUpAudioSource: {fileID: 3108543301293945034}
+--- !u!114 &4170088520099402215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4804685132883225272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2979f752104e67f498b73abb31b223ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  isShieldActive: 0
+  powerupHolder: {fileID: 3143852379618444781}
+  rocketPrefab: {fileID: 5394374899766560922, guid: 87fd0398a41f3f74a8444a89a20e531d, type: 3}
+  rocketPrefabNetwokred: {fileID: 5394374899766560922, guid: fc6e642a0d249844d959d4205b49ca6c, type: 3}
+  shieldPrefab: {fileID: 5362694043938906329, guid: 0f452b715bc3f0846a0e05c418cb15fb, type: 3}
+  burgerPrefab: {fileID: 49677859448093925, guid: 982e8cf45195c1348ba24500391fb05c, type: 3}
+  explosionEffect: {fileID: 198000012777718758, guid: acf39d9f4addf294d93fa56fa373961b, type: 3}
+  shieldPowerupParticleEffect: {fileID: 7047901910090771416, guid: d2ffbc8b168cdf74a9dbb7c6c1cfdf2f, type: 3}
+  equippedPickup: 0
 --- !u!1 &4829751232304856288
 GameObject:
   m_ObjectHideFlags: 0
