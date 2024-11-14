@@ -16,7 +16,8 @@ public enum Powerups : byte
 
 public class CarPowerupManager : NetworkBehaviour
 {
-    int burgerCount = 0;
+    [SyncVar]
+    public int burgerCount = 0;
     [SyncVar]
     public bool isShieldActive = false;
     public GameObject powerupHolder;
@@ -26,8 +27,10 @@ public class CarPowerupManager : NetworkBehaviour
     public GameObject burgerPrefab;
     public ParticleSystem explosionEffect;
     public ParticleSystem shieldPowerupParticleEffect;
+    public ParticleSystem shieldInstance;
     [SyncVar(hook = nameof(OnChangePowerup))]
     public Powerups equippedPickup;
+    float burgerScalingFactor = 1.5f;
 
     void Update()
     {
@@ -44,17 +47,20 @@ public class CarPowerupManager : NetworkBehaviour
                 GameObject powerup = powerup_loc1.GetChild(0).gameObject;
 
                 if(powerup.gameObject.CompareTag("rocket")){
-                    CmdDeleteRocketFromServer();
+                    CmdDeleteTopPowerupFromServer();
                     CmdRequestFireRocket();
                 }
                 if(powerup.gameObject.CompareTag("burger")){
+                    CmdDeleteTopPowerupFromServer();
                     if(burgerCount < 2) {
-                        burgerCount++;
-                        StartCoroutine(CmdConsumeBurger(powerup));
+                        CmdIncreaseBurgerCount();
+                        // burgerCount++;
+                        CmdConsumeBurger();
                     }
                 }
                 if(powerup.gameObject.CompareTag("shield") ){
-                    if(isShieldActive == false) StartCoroutine(ConsumeShield(powerup));
+                    CmdDeleteTopPowerupFromServer();
+                    if(isShieldActive == false) CmdConsumeShield();//StartCoroutine(ConsumeShield(powerup));
                     else Debug.Log("!!! Shield already in use !!!");
                 }
             } else {
@@ -94,14 +100,38 @@ public class CarPowerupManager : NetworkBehaviour
                 InstantiateRocket(powerupHolder.transform);
                 break;
             case Powerups.shield:
-                Instantiate(shieldPrefab, powerupHolder.transform);
+                GameObject newShieldInstance = Instantiate(shieldPrefab, powerupHolder.transform);
+                if (isServer)
+                {
+                    NetworkServer.Spawn(newShieldInstance);
+                }
                 break;
             case Powerups.burger:
-                Instantiate(burgerPrefab, powerupHolder.transform);
+                GameObject newburgerInstance =Instantiate(burgerPrefab, powerupHolder.transform.position, quaternion.identity,powerupHolder.transform);
+                if (isServer)
+                {
+                    NetworkServer.Spawn(newburgerInstance);
+                }
                 break;
         }
         
     }
+
+    [Command]
+    void CmdDeleteTopPowerupFromServer(){
+        Transform powerup_loc1 = this.transform.Find("powerup_loc1");
+        GameObject powerup = powerup_loc1.GetChild(0).gameObject;
+        Destroy(powerup);
+        ClientRpcDeleteTopPowerupFromAllClients();
+        equippedPickup = Powerups.nothing;
+    }
+    [ClientRpc]
+    void ClientRpcDeleteTopPowerupFromAllClients(){
+        Transform powerup_loc1 = this.transform.Find("powerup_loc1");
+        GameObject powerup = powerup_loc1.GetChild(0).gameObject;
+        Destroy(powerup);
+    }
+
 
 //🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
 
@@ -114,23 +144,11 @@ public class CarPowerupManager : NetworkBehaviour
             adjustedRotation,
             powerupHolder 
         );
-        Instantiate(rocketInstance);
-    }
+        if (isServer)
+        {
+            NetworkServer.Spawn(rocketInstance);
+        }
 
-
-    [Command]
-    void CmdDeleteRocketFromServer(){
-        Transform powerup_loc1 = this.transform.Find("powerup_loc1");
-        GameObject powerup = powerup_loc1.GetChild(0).gameObject;
-        Destroy(powerup);
-        ClientRpcDeleteRocketFromAllClients();
-        equippedPickup = Powerups.nothing;
-    }
-    [ClientRpc]
-    void ClientRpcDeleteRocketFromAllClients(){
-        Transform powerup_loc1 = this.transform.Find("powerup_loc1");
-        GameObject powerup = powerup_loc1.GetChild(0).gameObject;
-        Destroy(powerup);
     }
 
     [Command]
@@ -182,45 +200,97 @@ public class CarPowerupManager : NetworkBehaviour
 
 
 //🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔
-    IEnumerator CmdConsumeBurger(GameObject child_powerup){
-        float scalingFactor = 1.5f;
-        float scaleX = scalingFactor * transform.localScale.x;
-        float scaleY = scalingFactor * transform.localScale.y;
-        float scaleZ = scalingFactor * transform.localScale.z;
-        wheelLogic[] wheelLogicScripts = this.gameObject.GetComponentsInChildren<wheelLogic>();
 
-        foreach(wheelLogic wheelLogicScript in wheelLogicScripts )
-            wheelLogicScript.suspensionHeight = wheelLogicScript.suspensionHeight * scalingFactor ;
+    [Command]
+    public void CmdIncreaseBurgerCount(){
+        burgerCount++;
+    }
 
-        transform.localScale = new Vector3(scaleX, scaleY, scaleZ);
-
-        Destroy(child_powerup);
+    [Command]
+    public void CmdConsumeBurger()
+    {
+        // Call a coroutine on the server side
+        StartCoroutine(ConsumeBurgerCoroutine());
+    }
+    [Server]
+    IEnumerator ConsumeBurgerCoroutine(){
+        RpcScaleUp();
 
         yield return new WaitForSeconds(10);
-        wheelLogicScripts = this.gameObject.GetComponentsInChildren<wheelLogic>();
-        foreach(wheelLogic wheelLogicScript in wheelLogicScripts )
-            wheelLogicScript.suspensionHeight = wheelLogicScript.suspensionHeight/ scalingFactor ;
-        scaleX = transform.localScale.x;
-        scaleY = transform.localScale.y;
-        scaleZ = transform.localScale.z;
-        transform.localScale = new Vector3(scaleX / scalingFactor, scaleY / scalingFactor, scaleZ / scalingFactor);
+
+        RpcScaleDown();
+
         burgerCount--;
     }
+    [ClientRpc]
+    void RpcScaleUp()
+    {
+        ScaleCar(burgerScalingFactor);
+    }
+
+    [ClientRpc]
+    void RpcScaleDown()
+    {
+        ScaleCar(1 / burgerScalingFactor);
+    }
+
+    void ScaleCar(float factor)
+    {
+        // Adjust the scale of the car
+        float scaleX = factor * transform.localScale.x;
+        float scaleY = factor * transform.localScale.y;
+        float scaleZ = factor * transform.localScale.z;
+        transform.localScale = new Vector3(scaleX, scaleY, scaleZ);
+
+        // Adjust the suspension height
+        wheelLogic[] wheelLogicScripts = gameObject.GetComponentsInChildren<wheelLogic>();
+        foreach (wheelLogic wheelLogicScript in wheelLogicScripts)
+        {
+            wheelLogicScript.suspensionHeight *= factor;
+        }
+    }
+    
 //🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔
 
 
 //🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡
-    IEnumerator ConsumeShield(GameObject child_powerup){
-        ParticleSystem instance = Instantiate(shieldPowerupParticleEffect, transform.position, Quaternion.identity);
-        instance.transform.SetParent(transform);
-        isShieldActive = true;
-        Destroy(child_powerup);
-
-        yield return new WaitForSeconds(10);
-
-        isShieldActive = false;
-        Destroy(instance.gameObject);
+    [Command]
+    public void CmdConsumeShield()
+    {
+        // Call a coroutine on the server side
+        StartCoroutine(ConsumeShieldCoroutine());
     }
+    [Server]
+    IEnumerator ConsumeShieldCoroutine(){
+        RpcConsumeShield();
+        isShieldActive = true;
+
+        yield return new WaitForSeconds(15);
+
+        // Deactivate the shield
+        RpcDeactivateShield();
+        isShieldActive = false;
+    }
+    [ClientRpc]
+    public void RpcConsumeShield()
+    {
+        if (shieldInstance == null)
+        {
+            shieldInstance = Instantiate(shieldPowerupParticleEffect, transform.position, Quaternion.identity);
+            shieldInstance.transform.SetParent(transform);
+        }
+    }
+
+    [ClientRpc]
+    public void RpcDeactivateShield()
+    {
+        if (shieldInstance != null)
+        {
+            Destroy(shieldInstance.gameObject);
+            shieldInstance = null;
+        }
+    }
+
 //🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡
 
 }
