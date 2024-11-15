@@ -116,7 +116,6 @@ public class MirrorNetworkManager : NetworkManager
         base.OnClientConnect();
         CreateKartMessage message = new CreateKartMessage{
             kartNumber = Constants.currentKartIndex,
-            //kartNumber = 2,
         };
         NetworkClient.Send(message);
     }
@@ -124,7 +123,7 @@ public class MirrorNetworkManager : NetworkManager
     void OnCreateKart(NetworkConnectionToClient conn, CreateKartMessage msg)
     {
 
-        Debug.Log("Entered OnServerAddPlayer");
+        //Debug.Log("Entered OnServerAddPlayer");
 
         // Check if the connection already has a player
         if (conn.identity != null)
@@ -133,7 +132,7 @@ public class MirrorNetworkManager : NetworkManager
             return;
         }
 
-        Debug.Log($"kart number: {msg.kartNumber}");
+        //Debug.Log($"kart number: {msg.kartNumber}");
         Vector3 start = new Vector3(0, 40f, 0);
         GameObject player = Instantiate(StoreData.Instance
             .storeItemList[msg.kartNumber].kartObject,

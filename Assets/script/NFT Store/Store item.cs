@@ -8,5 +8,8 @@ public class Storeitem : ScriptableObject
     public string title;
     public string desc;
     public int cost;
+    public string contractAddress;
+    public string contractAbi;
+    public string imageUrl;
     public GameObject kartObject;
 }

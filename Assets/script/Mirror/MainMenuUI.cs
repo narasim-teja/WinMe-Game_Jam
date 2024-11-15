@@ -13,7 +13,6 @@ using Unity.Services.Core;
 using Unity.Services.Authentication;
 using System.Threading.Tasks;
 using Mirror.SimpleWeb;
-using Thirdweb;
 using UnityEngine.SceneManagement;
 
 public class MainMenuUI : MonoBehaviour
@@ -79,27 +78,6 @@ public class MainMenuUI : MonoBehaviour
     private void Update()
     {
         HandleHeartbeat();
-    }
-
-    public async void ThirdWebTesting()
-    {
-        var sdk = ThirdwebManager.Instance.SDK;
-        bool isConnected = await sdk.Wallet.IsConnected();
-
-        if (isConnected)
-        {
-            string address = await sdk.Wallet.GetAddress();
-            Contract contract = sdk.GetContract(Constants.raceCarAddress, Constants.raceCarAbi);
-            var data = await contract.Read<int>(Constants.functionName, address, Constants.tokenId);
-
-            Contract sport = sdk.GetContract(Constants.sportCarAddress, Constants.sportCarAbi);
-            var data1 = await sport.Read<int>(Constants.functionName, address, Constants.tokenId);
-
-            Contract trackCar = sdk.GetContract(Constants.trackCarAddress, Constants.trackCarAbi);
-            var data2 = await trackCar.Read<int>(Constants.functionName, address, Constants.tokenId);
-
-            Debug.Log($"r: {data}, sport: {data1}, track: {data2}");
-        }
     }
 
 
