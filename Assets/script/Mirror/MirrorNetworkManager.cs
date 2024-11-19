@@ -88,11 +88,66 @@ public class MirrorNetworkManager : NetworkManager
     public int noOfPlayers = 1;
 
     private readonly int waitForSecondsBeforeWhenNoPlayers = 60;
+    private StoreData storeData;
+
+    public struct CreateKartMessage : NetworkMessage
+    {
+        public int kartNumber;
+    }
 
     private void Start()
     {
+        storeData = StoreData.Instance;
+        if(storeData == null)
+        {
+            Debug.Log("Add store manager in scene");
+        }
         Transform firstChild = transform.GetChild(0);
         firstChild.gameObject.SetActive(true);
+    }
+
+    public override void OnStartServer()
+    {
+        base.OnStartServer();
+        NetworkServer.RegisterHandler<CreateKartMessage>(OnCreateKart);
+    }
+    public override void OnClientConnect()
+    {
+        base.OnClientConnect();
+        CreateKartMessage message = new CreateKartMessage{
+            kartNumber = Constants.currentKartIndex,
+        };
+        NetworkClient.Send(message);
+    }
+
+    void OnCreateKart(NetworkConnectionToClient conn, CreateKartMessage msg)
+    {
+
+        //Debug.Log("Entered OnServerAddPlayer");
+
+        // Check if the connection already has a player
+        if (conn.identity != null)
+        {
+            Debug.LogWarning("Connection already has a player");
+            return;
+        }
+
+        //Debug.Log($"kart number: {msg.kartNumber}");
+        Vector3 start = new Vector3(0, 40f, 0);
+        GameObject player = Instantiate(StoreData.Instance
+            .storeItemList[msg.kartNumber].kartObject,
+            start, Quaternion.identity);
+
+        NetworkServer.AddPlayerForConnection(conn, player);
+        Debug.Log("Player spawned");
+
+        StopCoroutine(StopServerWhenNoPlayers());
+
+        playerCount++;
+        if (playerCount == noOfPlayers)
+        {
+            LoadGameScene();
+        }
     }
 
     public override void OnServerConnect(NetworkConnectionToClient conn)
@@ -107,31 +162,31 @@ public class MirrorNetworkManager : NetworkManager
         Debug.Log("Client is ready: " + conn.connectionId);
     }
 
-    public override void OnServerAddPlayer(NetworkConnectionToClient conn)
-    {
-        Debug.Log("Entered OnServerAddPlayer");
+    //public override void OnServerAddPlayer(NetworkConnectionToClient conn)
+    //{
+    //    Debug.Log("Entered OnServerAddPlayer");
 
-        // Check if the connection already has a player
-        if (conn.identity != null)
-        {
-            Debug.LogWarning("Connection already has a player");
-            return;
-        }
+    //    // Check if the connection already has a player
+    //    if (conn.identity != null)
+    //    {
+    //        Debug.LogWarning("Connection already has a player");
+    //        return;
+    //    }
 
-        Vector3 start = new Vector3(0, 40f, 0);
-        GameObject player = Instantiate(playerPrefab, start, Quaternion.identity);
+    //    Vector3 start = new Vector3(0, 40f, 0);
+    //    GameObject player = Instantiate(playerPrefab, start, Quaternion.identity);
+
+    //    NetworkServer.AddPlayerForConnection(conn, player);
+    //    Debug.Log("Player spawned");
+
+    //    StopCoroutine(StopServerWhenNoPlayers());
         
-        NetworkServer.AddPlayerForConnection(conn, player);
-        Debug.Log("Player spawned");
-
-        StopCoroutine(StopServerWhenNoPlayers());
-        
-        playerCount++;
-        if (playerCount == noOfPlayers)
-        {
-            LoadGameScene();
-        }
-    }
+    //    playerCount++;
+    //    if (playerCount == noOfPlayers)
+    //    {
+    //        LoadGameScene();
+    //    }
+    //}
 
     IEnumerator StopServerWhenNoPlayers()
     {
