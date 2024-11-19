@@ -1612,6 +1612,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2331078832082510095, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
+      propertyPath: kartList.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2331078832082510095, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
+      propertyPath: kartList.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: ab312040d82b01b4798f007853808197, type: 2}
+    - target: {fileID: 2331078832082510095, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
+      propertyPath: kartList.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: a31000eff13e6c249b1e5b115ee6c095, type: 2}
+    - target: {fileID: 2331078832082510095, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
+      propertyPath: kartList.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 48243eedec78c4644bdc88801e7662ba, type: 2}
     - target: {fileID: 4829437656189325627, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
       propertyPath: m_Name
       value: Store Data Prefab
@@ -2983,8 +2999,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 703731509}
   m_HandleRect: {fileID: 703731508}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.966543
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
