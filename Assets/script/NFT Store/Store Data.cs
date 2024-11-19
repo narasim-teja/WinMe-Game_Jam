@@ -6,7 +6,8 @@ public class StoreData : MonoBehaviour
 {
     public static StoreData Instance { get; private set; }
 
-    public Storeitem[] storeItemList;
+    public Storeitem[] kartList;
+    public Storeitem[] wheelList;
 
     public void Awake()
     {

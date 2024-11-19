@@ -15,8 +15,8 @@ public class StoreManager : MonoBehaviour
 
     void Start()
     {
-        LoadImages();
-        LoadPanels();
+        LoadKartImages();
+        LoadKarts();
         ThirdWebTesting();
         //CheckPurchaseble();
     }
@@ -45,30 +45,30 @@ public class StoreManager : MonoBehaviour
         }
     }
 
-    public void LoadPanels()
+    public void LoadKarts()
     {
-        for (int i = 0; i < StoreData.Instance.storeItemList.Length; i++)
+        for (int i = 0; i < StoreData.Instance.kartList.Length; i++)
         {
-            storePanels[i].title.text = StoreData.Instance.storeItemList[i].title;
-            storePanels[i].desc.text = StoreData.Instance.storeItemList[i].desc;
-            storePanels[i].cost.text = StoreData.Instance.storeItemList[i].cost.ToString();
-            storePanels[i].kartObject = StoreData.Instance.storeItemList[i].kartObject;
+            storePanels[i].title.text = StoreData.Instance.kartList[i].title;
+            storePanels[i].desc.text = StoreData.Instance.kartList[i].desc;
+            storePanels[i].cost.text = StoreData.Instance.kartList[i].cost.ToString();
+            storePanels[i].kartObject = StoreData.Instance.kartList[i].kartObject;
             storePanels[i].index = i;
         }
     }
 
-    async void LoadImages()
+    async void LoadKartImages()
     {
-        for(int i=0;i< StoreData.Instance.storeItemList.Length; i++)
+        for(int i=0;i< StoreData.Instance.kartList.Length; i++)
         {
             storePanels[i].image.texture = await ShopApi.Instance
-                .GetImage(StoreData.Instance.storeItemList[i].imageUrl);
+                .GetImage(StoreData.Instance.kartList[i].imageUrl);
         }
     }
 
     public void CheckPurchaseble()
     {
-        for(int i=0;i< StoreData.Instance.storeItemList.Length; i++)
+        for(int i=0;i< StoreData.Instance.kartList.Length; i++)
         {
             //condition
             if (i % 2 == 0)

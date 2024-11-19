@@ -3789,6 +3789,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  burgerCount: 0
   isShieldActive: 0
   powerupHolder: {fileID: 3143852379618444781}
   rocketPrefab: {fileID: 5394374899766560922, guid: 87fd0398a41f3f74a8444a89a20e531d, type: 3}
@@ -3797,6 +3798,7 @@ MonoBehaviour:
   burgerPrefab: {fileID: 49677859448093925, guid: 982e8cf45195c1348ba24500391fb05c, type: 3}
   explosionEffect: {fileID: 198000012777718758, guid: acf39d9f4addf294d93fa56fa373961b, type: 3}
   shieldPowerupParticleEffect: {fileID: 7047901910090771416, guid: d2ffbc8b168cdf74a9dbb7c6c1cfdf2f, type: 3}
+  shieldInstance: {fileID: 0}
   equippedPickup: 0
 --- !u!1 &4829751232304856288
 GameObject:
