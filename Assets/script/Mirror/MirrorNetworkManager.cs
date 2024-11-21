@@ -134,7 +134,7 @@ public class MirrorNetworkManager : NetworkManager
 
         Vector3 start = new Vector3(0, 40f, 0);
         GameObject player = Instantiate(StoreData.Instance
-            .kartList[msg.kartNumber].kartObject,
+            .kartList[msg.kartNumber].obj,
             start, Quaternion.identity);
 
         NetworkServer.AddPlayerForConnection(conn, player);

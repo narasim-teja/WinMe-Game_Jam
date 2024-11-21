@@ -11,5 +11,5 @@ public class Storeitem : ScriptableObject
     public string contractAddress;
     public string contractAbi;
     public string imageUrl;
-    public GameObject kartObject;
+    public GameObject obj;
 }

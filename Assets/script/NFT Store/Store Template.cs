@@ -11,7 +11,7 @@ public class StoreTemplate : MonoBehaviour
     public TMP_Text title;
     public TMP_Text desc;
     public TMP_Text cost;
-    public GameObject kartObject;
+    public GameObject obj;
     public int index;
     public RawImage image;
 
@@ -25,7 +25,7 @@ public class StoreTemplate : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        Instantiate(kartObject, kartPrefabParent.transform);
+        Instantiate(obj, kartPrefabParent.transform);
 
         StoreManager storeManager = GameObject.Find("Shop")
             .GetComponent<StoreManager>();

@@ -9,16 +9,48 @@ using UnityEngine.UI;
 
 public class StoreManager : MonoBehaviour
 {
-    public StoreTemplate[] storePanels;
+    private GameObject kartModelParent;
+    [SerializeField]
+    private GameObject contents, storeItemPrefab;
+
+    //public StoreTemplate[] storePanels;
+    public List<StoreTemplate> storePanels = new List<StoreTemplate>();
     public Button[] purchaseBtn;
+
     public int currentKartIndex;
+    public int currentWheelIndex;
+    public int currentTrailIndex;
 
     void Start()
     {
-        LoadKartImages();
+        Intialize();
+        AssembleKart();
         LoadKarts();
+        LoadKartImages();
         ThirdWebTesting();
         //CheckPurchaseble();
+    }
+
+    void Intialize()
+    {
+        kartModelParent = GameObject.Find(Constants.currentKartGameObject);
+        currentKartIndex = 0;
+        currentWheelIndex = 0;
+        currentTrailIndex = 0;
+    }
+
+    void AssembleKart()
+    {
+        GameObject body = Instantiate(StoreData.Instance.kartList[currentKartIndex].obj, kartModelParent.transform);
+        
+        Instantiate(StoreData.Instance.wheelList[currentWheelIndex].obj, body.transform.Find("car/Wheel.FR"));
+        Instantiate(StoreData.Instance.wheelList[currentWheelIndex].obj, body.transform.Find("car/Wheel.FL"));
+        
+        GameObject rearRight = Instantiate(StoreData.Instance.wheelList[currentWheelIndex].obj, body.transform.Find("car/Wheel.RR"));
+        GameObject rearLeft = Instantiate(StoreData.Instance.wheelList[currentWheelIndex].obj, body.transform.Find("car/Wheel.RL"));
+
+        Instantiate(StoreData.Instance.trailList[currentTrailIndex].obj, rearRight.transform);
+        Instantiate(StoreData.Instance.trailList[currentTrailIndex].obj, rearLeft.transform);
     }
 
     public async void ThirdWebTesting()
@@ -49,10 +81,12 @@ public class StoreManager : MonoBehaviour
     {
         for (int i = 0; i < StoreData.Instance.kartList.Length; i++)
         {
+            GameObject item = Instantiate(storeItemPrefab, contents.transform);
+            storePanels.Add(item.GetComponent<StoreTemplate>());
             storePanels[i].title.text = StoreData.Instance.kartList[i].title;
             storePanels[i].desc.text = StoreData.Instance.kartList[i].desc;
             storePanels[i].cost.text = StoreData.Instance.kartList[i].cost.ToString();
-            storePanels[i].kartObject = StoreData.Instance.kartList[i].kartObject;
+            storePanels[i].obj = StoreData.Instance.kartList[i].obj;
             storePanels[i].index = i;
         }
     }
