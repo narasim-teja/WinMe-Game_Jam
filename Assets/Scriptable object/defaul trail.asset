@@ -19,3 +19,4 @@ MonoBehaviour:
   contractAbi: 
   imageUrl: 
   obj: {fileID: 765190240496230043, guid: 4f7f11ef8d3154343874d40116fed402, type: 3}
+  type: 2

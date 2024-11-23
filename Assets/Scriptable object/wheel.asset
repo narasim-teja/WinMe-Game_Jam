@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: wheel
   m_EditorClassIdentifier: 
   title: normal wheel
-  desc: 
-  cost: 0
+  desc: cool wheels
+  cost: 3
   contractAddress: 
   contractAbi: 
   imageUrl: 
   obj: {fileID: 4266727502796744808, guid: 503b26ad1528c4846aa88f0f6d895beb, type: 3}
+  type: 1

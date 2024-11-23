@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 public class StoreManager : MonoBehaviour
 {
-    private GameObject kartModelParent;
+    public GameObject kartModelParent;
     [SerializeField]
     private GameObject contents, storeItemPrefab;
 
@@ -25,8 +25,10 @@ public class StoreManager : MonoBehaviour
     {
         Intialize();
         AssembleKart();
+
         LoadKarts();
         LoadKartImages();
+
         ThirdWebTesting();
         //CheckPurchaseble();
     }
@@ -51,6 +53,9 @@ public class StoreManager : MonoBehaviour
 
         Instantiate(StoreData.Instance.trailList[currentTrailIndex].obj, rearRight.transform);
         Instantiate(StoreData.Instance.trailList[currentTrailIndex].obj, rearLeft.transform);
+        body.transform.SetParent(null);
+        Constants.playerObj = body;
+        DontDestroyOnLoad(Constants.playerObj);
     }
 
     public async void ThirdWebTesting()
@@ -77,7 +82,17 @@ public class StoreManager : MonoBehaviour
         }
     }
 
-    public void LoadKarts()
+    #region Data loading functions
+    void ClearList()
+    {
+        foreach(Transform item in contents.transform)
+        {
+            Destroy(item.gameObject);
+        }
+        storePanels.Clear();
+    }
+
+    void LoadKarts()
     {
         for (int i = 0; i < StoreData.Instance.kartList.Length; i++)
         {
@@ -88,6 +103,7 @@ public class StoreManager : MonoBehaviour
             storePanels[i].cost.text = StoreData.Instance.kartList[i].cost.ToString();
             storePanels[i].obj = StoreData.Instance.kartList[i].obj;
             storePanels[i].index = i;
+            storePanels[i].type = StoreItemType.Kart;
         }
     }
 
@@ -99,6 +115,31 @@ public class StoreManager : MonoBehaviour
                 .GetImage(StoreData.Instance.kartList[i].imageUrl);
         }
     }
+
+    void LoadWheels()
+    {
+        for (int i = 0; i < StoreData.Instance.wheelList.Length; i++)
+        {
+            GameObject item = Instantiate(storeItemPrefab, contents.transform);
+            storePanels.Add(item.GetComponent<StoreTemplate>());
+            storePanels[i].title.text = StoreData.Instance.wheelList[i].title;
+            storePanels[i].desc.text = StoreData.Instance.wheelList[i].desc;
+            storePanels[i].cost.text = StoreData.Instance.wheelList[i].cost.ToString();
+            storePanels[i].obj = StoreData.Instance.wheelList[i].obj;
+            storePanels[i].index = i;
+            storePanels[i].type = StoreItemType.Wheel;
+        }
+    }
+
+    async void LoadWheelImages()
+    {
+        for (int i = 0; i < StoreData.Instance.wheelList.Length; i++)
+        {
+            storePanels[i].image.texture = await ShopApi.Instance
+                .GetImage(StoreData.Instance.wheelList[i].imageUrl);
+        }
+    }
+    #endregion
 
     public void CheckPurchaseble()
     {
@@ -119,8 +160,26 @@ public class StoreManager : MonoBehaviour
     public void ChooseKart()
     {
         Constants.currentKartIndex = currentKartIndex;
+        Constants.currentWheelIndex = currentWheelIndex;
+        Constants.currentTrailIndex = currentTrailIndex;
         //Debug.Log($"store kart index: {Constants.currentKartIndex}");
         GoToMainMenu();
+    }
+
+    #region Button Events
+
+    public void KartButtonClicked()
+    {
+        ClearList();
+        LoadKarts();
+        LoadKartImages();
+    }
+
+    public void WheelButtonClicked()
+    {
+        ClearList();
+        LoadWheels();
+        //LoadWheelImages();
     }
 
     public void GoToMainMenu()
@@ -129,4 +188,5 @@ public class StoreManager : MonoBehaviour
         managerObj.transform.GetChild(0).gameObject.SetActive(true);
         SceneManager.LoadScene(0);
     }
+    #endregion
 }

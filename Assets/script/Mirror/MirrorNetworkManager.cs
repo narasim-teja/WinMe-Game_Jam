@@ -92,7 +92,10 @@ public class MirrorNetworkManager : NetworkManager
 
     public struct CreateKartMessage : NetworkMessage
     {
-        public int kartNumber;
+        public int kartIndex;
+        public int wheelIndex;
+        public int trailIndex;
+        public GameObject playerObj;
     }
 
     private void Start()
@@ -115,7 +118,10 @@ public class MirrorNetworkManager : NetworkManager
     {
         base.OnClientConnect();
         CreateKartMessage message = new CreateKartMessage{
-            kartNumber = Constants.currentKartIndex,
+            kartIndex = Constants.currentKartIndex,
+            wheelIndex = Constants.currentWheelIndex,
+            trailIndex = Constants.currentTrailIndex,
+            playerObj = Constants.playerObj,
         };
         NetworkClient.Send(message);
     }
@@ -132,10 +138,49 @@ public class MirrorNetworkManager : NetworkManager
             return;
         }
 
-        Vector3 start = new Vector3(0, 40f, 0);
-        GameObject player = Instantiate(StoreData.Instance
-            .kartList[msg.kartNumber].obj,
+
+        Vector3 start = new(0, 40f, 0);
+        GameObject player = Instantiate(StoreData.Instance.kartList[msg.kartIndex].obj,
             start, Quaternion.identity);
+        //Debug.Log(player.transform.Find("car/Wheel.FR")); // Check if the target Transform exists
+        //Debug.Log(StoreData.Instance.wheelList[msg.wheelIndex].obj); // Check if the wheel prefab is valid
+
+
+        GameObject frontRight = Instantiate(StoreData.Instance.wheelList[msg.wheelIndex].obj, player.transform.Find("car/Wheel.FR"));
+        GameObject frontLeft = Instantiate(StoreData.Instance.wheelList[msg.wheelIndex].obj, player.transform.Find("car/Wheel.FL"));
+        GameObject rearRight = Instantiate(StoreData.Instance.wheelList[msg.wheelIndex].obj, player.transform.Find("car/Wheel.RR"));
+        GameObject rearLeft = Instantiate(StoreData.Instance.wheelList[msg.wheelIndex].obj, player.transform.Find("car/Wheel.RL"));
+
+        NetworkServer.Spawn(frontRight);
+        Debug.Log("hello");
+        NetworkServer.Spawn(frontLeft);
+        NetworkServer.Spawn(rearRight);
+        NetworkServer.Spawn(rearLeft);
+
+        GameObject leftTrail = Instantiate(StoreData.Instance.trailList[msg.trailIndex].obj, rearRight.transform);
+        GameObject rightTrail = Instantiate(StoreData.Instance.trailList[msg.trailIndex].obj, rearLeft.transform);
+
+        NetworkServer.Spawn(leftTrail); NetworkServer.Spawn(rightTrail);
+
+        //Vector3 start = new Vector3(0, 40f, 0);
+
+        //GameObject player = AssembleKart(msg);
+        //Debug.Log($"obj: {msg.playerObj}");
+        //GameObject player = Instantiate(msg.playerObj, start, Quaternion.identity);
+        //NetworkServer.Spawn(player);
+        //spawnPrefabs.Add(player);
+
+        //GameObject player = Instantiate(StoreData.Instance.kartList[msg.kartIndex].obj,
+        //    start, Quaternion.identity);
+
+        //Instantiate(StoreData.Instance.wheelList[msg.wheelIndex].obj, player.transform.Find("car/Wheel.FR"));
+        //Instantiate(StoreData.Instance.wheelList[msg.wheelIndex].obj, player.transform.Find("car/Wheel.FL"));
+
+        //GameObject rearRight = Instantiate(StoreData.Instance.wheelList[msg.wheelIndex].obj, player.transform.Find("car/Wheel.RR"));
+        //GameObject rearLeft = Instantiate(StoreData.Instance.wheelList[msg.wheelIndex].obj, player.transform.Find("car/Wheel.RL"));
+
+        //Instantiate(StoreData.Instance.trailList[msg.trailIndex].obj, rearRight.transform);
+        //Instantiate(StoreData.Instance.trailList[msg.trailIndex].obj, rearLeft.transform);
 
         NetworkServer.AddPlayerForConnection(conn, player);
         Debug.Log("Player spawned");
@@ -147,6 +192,33 @@ public class MirrorNetworkManager : NetworkManager
         {
             LoadGameScene();
         }
+    }
+
+    GameObject AssembleKart(CreateKartMessage msg)
+    {
+        Vector3 start = new(0, 40f, 0);
+        GameObject player = Instantiate(StoreData.Instance.kartList[msg.kartIndex].obj,
+            start, Quaternion.identity);
+        //Debug.Log(player.transform.Find("car/Wheel.FR")); // Check if the target Transform exists
+        //Debug.Log(StoreData.Instance.wheelList[msg.wheelIndex].obj); // Check if the wheel prefab is valid
+
+
+        GameObject frontRight = Instantiate(StoreData.Instance.wheelList[msg.wheelIndex].obj, player.transform.Find("car/Wheel.FR"));
+        GameObject frontLeft = Instantiate(StoreData.Instance.wheelList[msg.wheelIndex].obj, player.transform.Find("car/Wheel.FL"));
+        GameObject rearRight = Instantiate(StoreData.Instance.wheelList[msg.wheelIndex].obj, player.transform.Find("car/Wheel.RR"));
+        GameObject rearLeft = Instantiate(StoreData.Instance.wheelList[msg.wheelIndex].obj, player.transform.Find("car/Wheel.RL"));
+
+        NetworkServer.Spawn(frontRight);
+        NetworkServer.Spawn(frontLeft);
+        NetworkServer.Spawn(rearRight);
+        NetworkServer.Spawn(rearLeft);
+
+        GameObject leftTrail = Instantiate(StoreData.Instance.trailList[msg.trailIndex].obj, rearRight.transform);
+        GameObject rightTrail = Instantiate(StoreData.Instance.trailList[msg.trailIndex].obj, rearLeft.transform);
+
+        NetworkServer.Spawn(leftTrail); NetworkServer.Spawn(rightTrail);
+
+        return player;
     }
 
     public override void OnServerConnect(NetworkConnectionToClient conn)

@@ -2206,7 +2206,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 43.55
+  m_fontSize: 40.85
   m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -10955,6 +10955,14 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2331078832082510095, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
+      propertyPath: trailList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2331078832082510095, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
+      propertyPath: wheelList.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2331078832082510095, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
       propertyPath: kartList.Array.data[0]
       value: 
       objectReference: {fileID: 11400000, guid: ab312040d82b01b4798f007853808197, type: 2}
@@ -10966,6 +10974,18 @@ PrefabInstance:
       propertyPath: kartList.Array.data[2]
       value: 
       objectReference: {fileID: 11400000, guid: 48243eedec78c4644bdc88801e7662ba, type: 2}
+    - target: {fileID: 2331078832082510095, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
+      propertyPath: trailList.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: c4b1db05c6024c54b8695e4d91838254, type: 2}
+    - target: {fileID: 2331078832082510095, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
+      propertyPath: wheelList.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: b70658d4b65d42846ac384e9bb97c9ba, type: 2}
+    - target: {fileID: 2331078832082510095, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
+      propertyPath: wheelList.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 0f213ef46a3430841bd9c67cc444a860, type: 2}
     - target: {fileID: 4829437656189325627, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
       propertyPath: m_Name
       value: Store Data Prefab
@@ -12234,6 +12254,10 @@ MonoBehaviour:
   - {fileID: 4804685132883225272, guid: 97ba5bb26d0aedf40b29280704193a42, type: 3}
   - {fileID: 1985157920615434412, guid: 7c4c33f28e7c9c6478acf7c0fe58e931, type: 3}
   - {fileID: 5595306355369600747, guid: 4230af04511df804387a7cceaf076ad0, type: 3}
+  - {fileID: 4804685132883225272, guid: 50d8253f5dc6e5c4793dec3b094bc97a, type: 3}
+  - {fileID: 765190240496230043, guid: 4f7f11ef8d3154343874d40116fed402, type: 3}
+  - {fileID: 4266727502796744808, guid: 503b26ad1528c4846aa88f0f6d895beb, type: 3}
+  - {fileID: 4266727502796744808, guid: c3741c4bc85467148ac295e3541ef185, type: 3}
   exceptionsDisconnect: 1
   snapshotSettings:
     bufferTimeMultiplier: 2
@@ -13938,7 +13962,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 66.7
+  m_fontSize: 66.75
   m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -14545,7 +14569,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 64.15
+  m_fontSize: 66.15
   m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 1
