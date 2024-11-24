@@ -98,7 +98,7 @@ public class CarPowerupManager : NetworkBehaviour
                 if (isServer)
                 {
                     Instantiate(rocketPrefab,powerupHolder.transform.position, adjustedRotation, powerupHolder.transform);
-                    RpcSpawnRocket(powerupHolder.transform);
+                    // RpcSpawnRocket(powerupHolder.transform);
                 }
                 
                 break;
@@ -106,7 +106,7 @@ public class CarPowerupManager : NetworkBehaviour
                 if (isServer)
                 {
                     Instantiate(shieldPrefab, powerupHolder.transform);
-                    RpcSpawnShield(powerupHolder.transform);
+                    // RpcSpawnShield(powerupHolder.transform);
                 }
                 
                 break;
@@ -114,7 +114,7 @@ public class CarPowerupManager : NetworkBehaviour
                 if (isServer)
                 {
                     Instantiate(burgerPrefab, powerupHolder.transform);
-                    RpcSpawnBurger(powerupHolder.transform);
+                    // RpcSpawnBurger(powerupHolder.transform);
                 }
                 
                 break;
