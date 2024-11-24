@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
-
-public class ShieldPickup : MonoBehaviour
+using Mirror;
+public class ShieldPickup : NetworkBehaviour
 {
     public float rotationSpeed = 50f;
     public GameObject shield_active_prefab;
@@ -13,23 +13,21 @@ public class ShieldPickup : MonoBehaviour
         transform.Rotate(Vector3.forward * rotationSpeed * Time.deltaTime);
     }
 
+    [Server]
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            Transform powerupSlot = other.transform.Find("powerup_loc1");
-            Quaternion adjustedRotation = other.transform.rotation * Quaternion.Euler(35, 0, 0);
-            if (powerupSlot != null)
-            {
-                GameObject shieldInstance = Instantiate(
-                    shield_active_prefab, 
-                    powerupSlot.position, 
-                    adjustedRotation,
-                    powerupSlot 
-                );
-
-            }
-            Destroy(gameObject);
+            CmdSpawnActiveShield(other.gameObject);
         }
+    }
+    [Server]
+    void CmdSpawnActiveShield(GameObject other){
+        NetworkIdentity networkIdentity = other.GetComponent<NetworkIdentity>();
+        if (networkIdentity != null)
+        {
+            other.GetComponent<CarPowerupManager>().SetEquippedPickupSyncVar(networkIdentity.connectionToClient , Powerups.shield);
+        }   
+        NetworkServer.Destroy(this.gameObject);
     }
 }

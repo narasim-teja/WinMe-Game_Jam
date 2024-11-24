@@ -95,27 +95,18 @@ public class CarPowerupManager : NetworkBehaviour
             case Powerups.rocket:
                 Quaternion adjustedRotation = this.transform.rotation * Quaternion.Euler(90f, 0f, 0f);
 
-                if (isServer)
-                {
-                    Instantiate(rocketPrefab,powerupHolder.transform.position, adjustedRotation, powerupHolder.transform);
-                    // RpcSpawnRocket(powerupHolder.transform);
-                }
+                Instantiate(rocketPrefab,powerupHolder.transform.position, adjustedRotation, powerupHolder.transform);
+                if(isLocalPlayer) CmdSpawnRocketOnServer();
                 
                 break;
             case Powerups.shield:
-                if (isServer)
-                {
-                    Instantiate(shieldPrefab, powerupHolder.transform);
-                    // RpcSpawnShield(powerupHolder.transform);
-                }
+                Instantiate(shieldPrefab,powerupHolder.transform.position,shieldPrefab.transform.rotation , powerupHolder.transform);
+                if(isLocalPlayer) CmdSpawnShieldOnServer();
                 
                 break;
             case Powerups.burger:
-                if (isServer)
-                {
-                    Instantiate(burgerPrefab, powerupHolder.transform);
-                    // RpcSpawnBurger(powerupHolder.transform);
-                }
+                Instantiate(burgerPrefab,powerupHolder.transform.position,shieldPrefab.transform.rotation , powerupHolder.transform);
+                if(isLocalPlayer) CmdSpawnBurgerOnServer();
                 
                 break;
         }
@@ -140,10 +131,10 @@ public class CarPowerupManager : NetworkBehaviour
     }
 
 //🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
-    [ClientRpc]
-    void RpcSpawnRocket(Transform powerupHolderTransform)
+    [Command]
+    public void CmdSpawnRocketOnServer()
     {
-        Instantiate(rocketPrefab, powerupHolderTransform);
+        Instantiate(rocketPrefab, powerupHolder.transform);
     }
 
     [Command]
@@ -195,10 +186,10 @@ public class CarPowerupManager : NetworkBehaviour
 
 
 //🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔
-    [ClientRpc]
-    void RpcSpawnBurger(Transform powerupHolderTransform)
+    [Command]
+    void CmdSpawnBurgerOnServer()
     {
-        Instantiate(burgerPrefab, powerupHolderTransform);
+        Instantiate(burgerPrefab, powerupHolder.transform);
     }
     
     
@@ -255,10 +246,10 @@ public class CarPowerupManager : NetworkBehaviour
 
 
 //🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡
-    [ClientRpc]
-    void RpcSpawnShield(Transform powerupHolderTransform)
+    [Command]
+    void CmdSpawnShieldOnServer()
     {
-        Instantiate(shieldPrefab, powerupHolderTransform);
+        Instantiate(shieldPrefab, powerupHolder.transform);
     }
     
     [Command]
