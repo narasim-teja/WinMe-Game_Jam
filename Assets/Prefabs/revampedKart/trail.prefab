@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2625690536252649589}
   - component: {fileID: 4718145281623653059}
-  - component: {fileID: -6501490377395020039}
+  - component: {fileID: -1930885589490653830}
   m_Layer: 0
   m_Name: trail
   m_TagString: Untagged
@@ -146,7 +146,7 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 0
   m_ApplyActiveColorSpace: 1
---- !u!114 &-6501490377395020039
+--- !u!114 &-1930885589490653830
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

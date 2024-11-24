@@ -2994,9 +2994,9 @@ GameObject:
   - component: {fileID: 5661329247721298267}
   - component: {fileID: 1067505528573646437}
   - component: {fileID: 3447797977279522668}
+  - component: {fileID: 7306304596497200345}
   - component: {fileID: 1434034022039458850}
   - component: {fileID: 4774128115340097857}
-  - component: {fileID: 7306304596497200345}
   - component: {fileID: 1693190905333830706}
   - component: {fileID: 4170088520099402215}
   m_Layer: 0
@@ -3138,6 +3138,24 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.965364, y: 0.60598755, z: 1.2661972}
   m_Center: {x: 0, y: 0.6412201, z: 0.002319336}
+--- !u!114 &7306304596497200345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4804685132883225272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed226970042de0244b2f6d171dd335a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  coinCountCanvas: {fileID: 1475259823272686073}
+  playerName: 
+  playerNameText: {fileID: 6351081404573950745}
 --- !u!114 &1434034022039458850
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3196,24 +3214,6 @@ MonoBehaviour:
   moveOffset: {x: 0, y: 10, z: -4}
   rotOffset: {x: 0, y: 0, z: 0}
   carTarget: {fileID: 170109275984896101}
---- !u!114 &7306304596497200345
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4804685132883225272}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed226970042de0244b2f6d171dd335a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  coinCountCanvas: {fileID: 1475259823272686073}
-  playerName: 
-  playerNameText: {fileID: 6351081404573950745}
 --- !u!114 &1693190905333830706
 MonoBehaviour:
   m_ObjectHideFlags: 0

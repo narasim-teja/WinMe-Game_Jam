@@ -23,9 +23,6 @@ public class MainMenuUI : MonoBehaviour
     NetworkManager manager;
     SimpleWebTransport transport;
 
-    [SerializeField]
-    GameObject canvasCamera;
-
     [SerializeField] private GameObject playerNameInputField;
     private string playerName;
 
@@ -166,7 +163,7 @@ public class MainMenuUI : MonoBehaviour
             Debug.Log("Waiting for local player...");
             yield return null;
         }
-        canvasCamera.SetActive(false);
+        GameObject.Find("Camera").SetActive(false);
 
         PlayerManager localPlayer = NetworkClient.localPlayer.GetComponent<PlayerManager>();
         playerName = playerNameInputField.GetComponent<TMP_InputField>().text.ToString();

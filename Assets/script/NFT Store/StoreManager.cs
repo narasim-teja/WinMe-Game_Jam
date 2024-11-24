@@ -53,9 +53,6 @@ public class StoreManager : MonoBehaviour
 
         Instantiate(StoreData.Instance.trailList[currentTrailIndex].obj, rearRight.transform);
         Instantiate(StoreData.Instance.trailList[currentTrailIndex].obj, rearLeft.transform);
-        body.transform.SetParent(null);
-        Constants.playerObj = body;
-        DontDestroyOnLoad(Constants.playerObj);
     }
 
     public async void ThirdWebTesting()

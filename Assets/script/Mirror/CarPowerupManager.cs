@@ -76,6 +76,7 @@ public class CarPowerupManager : NetworkBehaviour
         equippedPickup = powerupName;
         if (isServer)
         {
+            Debug.Log("in server");
             StartCoroutine(ChangeEquipment(equippedPickup));
         }
     }

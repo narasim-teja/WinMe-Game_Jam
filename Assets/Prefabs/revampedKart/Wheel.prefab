@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 6891581828238735473}
   - component: {fileID: 6105302123641902264}
   - component: {fileID: 7491363882523078717}
-  - component: {fileID: 5273861766841864589}
+  - component: {fileID: -7146684087539285728}
   m_Layer: 0
   m_Name: Wheel
   m_TagString: Untagged
@@ -168,7 +168,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &5273861766841864589
+--- !u!114 &-7146684087539285728
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
