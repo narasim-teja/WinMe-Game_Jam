@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
-
-public class BurgerPickup : MonoBehaviour
+using Mirror;
+public class BurgerPickup : NetworkBehaviour
 {
     public float rotationSpeed = 50f;
     public GameObject burger_active_prefab;
@@ -14,24 +14,21 @@ public class BurgerPickup : MonoBehaviour
         transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
     }
 
+    [Server]
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            Transform powerupSlot = other.transform.Find("powerup_loc1");
-
-            if (powerupSlot != null)
-            {
-                GameObject burgerInstance = Instantiate(
-                    burger_active_prefab, 
-                    powerupSlot.position, 
-                    quaternion.identity,
-                    powerupSlot 
-                );
-
-            }
-
-            Destroy(gameObject);
+            CmdSpawnActiveBurger(other.gameObject);
         }
+    }
+    [Server]
+    void CmdSpawnActiveBurger(GameObject other){
+        NetworkIdentity networkIdentity = other.GetComponent<NetworkIdentity>();
+        if (networkIdentity != null)
+        {
+            other.GetComponent<CarPowerupManager>().SetEquippedPickupSyncVar(networkIdentity.connectionToClient , Powerups.burger);
+        }   
+        NetworkServer.Destroy(this.gameObject);
     }
 }

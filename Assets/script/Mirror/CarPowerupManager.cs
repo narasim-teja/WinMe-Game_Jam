@@ -74,11 +74,6 @@ public class CarPowerupManager : NetworkBehaviour
     public void SetEquippedPickupSyncVar(NetworkConnection target, Powerups powerupName)
     {
         equippedPickup = powerupName;
-        if (isServer)
-        {
-            Debug.Log("in server");
-            StartCoroutine(ChangeEquipment(equippedPickup));
-        }
     }
     void OnChangePowerup(Powerups oldEquippedItem, Powerups newEquippedItem)
     {
@@ -98,25 +93,27 @@ public class CarPowerupManager : NetworkBehaviour
         {
             
             case Powerups.rocket:
-                InstantiateRocket(powerupHolder.transform);
+                Quaternion adjustedRotation = this.transform.rotation * Quaternion.Euler(90f, 0f, 0f);
+
+                Instantiate(rocketPrefab,powerupHolder.transform.position, adjustedRotation, powerupHolder.transform);
+                if(isLocalPlayer) CmdSpawnRocketOnServer();
+                
                 break;
             case Powerups.shield:
-                GameObject newShieldInstance = Instantiate(shieldPrefab, powerupHolder.transform);
-                if (isServer)
-                {
-                    NetworkServer.Spawn(newShieldInstance);
-                }
+                Instantiate(shieldPrefab,powerupHolder.transform.position,shieldPrefab.transform.rotation , powerupHolder.transform);
+                if(isLocalPlayer) CmdSpawnShieldOnServer();
+                
                 break;
             case Powerups.burger:
-                GameObject newburgerInstance =Instantiate(burgerPrefab, powerupHolder.transform.position, quaternion.identity,powerupHolder.transform);
-                if (isServer)
-                {
-                    NetworkServer.Spawn(newburgerInstance);
-                }
+                Instantiate(burgerPrefab,powerupHolder.transform.position,shieldPrefab.transform.rotation , powerupHolder.transform);
+                if(isLocalPlayer) CmdSpawnBurgerOnServer();
+                
                 break;
         }
         
     }
+
+
 
     [Command]
     void CmdDeleteTopPowerupFromServer(){
@@ -133,23 +130,11 @@ public class CarPowerupManager : NetworkBehaviour
         Destroy(powerup);
     }
 
-
 //🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
-
-    void InstantiateRocket(Transform powerupHolder){
-        Quaternion adjustedRotation = this.transform.rotation * Quaternion.Euler(90f, 0f, 0f);
-
-        GameObject rocketInstance = Instantiate(
-            rocketPrefab, 
-            powerupHolder.position, 
-            adjustedRotation,
-            powerupHolder 
-        );
-        if (isServer)
-        {
-            NetworkServer.Spawn(rocketInstance);
-        }
-
+    [Command]
+    public void CmdSpawnRocketOnServer()
+    {
+        Instantiate(rocketPrefab, powerupHolder.transform);
     }
 
     [Command]
@@ -201,7 +186,13 @@ public class CarPowerupManager : NetworkBehaviour
 
 
 //🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔
-
+    [Command]
+    void CmdSpawnBurgerOnServer()
+    {
+        Instantiate(burgerPrefab, powerupHolder.transform);
+    }
+    
+    
     [Command]
     public void CmdIncreaseBurgerCount(){
         burgerCount++;
@@ -255,6 +246,12 @@ public class CarPowerupManager : NetworkBehaviour
 
 
 //🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡
+    [Command]
+    void CmdSpawnShieldOnServer()
+    {
+        Instantiate(shieldPrefab, powerupHolder.transform);
+    }
+    
     [Command]
     public void CmdConsumeShield()
     {
