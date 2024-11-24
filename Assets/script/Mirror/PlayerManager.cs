@@ -87,12 +87,14 @@ public class PlayerManager : NetworkBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+
     public override void OnStartClient()
     {
         base.OnStartClient();
         Debug.Log("Client started for player: " + netId);
 
         DisableWaitingRoomCanvas();
+        AssembleKart();
 
         if (isLocalPlayer)
         {
@@ -102,6 +104,43 @@ public class PlayerManager : NetworkBehaviour
         // Update the player name text when the client starts
         // OnPlayerNameChanged(playerName, playerName);
     }
+
+    void AssembleKart()
+    {
+        Instantiate(StoreData.Instance.wheelList[Constants.currentWheelIndex].obj, transform.Find("car/Wheel.FR"));
+        Instantiate(StoreData.Instance.wheelList[Constants.currentWheelIndex].obj, transform.Find("car/Wheel.FL"));
+
+        Instantiate(StoreData.Instance.wheelList[Constants.currentWheelIndex].obj, transform.Find("car/Wheel.RR"));
+        Instantiate(StoreData.Instance.wheelList[Constants.currentWheelIndex].obj, transform.Find("car/Wheel.RL"));
+
+        Instantiate(StoreData.Instance.trailList[Constants.currentTrailIndex].obj, transform.Find("car/Wheel.RR").GetChild(0));
+        Instantiate(StoreData.Instance.trailList[Constants.currentTrailIndex].obj, transform.Find("car/Wheel.RL").GetChild(0));
+    }
+
+    [Command]
+    void CmdAssembleKart()
+    {
+        GameObject w1 = Instantiate(StoreData.Instance.wheelList[Constants.currentWheelIndex].obj, transform.Find("car/Wheel.FR"));
+        GameObject w2 = Instantiate(StoreData.Instance.wheelList[Constants.currentWheelIndex].obj, transform.Find("car/Wheel.FL"));
+        GameObject w3 = Instantiate(StoreData.Instance.wheelList[Constants.currentWheelIndex].obj, transform.Find("car/Wheel.RR"));
+        GameObject w4 = Instantiate(StoreData.Instance.wheelList[Constants.currentWheelIndex].obj, transform.Find("car/Wheel.RL"));
+
+        GameObject t1 = Instantiate(StoreData.Instance.trailList[Constants.currentTrailIndex].obj, transform.Find("car/Wheel.RR").GetChild(0));
+        GameObject t2 = Instantiate(StoreData.Instance.trailList[Constants.currentTrailIndex].obj, transform.Find("car/Wheel.RL").GetChild(0));
+        Debug.Log($"Assembling : {w1.name}");
+        if (isServer)
+        {
+            Debug.Log("helllo");
+            NetworkServer.Spawn(w1);
+            NetworkServer.Spawn(w2);
+            NetworkServer.Spawn(w3);
+            NetworkServer.Spawn(w4);
+            NetworkServer.Spawn(t1);
+            NetworkServer.Spawn(t2);
+            Debug.Log("helllo2222");
+        }
+    }
+
 
     [Command]
     private void CmdSetPlayerName(string name)
@@ -125,7 +164,11 @@ public class PlayerManager : NetworkBehaviour
         {
             Debug.Log("Setting player name: " + name);
             StartCoroutine(WaitForPlayerConnection());
-            if(isClient) CmdSetPlayerName(name);
+            if(isClient)
+            {
+                CmdSetPlayerName(name);
+                CmdAssembleKart();
+            }
 
             
         }

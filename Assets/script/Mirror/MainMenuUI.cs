@@ -13,6 +13,7 @@ using Unity.Services.Core;
 using Unity.Services.Authentication;
 using System.Threading.Tasks;
 using Mirror.SimpleWeb;
+using UnityEngine.SceneManagement;
 
 public class MainMenuUI : MonoBehaviour
 {
@@ -21,9 +22,6 @@ public class MainMenuUI : MonoBehaviour
 
     NetworkManager manager;
     SimpleWebTransport transport;
-
-    [SerializeField]
-    GameObject canvasCamera;
 
     [SerializeField] private GameObject playerNameInputField;
     private string playerName;
@@ -165,7 +163,7 @@ public class MainMenuUI : MonoBehaviour
             Debug.Log("Waiting for local player...");
             yield return null;
         }
-        canvasCamera.SetActive(false);
+        GameObject.Find("Camera").SetActive(false);
 
         PlayerManager localPlayer = NetworkClient.localPlayer.GetComponent<PlayerManager>();
         playerName = playerNameInputField.GetComponent<TMP_InputField>().text.ToString();
@@ -399,14 +397,16 @@ public class MainMenuUI : MonoBehaviour
     #endregion
 
 
-    public string GetLocalIPv4()
+    #region Go to store
+    public void LoadStoreScene()
     {
-        string strHostName = System.Net.Dns.GetHostName();
+        // disabling component of network manager
+        if (transform.childCount > 0)
+        {
+            transform.GetChild(0).gameObject.SetActive(false);
+        }
 
-        IPHostEntry ipEntry = System.Net.Dns.GetHostEntry(strHostName);
-
-        IPAddress[] addr = ipEntry.AddressList;
-
-        return addr[addr.Length - 1].ToString();
+        SceneManager.LoadScene(2);
     }
+    #endregion
 }

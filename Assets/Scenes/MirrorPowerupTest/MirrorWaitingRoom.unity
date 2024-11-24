@@ -213,7 +213,7 @@ GameObject:
   - component: {fileID: 23043276}
   m_Layer: 3
   m_Name: NurbsPath.071
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -319,7 +319,7 @@ GameObject:
   - component: {fileID: 29250603}
   m_Layer: 3
   m_Name: Cylinder.005
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -405,7 +405,7 @@ GameObject:
   - component: {fileID: 77700738}
   m_Layer: 3
   m_Name: NurbsPath.013
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -511,7 +511,7 @@ GameObject:
   - component: {fileID: 89667589}
   m_Layer: 3
   m_Name: Cylinder.014
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -722,7 +722,7 @@ GameObject:
   - component: {fileID: 116926895}
   m_Layer: 3
   m_Name: SlopeProfileC
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -806,7 +806,7 @@ GameObject:
   - component: {fileID: 124305021}
   m_Layer: 3
   m_Name: SlopeProfileA
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -911,7 +911,7 @@ GameObject:
   - component: {fileID: 152473346}
   m_Layer: 3
   m_Name: Cylinder.013
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -997,7 +997,7 @@ GameObject:
   - component: {fileID: 202804246}
   m_Layer: 3
   m_Name: NurbsPath.073
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1197,7 +1197,7 @@ GameObject:
   - component: {fileID: 222705011}
   m_Layer: 3
   m_Name: Cube.009
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1352,7 +1352,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 43.5
+  m_fontSize: 18
   m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1416,7 +1416,7 @@ GameObject:
   - component: {fileID: 241022771}
   m_Layer: 3
   m_Name: Cube.001
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1523,7 +1523,7 @@ GameObject:
   - component: {fileID: 243983042}
   m_Layer: 3
   m_Name: NurbsPath.068
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1629,7 +1629,7 @@ GameObject:
   - component: {fileID: 268000382}
   m_Layer: 3
   m_Name: NurbsPath.017
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1735,7 +1735,7 @@ GameObject:
   - component: {fileID: 316233927}
   m_Layer: 3
   m_Name: Cylinder
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1840,7 +1840,7 @@ GameObject:
   - component: {fileID: 316573253}
   m_Layer: 3
   m_Name: SlopeProfileC.002
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1924,7 +1924,7 @@ GameObject:
   - component: {fileID: 320814092}
   m_Layer: 3
   m_Name: BezierCircle.001
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2031,7 +2031,7 @@ GameObject:
   - component: {fileID: 347922857}
   m_Layer: 3
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2122,6 +2122,140 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 347922855}
   m_Mesh: {fileID: -5495902117074765545, guid: f05e1bf94d68cbd48a787e3932be107c, type: 3}
+--- !u!1 &358685147
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 358685148}
+  - component: {fileID: 358685150}
+  - component: {fileID: 358685149}
+  m_Layer: 5
+  m_Name: Text (TMP)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &358685148
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 358685147}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1650641248}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &358685149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 358685147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: Go to store
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: fb77bb97289d8404fb35683468a75759, type: 2}
+  m_sharedMaterial: {fileID: -4908530387345835342, guid: fb77bb97289d8404fb35683468a75759, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294901503
+  m_fontColor: {r: 1, g: 0.99433964, b: 0.99433964, a: 1}
+  m_enableVertexGradient: 1
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 11400000, guid: 7963c9dd791e3d24ab65fab550dbd8f4, type: 2}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 28.75
+  m_fontSizeBase: 30
+  m_fontWeight: 400
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 1
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &358685150
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 358685147}
+  m_CullTransparentMesh: 1
 --- !u!1 &399445283
 GameObject:
   m_ObjectHideFlags: 0
@@ -2136,7 +2270,7 @@ GameObject:
   - component: {fileID: 399445285}
   m_Layer: 3
   m_Name: BezierCurve
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2375,7 +2509,7 @@ GameObject:
   - component: {fileID: 451690713}
   m_Layer: 3
   m_Name: Cylinder.015
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2459,7 +2593,7 @@ GameObject:
   - component: {fileID: 471878028}
   m_Layer: 3
   m_Name: BezierCircle
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2567,7 +2701,7 @@ GameObject:
   - component: {fileID: 473154659}
   m_Layer: 3
   m_Name: SlopeProfileB
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2673,7 +2807,7 @@ GameObject:
   - component: {fileID: 478708450}
   m_Layer: 3
   m_Name: Cube.006
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2775,7 +2909,7 @@ GameObject:
   - component: {fileID: 497649278}
   m_Layer: 3
   m_Name: kt_stadium (1)
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2789,7 +2923,7 @@ Transform:
   m_GameObject: {fileID: 497649277}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 821, y: -36.55, z: 379}
+  m_LocalPosition: {x: 821, y: -23.34, z: 379}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2873,7 +3007,7 @@ Transform:
   - {fileID: 116926894}
   - {fileID: 1405681974}
   - {fileID: 316573252}
-  m_Father: {fileID: 1945648344}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &501830684
 GameObject:
@@ -2889,7 +3023,7 @@ GameObject:
   - component: {fileID: 501830686}
   m_Layer: 3
   m_Name: NurbsPath.016
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3128,7 +3262,7 @@ GameObject:
   - component: {fileID: 511350082}
   m_Layer: 3
   m_Name: Cube.011
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3213,7 +3347,7 @@ GameObject:
   - component: {fileID: 530256923}
   m_Layer: 3
   m_Name: Cube.007
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3317,7 +3451,7 @@ GameObject:
   - component: {fileID: 551141823}
   m_Layer: 3
   m_Name: Cube.005
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3402,7 +3536,7 @@ GameObject:
   - component: {fileID: 586659118}
   m_Layer: 3
   m_Name: NurbsPath.003
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3507,7 +3641,7 @@ GameObject:
   - component: {fileID: 590684952}
   m_Layer: 3
   m_Name: Cylinder.007
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3593,7 +3727,7 @@ GameObject:
   - component: {fileID: 625717509}
   m_Layer: 3
   m_Name: NurbsPath.074
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3968,7 +4102,7 @@ GameObject:
   - component: {fileID: 664162078}
   m_Layer: 3
   m_Name: NurbsPath.002
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4125,7 +4259,7 @@ GameObject:
   - component: {fileID: 692618228}
   m_Layer: 3
   m_Name: Cylinder.001
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4211,7 +4345,7 @@ GameObject:
   - component: {fileID: 759623821}
   m_Layer: 3
   m_Name: NurbsPath.066
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4316,7 +4450,7 @@ GameObject:
   - component: {fileID: 775979469}
   m_Layer: 3
   m_Name: BorderedPath
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4450,7 +4584,7 @@ GameObject:
   - component: {fileID: 818606790}
   m_Layer: 3
   m_Name: NurbsPath.001
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4711,7 +4845,7 @@ GameObject:
   - component: {fileID: 836748814}
   m_Layer: 3
   m_Name: NurbsPath.072
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4817,7 +4951,7 @@ GameObject:
   - component: {fileID: 849035440}
   m_Layer: 3
   m_Name: Cylinder.011
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5160,7 +5294,7 @@ GameObject:
   - component: {fileID: 923857923}
   m_Layer: 3
   m_Name: NurbsPath.075
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5267,7 +5401,7 @@ GameObject:
   - component: {fileID: 941640913}
   m_Layer: 3
   m_Name: Cube.003
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5372,7 +5506,7 @@ GameObject:
   - component: {fileID: 962727609}
   m_Layer: 3
   m_Name: NurbsPath.065
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5579,7 +5713,7 @@ GameObject:
   - component: {fileID: 1018636902}
   m_Layer: 3
   m_Name: NurbsPath.006
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5685,7 +5819,7 @@ GameObject:
   - component: {fileID: 1023143395}
   m_Layer: 3
   m_Name: NurbsPath.007
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5789,7 +5923,7 @@ GameObject:
   - component: {fileID: 1083853436}
   m_Layer: 3
   m_Name: Point
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5885,7 +6019,7 @@ GameObject:
   - component: {fileID: 1093313361}
   m_Layer: 3
   m_Name: NurbsPath.069
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5991,7 +6125,7 @@ GameObject:
   - component: {fileID: 1098788977}
   m_Layer: 3
   m_Name: NurbsPath.014
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6097,7 +6231,7 @@ GameObject:
   - component: {fileID: 1098959898}
   m_Layer: 3
   m_Name: NurbsPath.004
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6203,7 +6337,7 @@ GameObject:
   - component: {fileID: 1101544600}
   m_Layer: 3
   m_Name: NurbsPath.010
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6659,7 +6793,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1864699029}
+    m_TransformParent: {fileID: 5913299405527761909}
     m_Modifications:
     - target: {fileID: 3884746220347834094, guid: 897cda79fe3077c4fbc0fb5916d433ee, type: 3}
       propertyPath: m_Name
@@ -6684,7 +6818,7 @@ PrefabInstance:
     - target: {fileID: 7458216348175956803, guid: 897cda79fe3077c4fbc0fb5916d433ee, type: 3}
       propertyPath: onStart.m_PersistentCalls.m_Calls.Array.data[7].m_Target
       value: 
-      objectReference: {fileID: 1864699030}
+      objectReference: {fileID: 0}
     - target: {fileID: 7458216348175956803, guid: 897cda79fe3077c4fbc0fb5916d433ee, type: 3}
       propertyPath: onConnected.m_PersistentCalls.m_Calls.Array.data[7].m_Mode
       value: 4
@@ -6696,7 +6830,7 @@ PrefabInstance:
     - target: {fileID: 7458216348175956803, guid: 897cda79fe3077c4fbc0fb5916d433ee, type: 3}
       propertyPath: onConnected.m_PersistentCalls.m_Calls.Array.data[7].m_Target
       value: 
-      objectReference: {fileID: 1864699030}
+      objectReference: {fileID: 0}
     - target: {fileID: 7458216348175956803, guid: 897cda79fe3077c4fbc0fb5916d433ee, type: 3}
       propertyPath: onStart.m_PersistentCalls.m_Calls.Array.data[7].m_MethodName
       value: SetAlpha
@@ -6716,7 +6850,7 @@ PrefabInstance:
     - target: {fileID: 7458216348175956803, guid: 897cda79fe3077c4fbc0fb5916d433ee, type: 3}
       propertyPath: onConnectionError.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
-      objectReference: {fileID: 1864699030}
+      objectReference: {fileID: 0}
     - target: {fileID: 7458216348175956803, guid: 897cda79fe3077c4fbc0fb5916d433ee, type: 3}
       propertyPath: onConnectionError.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
       value: 2
@@ -7277,7 +7411,7 @@ GameObject:
   - component: {fileID: 1232469951}
   m_Layer: 3
   m_Name: NurbsPath.009
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7377,6 +7511,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4404896360829706404, guid: 379ed01658d62a14484f953196ff19db, type: 3}
+      propertyPath: clientId
+      value: 635c525385c001ba174e43a4f25f8a3f
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404896360829706404, guid: 379ed01658d62a14484f953196ff19db, type: 3}
+      propertyPath: activeChain
+      value: Morph
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404896360829706404, guid: 379ed01658d62a14484f953196ff19db, type: 3}
+      propertyPath: supportedChains.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404896360829706404, guid: 379ed01658d62a14484f953196ff19db, type: 3}
+      propertyPath: supportedChains.Array.data[0].chainId
+      value: 2810
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404896360829706404, guid: 379ed01658d62a14484f953196ff19db, type: 3}
+      propertyPath: supportedChains.Array.data[0].identifier
+      value: Morph
+      objectReference: {fileID: 0}
     - target: {fileID: 4404896360829706405, guid: 379ed01658d62a14484f953196ff19db, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -7421,6 +7575,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ThirdwebManager
       objectReference: {fileID: 0}
+    - target: {fileID: 4404896360829706407, guid: 379ed01658d62a14484f953196ff19db, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7439,7 +7597,7 @@ GameObject:
   - component: {fileID: 1250515922}
   m_Layer: 3
   m_Name: Cylinder.012
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7614,7 +7772,7 @@ GameObject:
   - component: {fileID: 1267990923}
   m_Layer: 3
   m_Name: Cylinder.009
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7699,7 +7857,7 @@ GameObject:
   - component: {fileID: 1271104754}
   m_Layer: 3
   m_Name: Cylinder.008
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7846,7 +8004,7 @@ GameObject:
   - component: {fileID: 1315568697}
   m_Layer: 3
   m_Name: BezierCircle.003
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8119,7 +8277,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 43.5
+  m_fontSize: 18
   m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -8183,7 +8341,7 @@ GameObject:
   - component: {fileID: 1405055934}
   m_Layer: 3
   m_Name: NurbsPath.012
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8422,7 +8580,7 @@ GameObject:
   - component: {fileID: 1405681975}
   m_Layer: 3
   m_Name: SlopeProfileC.001
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8506,7 +8664,7 @@ GameObject:
   - component: {fileID: 1421374463}
   m_Layer: 3
   m_Name: NurbsPath.018
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8612,7 +8770,7 @@ GameObject:
   - component: {fileID: 1426148206}
   m_Layer: 3
   m_Name: Cube.008
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8716,7 +8874,7 @@ GameObject:
   - component: {fileID: 1443734764}
   m_Layer: 3
   m_Name: Cylinder.004
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8802,7 +8960,7 @@ GameObject:
   - component: {fileID: 1447986882}
   m_Layer: 3
   m_Name: NurbsPath.015
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9083,7 +9241,7 @@ GameObject:
   - component: {fileID: 1512344453}
   m_Layer: 3
   m_Name: Cylinder.002
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9189,7 +9347,7 @@ GameObject:
   - component: {fileID: 1515827802}
   m_Layer: 3
   m_Name: NurbsPath.005
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9346,7 +9504,7 @@ GameObject:
   - component: {fileID: 1554645168}
   m_Layer: 3
   m_Name: Cylinder.003
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9681,7 +9839,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18
+  m_fontSize: 65
   m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -9924,7 +10082,7 @@ GameObject:
   - component: {fileID: 1617381035}
   m_Layer: 3
   m_Name: Cube.002
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10028,7 +10186,7 @@ GameObject:
   - component: {fileID: 1618767265}
   m_Layer: 3
   m_Name: Cube.010
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10113,7 +10271,7 @@ GameObject:
   - component: {fileID: 1621583803}
   m_Layer: 3
   m_Name: NurbsPath.061
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10219,7 +10377,7 @@ GameObject:
   - component: {fileID: 1635735486}
   m_Layer: 3
   m_Name: NurbsPath.008
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10311,6 +10469,185 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1635735484}
   m_Mesh: {fileID: -2145793981142062404, guid: f05e1bf94d68cbd48a787e3932be107c, type: 3}
+--- !u!1 &1650641247
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1650641248}
+  - component: {fileID: 1650641252}
+  - component: {fileID: 1650641251}
+  - component: {fileID: 1650641250}
+  - component: {fileID: 1650641249}
+  m_Layer: 5
+  m_Name: Store Btn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1650641248
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1650641247}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.9408786, y: 0.9408786, z: 0.9408786}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 358685148}
+  m_Father: {fileID: 5913299405527761909}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 723.5646, y: 101.73001}
+  m_SizeDelta: {x: -741.6707, y: -438.5437}
+  m_Pivot: {x: 0, y: 0.5}
+--- !u!114 &1650641249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1650641247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1886651524}
+          m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+          m_MethodName: PlayOneShot
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 8300000, guid: aa794c1beb8e9644ca126041fe7ed812, type: 3}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 9
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1886651524}
+          m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+          m_MethodName: PlayOneShot
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 8300000, guid: dc879dd954fb03b459b9e04421d25539, type: 3}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &1650641250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1650641247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 0.7924528, g: 0.7580634, b: 0.7580634, a: 0}
+    m_HighlightedColor: {r: 0.7924528, g: 0.76553935, b: 0.76553935, a: 0.29803923}
+    m_PressedColor: {r: 0.7924528, g: 0.7730153, b: 0.7730153, a: 0.5529412}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1650641251}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1945648348}
+        m_TargetAssemblyTypeName: MainMenuUI, Assembly-CSharp
+        m_MethodName: LoadStoreScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1650641251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1650641247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1650641252
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1650641247}
+  m_CullTransparentMesh: 1
 --- !u!1 &1675998910
 GameObject:
   m_ObjectHideFlags: 0
@@ -10356,7 +10693,7 @@ GameObject:
   - component: {fileID: 1678600102}
   m_Layer: 3
   m_Name: BezierCircle.004
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10605,6 +10942,99 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1685108523}
   m_CullTransparentMesh: 1
+--- !u!1001 &1715059384
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2331078832082510095, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
+      propertyPath: kartList.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2331078832082510095, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
+      propertyPath: trailList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2331078832082510095, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
+      propertyPath: wheelList.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2331078832082510095, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
+      propertyPath: kartList.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: ab312040d82b01b4798f007853808197, type: 2}
+    - target: {fileID: 2331078832082510095, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
+      propertyPath: kartList.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: a31000eff13e6c249b1e5b115ee6c095, type: 2}
+    - target: {fileID: 2331078832082510095, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
+      propertyPath: kartList.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 48243eedec78c4644bdc88801e7662ba, type: 2}
+    - target: {fileID: 2331078832082510095, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
+      propertyPath: trailList.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: c4b1db05c6024c54b8695e4d91838254, type: 2}
+    - target: {fileID: 2331078832082510095, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
+      propertyPath: wheelList.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: b70658d4b65d42846ac384e9bb97c9ba, type: 2}
+    - target: {fileID: 2331078832082510095, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
+      propertyPath: wheelList.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 0f213ef46a3430841bd9c67cc444a860, type: 2}
+    - target: {fileID: 4829437656189325627, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
+      propertyPath: m_Name
+      value: Store Data Prefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 6806962204122155137, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 544.91016
+      objectReference: {fileID: 0}
+    - target: {fileID: 6806962204122155137, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 233.24379
+      objectReference: {fileID: 0}
+    - target: {fileID: 6806962204122155137, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.0113974
+      objectReference: {fileID: 0}
+    - target: {fileID: 6806962204122155137, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6806962204122155137, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6806962204122155137, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6806962204122155137, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6806962204122155137, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6806962204122155137, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6806962204122155137, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
 --- !u!1 &1734257556
 GameObject:
   m_ObjectHideFlags: 0
@@ -10619,7 +11049,7 @@ GameObject:
   - component: {fileID: 1734257558}
   m_Layer: 3
   m_Name: NurbsPath.044
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10722,7 +11152,7 @@ GameObject:
   - component: {fileID: 1747754462}
   m_Layer: 3
   m_Name: Empty.001
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10755,7 +11185,7 @@ GameObject:
   - component: {fileID: 1791854770}
   m_Layer: 3
   m_Name: Cylinder.006
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11228,82 +11658,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 27.367, y: 43.023003, z: -0.54}
---- !u!1 &1864699028
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1864699029}
-  - component: {fileID: 1864699030}
-  - component: {fileID: 1864699031}
-  m_Layer: 5
-  m_Name: ConnectWalletPanel
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1864699029
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1864699028}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1127232125}
-  m_Father: {fileID: 5203276184872143556}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &1864699030
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1864699028}
-  m_CullTransparentMesh: 1
---- !u!114 &1864699031
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1864699028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &1886651523
 GameObject:
   m_ObjectHideFlags: 0
@@ -11580,7 +11934,7 @@ GameObject:
   - component: {fileID: 1910871951}
   m_Layer: 3
   m_Name: NurbsPath.011
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11686,7 +12040,7 @@ GameObject:
   - component: {fileID: 1934530073}
   m_Layer: 3
   m_Name: NurbsPath.067
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11812,7 +12166,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5203276184872143556}
-  - {fileID: 497649278}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1945648345
@@ -11840,7 +12193,7 @@ MonoBehaviour:
   port: 27777
   batchSend: 0
   waitBeforeSend: 1
-  clientUseWss: 1
+  clientUseWss: 0
   clientWebsocketSettings:
     ClientPortOption: 0
     CustomClientPort: 0
@@ -11878,7 +12231,7 @@ MonoBehaviour:
   sendRate: 60
   autoStartServerBuild: 0
   autoConnectClientBuild: 0
-  offlineScene: Assets/Scenes/Mirror Ash/MirrorWaitingRoom.unity
+  offlineScene: 
   onlineScene: 
   transport: {fileID: 1945648345}
   networkAddress: localhost
@@ -11886,7 +12239,7 @@ MonoBehaviour:
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60
   authenticator: {fileID: 0}
-  playerPrefab: {fileID: 4804685132883225272, guid: 97ba5bb26d0aedf40b29280704193a42, type: 3}
+  playerPrefab: {fileID: 0}
   autoCreatePlayer: 1
   playerSpawnMethod: 1
   spawnPrefabs:
@@ -11894,6 +12247,17 @@ MonoBehaviour:
   - {fileID: 1205363166874645003, guid: 1c4f29ec1c23232479adadc256970473, type: 3}
   - {fileID: 1205363166874645003, guid: fe5c650b3ab388441948e86038d50cf9, type: 3}
   - {fileID: 1205363166874645003, guid: de1e190141bde7e489ba1485f51496b1, type: 3}
+  - {fileID: 2997814991494087685, guid: 06fb2b4e77e87a546bfc8c91dc204f4d, type: 3}
+  - {fileID: 6005500290872442030, guid: 0345b005f36a0a1429a1b62e7a5748e1, type: 3}
+  - {fileID: 8876113136581083759, guid: a3dc9a1b16ebd5742b9237f6df24c02b, type: 3}
+  - {fileID: 5394374899766560922, guid: fc6e642a0d249844d959d4205b49ca6c, type: 3}
+  - {fileID: 4804685132883225272, guid: 97ba5bb26d0aedf40b29280704193a42, type: 3}
+  - {fileID: 1985157920615434412, guid: 7c4c33f28e7c9c6478acf7c0fe58e931, type: 3}
+  - {fileID: 5595306355369600747, guid: 4230af04511df804387a7cceaf076ad0, type: 3}
+  - {fileID: 4804685132883225272, guid: 50d8253f5dc6e5c4793dec3b094bc97a, type: 3}
+  - {fileID: 4266727502796744808, guid: 503b26ad1528c4846aa88f0f6d895beb, type: 3}
+  - {fileID: 4266727502796744808, guid: c3741c4bc85467148ac295e3541ef185, type: 3}
+  - {fileID: 765190240496230043, guid: 4f7f11ef8d3154343874d40116fed402, type: 3}
   exceptionsDisconnect: 1
   snapshotSettings:
     bufferTimeMultiplier: 2
@@ -11909,7 +12273,7 @@ MonoBehaviour:
   evaluationMethod: 0
   evaluationInterval: 3
   timeInterpolationGui: 0
-  noOfPlayers: 3
+  noOfPlayers: 2
 --- !u!114 &1945648348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11941,7 +12305,7 @@ GameObject:
   - component: {fileID: 1950931110}
   m_Layer: 3
   m_Name: BezierCurve.002
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12182,7 +12546,7 @@ GameObject:
   - component: {fileID: 1976113063}
   m_Layer: 3
   m_Name: NurbsPath.076
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12329,7 +12693,7 @@ GameObject:
   - component: {fileID: 1992814304}
   m_Layer: 3
   m_Name: Cylinder.010
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12549,7 +12913,7 @@ GameObject:
   - component: {fileID: 2003634379}
   m_Layer: 3
   m_Name: NurbsPath
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12655,7 +13019,7 @@ GameObject:
   - component: {fileID: 2010895861}
   m_Layer: 3
   m_Name: NurbsPath.078
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12761,7 +13125,7 @@ GameObject:
   - component: {fileID: 2045044301}
   m_Layer: 3
   m_Name: NurbsPath.070
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12844,7 +13208,7 @@ GameObject:
   - component: {fileID: 2050603517}
   m_Layer: 3
   m_Name: SlopeProfileB.001
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12928,7 +13292,7 @@ GameObject:
   - component: {fileID: 2094432424}
   m_Layer: 3
   m_Name: BezierCircle.002
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13210,7 +13574,7 @@ GameObject:
   - component: {fileID: 2097601886}
   m_Layer: 3
   m_Name: NurbsPath.039
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13315,7 +13679,7 @@ GameObject:
   - component: {fileID: 2102903149}
   m_Layer: 3
   m_Name: Empty
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13371,7 +13735,7 @@ GameObject:
   - component: {fileID: 2136782051}
   m_Layer: 3
   m_Name: Cube.004
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13598,7 +13962,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 34.2
+  m_fontSize: 43.7
   m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -13771,7 +14135,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &418165029516762596
 GameObject:
   m_ObjectHideFlags: 0
@@ -14205,7 +14569,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 61.75
+  m_fontSize: 41.15
   m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -14346,7 +14710,6 @@ RectTransform:
   - {fileID: 911057847}
   - {fileID: 1221556206}
   - {fileID: 18383342}
-  - {fileID: 1864699029}
   m_Father: {fileID: 1945648344}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -14518,6 +14881,8 @@ RectTransform:
   - {fileID: 8485257155824794181}
   - {fileID: 1171736906}
   - {fileID: 1476424239}
+  - {fileID: 1650641248}
+  - {fileID: 1127232125}
   m_Father: {fileID: 5203276184872143556}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -14562,7 +14927,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6104577458158837349
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14927,3 +15292,5 @@ SceneRoots:
   - {fileID: 1334776426}
   - {fileID: 1675998911}
   - {fileID: 784738209}
+  - {fileID: 497649278}
+  - {fileID: 1715059384}

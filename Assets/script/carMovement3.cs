@@ -22,8 +22,8 @@ public class carMovement3 : NetworkBehaviour
     public bool isOnSlime = false;
 
 
-    [SerializeField] private TrailRenderer leftTrail;
-    [SerializeField] private TrailRenderer rightTrail;
+    //[SerializeField] private TrailRenderer leftTrail;
+    //[SerializeField] private TrailRenderer rightTrail;
     [SerializeField] AudioSource kartDriftAudioSource;
 
     //public Animator animator;
@@ -70,19 +70,12 @@ public class carMovement3 : NetworkBehaviour
 
     private void move(float moveInput, float turnInput)
     {
-        //animator.SetFloat(val, (turnInput + 1) / 2);
         RotateCar(new Vector3(0, 1, 0), 1f);
 
-        // preventing car from going haywire while in 
-
-
-        //rb.AddForce(-Vector3.up * extraGravity);
-        //Debug.Log("on ground");
-        // Accelerate and decelerate
         if (!IsGrounded())
         {
-            leftTrail.emitting = false;
-            rightTrail.emitting = false;
+            //leftTrail.emitting = false;
+            //rightTrail.emitting = false;
 
             if (kartDriftAudioSource.isPlaying)
                 kartDriftAudioSource.Stop();
@@ -93,7 +86,6 @@ public class carMovement3 : NetworkBehaviour
         float accelerationForce = (desiredSpeed - currentSpeed) * acceleration;
 
 
-        //rb.AddForce(transform.forward * accelerationForce);
         if (moveInput < 0)
         {
             turnInput = -turnInput;
@@ -105,12 +97,7 @@ public class carMovement3 : NetworkBehaviour
         {
             rb.AddForce(transform.forward * accelerationForce);
         }
-        /*else if(moveInput == 0) {
-            
-        }*/
-        //rb.AddForceAtPosition(transform.forward * accelerationForce, this.transform.position - new Vector3(0, 0.5f, 0));
-        // Limit the maximum speed
-        // Debug.Log(rb.velocity.magnitude);
+
         if (rb.velocity.magnitude > maxSpeed)
         {
             rb.velocity = rb.velocity.normalized * maxSpeed;
@@ -127,33 +114,29 @@ public class carMovement3 : NetworkBehaviour
 
         if (isOnOil == true)
         {
-            //acceleration = 5f;
-            //leftTrail.emitting = true;
-            rightTrail.emitting = true;
+            //rightTrail.emitting = true;
 
-            leftTrail.startColor = Color.black;
-            rightTrail.startColor = Color.black;
+            //leftTrail.startColor = Color.black;
+            //rightTrail.startColor = Color.black;
         }
         else if (isOnSlime == true)
         {
-            //acceleration = 0.5f;
-            //rb.velocity /= (rb.velocity.magnitude / 5f);
 
-            leftTrail.emitting = true;
-            rightTrail.emitting = true;
+            //leftTrail.emitting = true;
+            //rightTrail.emitting = true;
 
-            leftTrail.startColor = Color.green;
-            rightTrail.startColor = Color.green;
+            //leftTrail.startColor = Color.green;
+            //rightTrail.startColor = Color.green;
         }
         else if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
         {
             lateralFriction = originalLaterationFriction / 3;
             acceleration = originalAcceleration / 2;
-            leftTrail.emitting = true;
-            rightTrail.emitting = true;
+            //leftTrail.emitting = true;
+            //rightTrail.emitting = true;
 
-            leftTrail.startColor = Color.black;
-            rightTrail.startColor = Color.black;
+            //leftTrail.startColor = Color.black;
+            //rightTrail.startColor = Color.black;
 
             if (!kartDriftAudioSource.isPlaying)
             {
@@ -164,11 +147,11 @@ public class carMovement3 : NetworkBehaviour
         {
             lateralFriction = originalLaterationFriction;
             acceleration = originalAcceleration;
-            leftTrail.emitting = false;
-            rightTrail.emitting = false;
+            //leftTrail.emitting = false;
+            //rightTrail.emitting = false;
 
-            leftTrail.startColor = Color.black;
-            rightTrail.startColor = Color.black;
+            //leftTrail.startColor = Color.black;
+            //rightTrail.startColor = Color.black;
 
 
             if (kartDriftAudioSource.isPlaying)
@@ -176,18 +159,6 @@ public class carMovement3 : NetworkBehaviour
                 kartDriftAudioSource.Stop();
             }
         }
-
-        // if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.RightShift)
-        //     || (rb.velocity.magnitude / 15f < 0.08))
-        // {
-        //     if (kartDriftAudioSource.isPlaying)
-        //     {
-
-        //         kartDriftAudioSource.Stop();
-        //         Debug.Log("Stop Drift");
-        //     }
-        // }
-
 
         Vector3 lateralFrictionForce = -rb.velocity.magnitude * lateralFriction * Vector3.Cross(Vector3.Cross(rb.velocity.normalized, transform.forward), transform.forward);
         rb.AddForce(lateralFrictionForce);

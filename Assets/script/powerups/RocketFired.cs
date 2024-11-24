@@ -1,67 +1,49 @@
-// using System.Collections;
-// using System.Collections.Generic;
-// using UnityEngine;
-
-// public class RocketFired : MonoBehaviour
-// {
-//     private int parentID;
-
-//     public void SetParentID(int id)
-//     {
-//         parentID = id;
-//     }
-//     private void OnTriggerEnter(Collider other) {
-//         if(other.GetInstanceID() != parentID){
-//             Destroy(this.gameObject);
-//         }
-//         Debug.Log("" + other.gameObject.name);
-//     }
-// }
 using System.Collections;
 using System.Collections.Generic;
+using Mirror;
 using UnityEngine;
 
-public class RocketFired : MonoBehaviour
+public class RocketFired : NetworkBehaviour
 {
-    private int parentID;
+    private uint parentNetworkID;
+    // public bool isFired = false;
     private float upwardForce = 3f;
     private float explosionForce = 5000f; 
     private float torqueForce = 1000f;
-
+    public bool rocketCollided = false;
     public ParticleSystem explosionEffect;
-    public void SetParentID(int id)
+    public void SetParentID(uint id)
     {
-        parentID = id;
+        parentNetworkID = id;
     }
 
+    [Server]
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetInstanceID() != parentID && other.tag == "Player" && other.GetComponent<carMovementOffline>().isShieldActive == false)
+        if(other.GetComponent<NetworkIdentity>().netId == parentNetworkID) return;
+        if(rocketCollided == true) return;
+        rocketCollided = true;
+
+        Vector3 forceDirection = (other.transform.position - transform.position).normalized;
+        Vector3 upwardDirection = Vector3.up * upwardForce;
+        Vector3 randomTorque = new Vector3( 0, Random.Range(-1f, 1f) , 0) * torqueForce;
+
+        if (other.GetComponent<NetworkIdentity>().netId != parentNetworkID && other.tag == "Player" && other.GetComponent<CarPowerupManager>().isShieldActive == false)
         {
-            Rigidbody targetRigidbody = other.attachedRigidbody;
+            Rigidbody targetRigidbody = other.GetComponent<Rigidbody>();
 
             if (targetRigidbody != null)
             {
-                Vector3 forceDirection = (other.transform.position - transform.position).normalized;
-                Vector3 upwardDirection = Vector3.up * upwardForce;
+                // Call target RPC to the client because simulating explosion on server is not possible since the client network transform is synced from client to server
+                NetworkIdentity networkIdentity = other.GetComponent<NetworkIdentity>();
+                other.GetComponent<CarPowerupManager>().TargetRPCApplyExplosionForceOnClient(networkIdentity.connectionToClient, forceDirection, upwardDirection, randomTorque, explosionForce);      
 
-                targetRigidbody.AddForce((forceDirection + upwardDirection) * explosionForce, ForceMode.Impulse);
-
-                Vector3 randomTorque = new Vector3( 0, Random.Range(-1f, 1f) , 0) * torqueForce;
-
-                targetRigidbody.AddTorque(randomTorque, ForceMode.Impulse);
-
-                ParticleSystem instance = Instantiate(explosionEffect, transform.position, Quaternion.identity);
-                instance.Play();
-
-                Destroy(instance.gameObject, instance.main.duration);
+                other.GetComponent<CarPowerupManager>().ClientRpcPlayExplosionEffect(other.GetComponent<Transform>());
             }
             Destroy(this.gameObject);
         }
-        else if(other.GetInstanceID() != parentID){
-            ParticleSystem instance = Instantiate(explosionEffect, transform.position, Quaternion.identity);
-            instance.Play();
-            Destroy(instance.gameObject, instance.main.duration);
+        else if(other.GetComponent<NetworkIdentity>().netId != parentNetworkID && other.CompareTag("ground")){
+            other.GetComponent<CarPowerupManager>().ClientRpcPlayExplosionEffect(other.GetComponent<Transform>());
             Destroy(this.gameObject);
         }
     }
