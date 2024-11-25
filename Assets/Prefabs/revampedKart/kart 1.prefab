@@ -3154,7 +3154,6 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   coinCountCanvas: {fileID: 1475259823272686073}
-  playerName: 
   playerNameText: {fileID: 6351081404573950745}
 --- !u!114 &1434034022039458850
 MonoBehaviour:
@@ -3189,8 +3188,6 @@ MonoBehaviour:
     m_Bits: 8
   isOnOil: 0
   isOnSlime: 0
-  leftTrail: {fileID: 0}
-  rightTrail: {fileID: 0}
   kartDriftAudioSource: {fileID: 8483676369493332475}
 --- !u!114 &4774128115340097857
 MonoBehaviour:

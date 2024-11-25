@@ -1,84 +1,23 @@
-// using UnityEngine;
-// using Mirror;
-// using TMPro;
-
-// public class PlayerManager : NetworkBehaviour
-// {
-//     [SerializeField] private GameObject coinCountCanvas;
-
-//     public string playerName = "";
-
-//     public GameObject playerNameText;
-
-//     private void Start()
-//     {
-//         DontDestroyOnLoad(gameObject);
-//         // SetName();
-//     }
-
-//     public override void OnStartClient()
-//     {
-//         base.OnStartClient();
-//         Debug.Log("Client started for player: " + netId);
-
-//         DisableWaitingRoomCanvas();
-
-//         if (isLocalPlayer)
-//         {
-//             coinCountCanvas.gameObject.SetActive(true);
-//             // CmdSetPlayerName(playerName);
-//         }
-//     }
-
-//     [Command]
-//     private void CmdSetPlayerName(string name)
-//     {
-//         Debug.Log("2------:" + name);
-//         playerNameText.GetComponent<TextMeshPro>().text = name;
-//         // RpcUpdatePlayerName(name);
-//     }
-
-//     [ClientRpc]
-//     public void RpcUpdatePlayerName(string name)
-//     {
-//         Debug.Log("3:" + name);
-//         Debug.Log("___________");
-//         playerName = name;
-//         playerNameText.GetComponent<TextMeshPro>().text = playerName;
-//     }
-
-    
-//     public void SetPlayerName(string name) 
-//     {
-//         Debug.Log("0:" + name);   
-//         if (isLocalPlayer)
-//         {
-//             Debug.Log("1:" + name);
-//             playerNameText.GetComponent<TextMeshPro>().text = name;
-//         }
-//     }
-
-//     [Client]
-//     private void DisableWaitingRoomCanvas()
-//     {
-//         GameObject networkManager = GameObject.Find("NetworkManager").gameObject;
-//         Transform firstChild = networkManager.transform.GetChild(0);
-//         firstChild.gameObject.SetActive(false);
-//     }
-// }
-
-
 using UnityEngine;
 using Mirror;
 using TMPro;
 using System.Collections;
+using System.Runtime.ConstrainedExecution;
+
+public class PlayerInfo
+{
+    public string name;
+    public int wheelIndex = -1;
+    public int trailIndex = -1;
+}
 
 public class PlayerManager : NetworkBehaviour
 {
     [SerializeField] private GameObject coinCountCanvas;
 
-    [SyncVar(hook = nameof(OnPlayerNameChanged))]
-    public string playerName;
+
+    [SyncVar(hook = nameof(OnPlayerInfoChanged))]
+    public PlayerInfo playerInfo;
 
     public GameObject playerNameText;
 
@@ -94,7 +33,7 @@ public class PlayerManager : NetworkBehaviour
         Debug.Log("Client started for player: " + netId);
 
         DisableWaitingRoomCanvas();
-        AssembleKart();
+        //AssembleKart();
 
         if (isLocalPlayer)
         {
@@ -105,60 +44,41 @@ public class PlayerManager : NetworkBehaviour
         // OnPlayerNameChanged(playerName, playerName);
     }
 
-    void AssembleKart()
+    [Command]
+    void CmdAssemblePlayer(PlayerInfo cur)
     {
-        Instantiate(StoreData.Instance.wheelList[Constants.currentWheelIndex].obj, transform.Find("car/Wheel.FR"));
-        Instantiate(StoreData.Instance.wheelList[Constants.currentWheelIndex].obj, transform.Find("car/Wheel.FL"));
+        playerInfo = cur;  // This automatically updates the value on the clients because it's a SyncVar
+        Debug.Log($"player name: {cur.name}");
+        if (playerNameText.GetComponent<TextMeshPro>() == null) Debug.Log("_player name__");
+        playerNameText.GetComponent<TextMeshPro>().text = cur.name;
 
-        Instantiate(StoreData.Instance.wheelList[Constants.currentWheelIndex].obj, transform.Find("car/Wheel.RR"));
-        Instantiate(StoreData.Instance.wheelList[Constants.currentWheelIndex].obj, transform.Find("car/Wheel.RL"));
+        Debug.Log("Server updated player name to: " + name);
+        Instantiate(StoreData.Instance.wheelList[cur.wheelIndex].obj, transform.Find("car/Wheel.FR"));
+        Instantiate(StoreData.Instance.wheelList[cur.wheelIndex].obj, transform.Find("car/Wheel.FL"));
+        Instantiate(StoreData.Instance.wheelList[cur.wheelIndex].obj, transform.Find("car/Wheel.RR"));
+        Instantiate(StoreData.Instance.wheelList[cur.wheelIndex].obj, transform.Find("car/Wheel.RL"));
 
-        Instantiate(StoreData.Instance.trailList[Constants.currentTrailIndex].obj, transform.Find("car/Wheel.RR").GetChild(0));
-        Instantiate(StoreData.Instance.trailList[Constants.currentTrailIndex].obj, transform.Find("car/Wheel.RL").GetChild(0));
+        Instantiate(StoreData.Instance.trailList[cur.trailIndex].obj, transform.Find("car/Wheel.RR").GetChild(0));
+        Instantiate(StoreData.Instance.trailList[cur.trailIndex].obj, transform.Find("car/Wheel.RL").GetChild(0));
     }
 
-    [Command]
-    void CmdAssembleKart()
+    void OnPlayerInfoChanged(PlayerInfo old, PlayerInfo cur)
     {
-        GameObject w1 = Instantiate(StoreData.Instance.wheelList[Constants.currentWheelIndex].obj, transform.Find("car/Wheel.FR"));
-        GameObject w2 = Instantiate(StoreData.Instance.wheelList[Constants.currentWheelIndex].obj, transform.Find("car/Wheel.FL"));
-        GameObject w3 = Instantiate(StoreData.Instance.wheelList[Constants.currentWheelIndex].obj, transform.Find("car/Wheel.RR"));
-        GameObject w4 = Instantiate(StoreData.Instance.wheelList[Constants.currentWheelIndex].obj, transform.Find("car/Wheel.RL"));
-
-        GameObject t1 = Instantiate(StoreData.Instance.trailList[Constants.currentTrailIndex].obj, transform.Find("car/Wheel.RR").GetChild(0));
-        GameObject t2 = Instantiate(StoreData.Instance.trailList[Constants.currentTrailIndex].obj, transform.Find("car/Wheel.RL").GetChild(0));
-        Debug.Log($"Assembling : {w1.name}");
-        if (isServer)
+        playerNameText.GetComponent<TextMeshPro>().text = cur.name;
+        if (transform.Find("car/Wheel.FR").childCount == 0)
         {
-            Debug.Log("helllo");
-            NetworkServer.Spawn(w1);
-            NetworkServer.Spawn(w2);
-            NetworkServer.Spawn(w3);
-            NetworkServer.Spawn(w4);
-            NetworkServer.Spawn(t1);
-            NetworkServer.Spawn(t2);
-            Debug.Log("helllo2222");
+            Instantiate(StoreData.Instance.wheelList[cur.wheelIndex].obj, transform.Find("car/Wheel.FR"));
+            Instantiate(StoreData.Instance.wheelList[cur.wheelIndex].obj, transform.Find("car/Wheel.FL"));
+            Instantiate(StoreData.Instance.wheelList[cur.wheelIndex].obj, transform.Find("car/Wheel.RR"));
+            Instantiate(StoreData.Instance.wheelList[cur.wheelIndex].obj, transform.Find("car/Wheel.RL"));
+
+            Instantiate(StoreData.Instance.trailList[cur.trailIndex].obj, transform.Find("car/Wheel.RR").GetChild(0));
+            Instantiate(StoreData.Instance.trailList[cur.trailIndex].obj, transform.Find("car/Wheel.RL").GetChild(0));
         }
     }
 
 
-    [Command]
-    private void CmdSetPlayerName(string name)
-    {
-        playerName = name; // This automatically updates the value on the clients because it's a SyncVar
-        Debug.Log($"player name: {name}");
-        if(playerNameText.GetComponent<TextMeshPro>() == null) Debug.Log("_player name__");
-        playerNameText.GetComponent<TextMeshPro>().text = name;
-        Debug.Log("Server updated player name to: " + name);
-    }
-
-    private void OnPlayerNameChanged(string oldName, string newName)
-    {
-        Debug.Log("Player name changed from " + oldName + " to " + newName);
-        playerNameText.GetComponent<TextMeshPro>().text = newName;
-    }
-
-    public void SetPlayerName(string name) 
+    public void SetPlayerInfo(PlayerInfo playerInfo) 
     {
         if (isLocalPlayer)
         {
@@ -166,11 +86,8 @@ public class PlayerManager : NetworkBehaviour
             StartCoroutine(WaitForPlayerConnection());
             if(isClient)
             {
-                CmdSetPlayerName(name);
-                CmdAssembleKart();
+                CmdAssemblePlayer(playerInfo);
             }
-
-            
         }
     }
     private IEnumerator WaitForPlayerConnection()

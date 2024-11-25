@@ -167,9 +167,16 @@ public class MainMenuUI : MonoBehaviour
 
         PlayerManager localPlayer = NetworkClient.localPlayer.GetComponent<PlayerManager>();
         playerName = playerNameInputField.GetComponent<TMP_InputField>().text.ToString();
-        
 
-        localPlayer.SetPlayerName(playerName);
+
+        //localPlayer.SetPlayerName(playerName, kartStructure);
+        localPlayer.SetPlayerInfo(new()
+        {
+            name = playerName,
+            wheelIndex = Constants.currentWheelIndex,
+            trailIndex = Constants.currentTrailIndex,
+        });
+
     }
 
     public void StartServerButtonClicked()

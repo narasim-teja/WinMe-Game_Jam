@@ -2206,7 +2206,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 28.75
+  m_fontSize: 42.7
   m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5138,7 +5138,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 256.21082, y: -0.5000305}
+  m_AnchoredPosition: {x: 256.21082, y: -0.50006104}
   m_SizeDelta: {x: -513.952, y: -480.6075}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &918958724
@@ -8183,7 +8183,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1334776423}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0085568875, y: 0.01178957, z: -0.00010089273, w: 0.9998939}
+  m_LocalRotation: {x: 0.008556907, y: 0.011789535, z: -0.00010089266, w: 0.9998939}
   m_LocalPosition: {x: -28.161636, y: 20.193237, z: -189.40105}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -10960,7 +10960,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2331078832082510095, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
       propertyPath: wheelList.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2331078832082510095, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
       propertyPath: kartList.Array.data[0]
@@ -10986,6 +10986,10 @@ PrefabInstance:
       propertyPath: wheelList.Array.data[1]
       value: 
       objectReference: {fileID: 11400000, guid: 0f213ef46a3430841bd9c67cc444a860, type: 2}
+    - target: {fileID: 2331078832082510095, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
+      propertyPath: wheelList.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 65f88ea3343b77a4284fa733b4212b7c, type: 2}
     - target: {fileID: 4829437656189325627, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
       propertyPath: m_Name
       value: Store Data Prefab
@@ -12255,9 +12259,6 @@ MonoBehaviour:
   - {fileID: 1985157920615434412, guid: 7c4c33f28e7c9c6478acf7c0fe58e931, type: 3}
   - {fileID: 5595306355369600747, guid: 4230af04511df804387a7cceaf076ad0, type: 3}
   - {fileID: 4804685132883225272, guid: 50d8253f5dc6e5c4793dec3b094bc97a, type: 3}
-  - {fileID: 4266727502796744808, guid: 503b26ad1528c4846aa88f0f6d895beb, type: 3}
-  - {fileID: 4266727502796744808, guid: c3741c4bc85467148ac295e3541ef185, type: 3}
-  - {fileID: 765190240496230043, guid: 4f7f11ef8d3154343874d40116fed402, type: 3}
   exceptionsDisconnect: 1
   snapshotSettings:
     bufferTimeMultiplier: 2
@@ -12286,7 +12287,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbc657277f2ec6c47976d3be43db8848, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvasCamera: {fileID: 2813857112049238015}
   playerNameInputField: {fileID: 1476424238}
   lobbyCodeText: {fileID: 2000845816}
   lobbyCodeInputField: {fileID: 2095537149}
@@ -13962,7 +13962,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 43.7
+  m_fontSize: 68.45
   m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -14569,7 +14569,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 41.15
+  m_fontSize: 66.1
   m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -14754,7 +14754,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 397.46, y: -0.9999695}
+  m_AnchoredPosition: {x: 397.46, y: -0.99993896}
   m_SizeDelta: {x: -799.9893, y: -423.9641}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &5625464382207405387
@@ -15151,7 +15151,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2813857112049238015}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0085568875, y: 0.01178957, z: -0.00010089273, w: 0.9998939}
+  m_LocalRotation: {x: 0.008556907, y: 0.011789535, z: -0.00010089266, w: 0.9998939}
   m_LocalPosition: {x: -28.161636, y: 17.414597, z: -189.40105}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

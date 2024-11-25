@@ -22,5 +22,4 @@ public static class Constants
     public static int currentKartIndex = 0;
     public static int currentWheelIndex = 0;
     public static int currentTrailIndex = 0;
-    public static GameObject playerObj;
 }
