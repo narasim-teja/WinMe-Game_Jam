@@ -9,6 +9,7 @@ public class PlayerInfo
     public string name;
     public int wheelIndex = -1;
     public int trailIndex = -1;
+    public int hatIndex = -1;
 }
 
 public class PlayerManager : NetworkBehaviour
@@ -60,6 +61,8 @@ public class PlayerManager : NetworkBehaviour
 
         Instantiate(StoreData.Instance.trailList[cur.trailIndex].obj, transform.Find("car/Wheel.RR").GetChild(0));
         Instantiate(StoreData.Instance.trailList[cur.trailIndex].obj, transform.Find("car/Wheel.RL").GetChild(0));
+
+        Instantiate(StoreData.Instance.hatList[cur.hatIndex].obj, transform.Find("hat_loc"));
     }
 
     void OnPlayerInfoChanged(PlayerInfo old, PlayerInfo cur)
@@ -74,6 +77,8 @@ public class PlayerManager : NetworkBehaviour
 
             Instantiate(StoreData.Instance.trailList[cur.trailIndex].obj, transform.Find("car/Wheel.RR").GetChild(0));
             Instantiate(StoreData.Instance.trailList[cur.trailIndex].obj, transform.Find("car/Wheel.RL").GetChild(0));
+
+            Instantiate(StoreData.Instance.hatList[cur.hatIndex].obj, transform.Find("hat_loc"));
         }
     }
 

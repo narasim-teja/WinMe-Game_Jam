@@ -95,6 +95,7 @@ public class MirrorNetworkManager : NetworkManager
         public int kartIndex;
         public int wheelIndex;
         public int trailIndex;
+        public int hatIndex;
     }
 
     private void Start()
@@ -120,6 +121,7 @@ public class MirrorNetworkManager : NetworkManager
             kartIndex = Constants.currentKartIndex,
             wheelIndex = Constants.currentWheelIndex,
             trailIndex = Constants.currentTrailIndex,
+            hatIndex = Constants.currentHatIndex
         };
         NetworkClient.Send(message);
     }

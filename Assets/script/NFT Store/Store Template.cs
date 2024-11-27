@@ -31,16 +31,6 @@ public class StoreTemplate : MonoBehaviour
             GameObject body = InstantiateBody(storeManager);
             InstantiateWheel(body.transform, storeManager);
             InstantiateTrail(body.transform, storeManager);
-            //GameObject body = Instantiate(StoreData.Instance.kartList[index].obj, storeManager.kartModelParent.transform);
-
-            //Instantiate(StoreData.Instance.wheelList[index].obj, body.transform.Find("car/Wheel.FR"));
-            //Instantiate(StoreData.Instance.wheelList[index].obj, body.transform.Find("car/Wheel.FL"));
-
-            //GameObject rearRight = Instantiate(StoreData.Instance.wheelList[index].obj, body.transform.Find("car/Wheel.RR"));
-            //GameObject rearLeft = Instantiate(StoreData.Instance.wheelList[index].obj, body.transform.Find("car/Wheel.RL"));
-
-            //Instantiate(StoreData.Instance.trailList[index].obj, rearRight.transform);
-            //Instantiate(StoreData.Instance.trailList[index].obj, rearLeft.transform);
         }
         else if (type == StoreItemType.Wheel)
         {
@@ -58,6 +48,7 @@ public class StoreTemplate : MonoBehaviour
 
             InstantiateWheel(body.transform, storeManager);
             InstantiateTrail(body.transform, storeManager);
+            InstantiateHat(body.transform, storeManager);
         }
         else if (type == StoreItemType.Trail)
         {
@@ -68,6 +59,14 @@ public class StoreTemplate : MonoBehaviour
             storeManager.currentTrailIndex = index;
 
             InstantiateTrail(body, storeManager);
+        }else if(type == StoreItemType.Hat)
+        {
+            Transform body = kartPrefabParent.transform.GetChild(0);
+            DestroyImmediate(body.Find("hat_loc").GetChild(0).gameObject);
+
+            storeManager.currentHatIndex = index;
+
+            InstantiateHat(body, storeManager);
         }
     }
 
@@ -87,5 +86,10 @@ public class StoreTemplate : MonoBehaviour
     {
         Instantiate(StoreData.Instance.trailList[storeManager.currentTrailIndex].obj, body.Find("car/Wheel.RR").GetChild(0));
         Instantiate(StoreData.Instance.trailList[storeManager.currentTrailIndex].obj, body.Find("car/Wheel.RL").GetChild(0));
+    }
+
+    void InstantiateHat(Transform body, StoreManager storeManager)
+    {
+        Instantiate(StoreData.Instance.hatList[storeManager.currentHatIndex].obj, body.Find("hat_loc"));
     }
 }

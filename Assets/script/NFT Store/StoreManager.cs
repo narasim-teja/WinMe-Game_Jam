@@ -20,6 +20,7 @@ public class StoreManager : MonoBehaviour
     public int currentKartIndex;
     public int currentWheelIndex;
     public int currentTrailIndex;
+    public int currentHatIndex;
 
     void Start()
     {
@@ -36,9 +37,10 @@ public class StoreManager : MonoBehaviour
     void Intialize()
     {
         kartModelParent = GameObject.Find(Constants.currentKartGameObject);
-        currentKartIndex = 0;
-        currentWheelIndex = 0;
-        currentTrailIndex = 0;
+        currentKartIndex = Constants.currentKartIndex;
+        currentWheelIndex = Constants.currentWheelIndex;
+        currentTrailIndex = Constants.currentTrailIndex;
+        currentHatIndex = Constants.currentHatIndex;
     }
 
     void AssembleKart()
@@ -53,6 +55,8 @@ public class StoreManager : MonoBehaviour
 
         Instantiate(StoreData.Instance.trailList[currentTrailIndex].obj, rearRight.transform);
         Instantiate(StoreData.Instance.trailList[currentTrailIndex].obj, rearLeft.transform);
+
+        Instantiate(StoreData.Instance.hatList[currentHatIndex].obj, body.transform.Find("hat_loc"));
     }
 
     public async void ThirdWebTesting()
@@ -136,6 +140,54 @@ public class StoreManager : MonoBehaviour
                 .GetImage(StoreData.Instance.wheelList[i].imageUrl);
         }
     }
+
+    void LoadTrails()
+    {
+        for (int i = 0; i < StoreData.Instance.trailList.Length; i++)
+        {
+            GameObject item = Instantiate(storeItemPrefab, contents.transform);
+            storePanels.Add(item.GetComponent<StoreTemplate>());
+            storePanels[i].title.text = StoreData.Instance.trailList[i].title;
+            storePanels[i].desc.text = StoreData.Instance.trailList[i].desc;
+            storePanels[i].cost.text = StoreData.Instance.trailList[i].cost.ToString();
+            storePanels[i].obj = StoreData.Instance.trailList[i].obj;
+            storePanels[i].index = i;
+            storePanels[i].type = StoreItemType.Trail;
+        }
+    }
+
+    async void LoadTrailImages()
+    {
+        for (int i = 0; i < StoreData.Instance.trailList.Length; i++)
+        {
+            storePanels[i].image.texture = await ShopApi.Instance
+                .GetImage(StoreData.Instance.trailList[i].imageUrl);
+        }
+    }
+
+    void LoadHats()
+    {
+        for (int i = 0; i < StoreData.Instance.hatList.Length; i++)
+        {
+            GameObject item = Instantiate(storeItemPrefab, contents.transform);
+            storePanels.Add(item.GetComponent<StoreTemplate>());
+            storePanels[i].title.text = StoreData.Instance.hatList[i].title;
+            storePanels[i].desc.text = StoreData.Instance.hatList[i].desc;
+            storePanels[i].cost.text = StoreData.Instance.hatList[i].cost.ToString();
+            storePanels[i].obj = StoreData.Instance.hatList[i].obj;
+            storePanels[i].index = i;
+            storePanels[i].type = StoreItemType.Hat;
+        }
+    }
+
+    async void LoadHatImages()
+    {
+        for (int i = 0; i < StoreData.Instance.hatList.Length; i++)
+        {
+            storePanels[i].image.texture = await ShopApi.Instance
+                .GetImage(StoreData.Instance.hatList[i].imageUrl);
+        }
+    }
     #endregion
 
     public void CheckPurchaseble()
@@ -159,6 +211,7 @@ public class StoreManager : MonoBehaviour
         Constants.currentKartIndex = currentKartIndex;
         Constants.currentWheelIndex = currentWheelIndex;
         Constants.currentTrailIndex = currentTrailIndex;
+        Constants.currentHatIndex = currentHatIndex;
         //Debug.Log($"store kart index: {Constants.currentKartIndex}");
         GoToMainMenu();
     }
@@ -177,6 +230,20 @@ public class StoreManager : MonoBehaviour
         ClearList();
         LoadWheels();
         //LoadWheelImages();
+    }
+
+    public void TrailButtonClicked()
+    {
+        ClearList();
+        LoadTrails();
+        //LoadTrailImages();
+    }
+
+    public void HatButtonClicked()
+    {
+        ClearList();
+        LoadHats();
+        //LoadHatImages();
     }
 
     public void GoToMainMenu()

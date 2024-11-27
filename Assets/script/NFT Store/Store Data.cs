@@ -9,6 +9,7 @@ public class StoreData : MonoBehaviour
     public Storeitem[] kartList;
     public Storeitem[] wheelList;
     public Storeitem[] trailList;
+    public Storeitem[] hatList;
 
     public void Awake()
     {

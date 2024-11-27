@@ -6,7 +6,8 @@ public enum StoreItemType
 {
     Kart,
     Wheel,
-    Trail
+    Trail,
+    Hat
 }
 
 [CreateAssetMenu(fileName = "Shop Item", menuName = "Scriptable objects/New Shop Item", order = 1)]

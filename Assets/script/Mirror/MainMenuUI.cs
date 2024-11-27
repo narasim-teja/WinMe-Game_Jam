@@ -175,6 +175,7 @@ public class MainMenuUI : MonoBehaviour
             name = playerName,
             wheelIndex = Constants.currentWheelIndex,
             trailIndex = Constants.currentTrailIndex,
+            hatIndex = Constants.currentHatIndex,
         });
 
     }

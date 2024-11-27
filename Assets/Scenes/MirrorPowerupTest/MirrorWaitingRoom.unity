@@ -2206,7 +2206,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 42.7
+  m_fontSize: 43
   m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -10951,6 +10951,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2331078832082510095, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
+      propertyPath: hatList.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2331078832082510095, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
       propertyPath: kartList.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -10962,6 +10966,18 @@ PrefabInstance:
       propertyPath: wheelList.Array.size
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 2331078832082510095, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
+      propertyPath: hatList.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: ef83dcfb6a80aba45b261c9a43d6c213, type: 2}
+    - target: {fileID: 2331078832082510095, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
+      propertyPath: hatList.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 327adcd3b57ee8449b9c3d96f7a2be53, type: 2}
+    - target: {fileID: 2331078832082510095, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
+      propertyPath: hatList.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 4a2a8d91b21c2624594fef7c196b14a4, type: 2}
     - target: {fileID: 2331078832082510095, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
       propertyPath: kartList.Array.data[0]
       value: 
@@ -13962,7 +13978,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 68.45
+  m_fontSize: 57.95
   m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -14569,7 +14585,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 66.1
+  m_fontSize: 55.4
   m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 1
