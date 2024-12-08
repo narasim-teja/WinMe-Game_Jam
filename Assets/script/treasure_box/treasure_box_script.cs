@@ -11,6 +11,7 @@ public class treasure_box_script : MonoBehaviour
     public GameObject treasure_box_cam;
     public ParticleSystem confeti_particle_effect1;
     public ParticleSystem confeti_particle_effect2;
+    public ParticleSystem aura_particle_effect;
     Rigidbody treasure_box_rb;
     Rigidbody treasure_box_top_rb;
 
@@ -40,9 +41,10 @@ public class treasure_box_script : MonoBehaviour
         instance1.Play();
         Destroy(instance1.gameObject, instance1.main.duration);
 
-        GameObject temp = Instantiate(temporaryObject, treasure_box_top.transform.position, Quaternion.identity);
+        GameObject temp = Instantiate(temporaryObject, treasure_box_top.transform.position, Quaternion.identity,this.transform);
         temp.AddComponent<RotateObject>().rotationSpeed = 50f;
-        
+        Instantiate(aura_particle_effect,treasure_box_top.transform.position,Quaternion.identity,temp.transform);
+
         StartCoroutine(SmoothMove(temp.transform, temp.transform.position, temp.transform.position + new Vector3(0, 2f, 0), 1f));
         StartCoroutine(SmoothMove(treasure_box_cam.transform, treasure_box_cam.transform.position, treasure_box_cam.transform.position + new Vector3(0, 3f, -5f), 1f));
     }
@@ -53,7 +55,7 @@ public class treasure_box_script : MonoBehaviour
         while (elapsed < duration)
         {
             target.position = Vector3.Lerp(start, end, elapsed / duration);
-            elapsed += Time.deltaTime;
+            elapsed += Time.deltaTime/4;
             yield return null; 
         }
         target.position = end; 
