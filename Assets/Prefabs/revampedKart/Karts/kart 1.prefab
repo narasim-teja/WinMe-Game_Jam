@@ -601,9 +601,9 @@ AudioSource:
   m_GameObject: {fileID: 690007089046872141}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 1128172336822154970, guid: 2b683b5056a473e418c664401475faab, type: 2}
   m_audioClip: {fileID: 8300000, guid: eb754e3c0b994274fb42342482db3199, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
@@ -613,7 +613,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 60
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -648,7 +648,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -1068,7 +1068,7 @@ AudioSource:
   m_GameObject: {fileID: 1424220831176611197}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 1128172336822154970, guid: 2b683b5056a473e418c664401475faab, type: 2}
   m_audioClip: {fileID: 8300000, guid: fa007165c173a7d469c443e090ffb21e, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -1080,7 +1080,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 50
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -1115,7 +1115,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -2999,6 +2999,7 @@ GameObject:
   - component: {fileID: 4774128115340097857}
   - component: {fileID: 1693190905333830706}
   - component: {fileID: 4170088520099402215}
+  - component: {fileID: -763216130774698385}
   m_Layer: 0
   m_Name: kart 1
   m_TagString: Player
@@ -3189,8 +3190,6 @@ MonoBehaviour:
     m_Bits: 8
   isOnOil: 0
   isOnSlime: 0
-  leftTrail: {fileID: 0}
-  rightTrail: {fileID: 0}
   kartDriftAudioSource: {fileID: 8483676369493332475}
 --- !u!114 &4774128115340097857
 MonoBehaviour:
@@ -3258,6 +3257,14 @@ MonoBehaviour:
   shieldPowerupParticleEffect: {fileID: 7047901910090771416, guid: d2ffbc8b168cdf74a9dbb7c6c1cfdf2f, type: 3}
   shieldInstance: {fileID: 0}
   equippedPickup: 0
+--- !u!81 &-763216130774698385
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4804685132883225272}
+  m_Enabled: 1
 --- !u!1 &4829751232304856288
 GameObject:
   m_ObjectHideFlags: 0
@@ -4039,10 +4046,10 @@ AudioSource:
   m_GameObject: {fileID: 5694937086953759813}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 1128172336822154970, guid: 2b683b5056a473e418c664401475faab, type: 2}
   m_audioClip: {fileID: 8300000, guid: f32d343766d4f7c4c86c3c2626848772, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -4051,7 +4058,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 50
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -4086,7 +4093,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -4979,8 +4986,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7658822538936471824}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -282.73956, y: -190.56499, z: -26.27427}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5001,6 +5008,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b754e46e338873e42a069a548606c931, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   engineSound: {fileID: 1601506155546306475}
   minPitch: 0.4
   maxPitch: 1.5

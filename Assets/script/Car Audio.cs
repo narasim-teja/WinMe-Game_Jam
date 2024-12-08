@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class CarAudio : MonoBehaviour
+public class CarAudio : NetworkBehaviour
 {
     [SerializeField] AudioSource engineSound;
     public float minPitch = 0.4f;
@@ -12,10 +13,14 @@ public class CarAudio : MonoBehaviour
     Rigidbody rb;
     void Start()
     {
-        // engineSound = GetComponent<AudioSource>();
-        // rb = GetComponent<Rigidbody>();
         rb = FindAnyObjectByType<Rigidbody>();
-        engineSound.pitch = minPitch;
+    }
+
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+        engineSound.Play();
+        //engineSound.pitch = minPitch;
     }
 
     void Update()

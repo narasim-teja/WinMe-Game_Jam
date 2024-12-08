@@ -19799,7 +19799,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1138582024}
   - component: {fileID: 1138582023}
-  - component: {fileID: 1138582025}
   m_Layer: 3
   m_Name: kt_stadium (1)
   m_TagString: ground
@@ -19919,14 +19918,6 @@ Transform:
   - {fileID: 506305932}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!81 &1138582025
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1138582022}
-  m_Enabled: 1
 --- !u!1 &1143700839
 GameObject:
   m_ObjectHideFlags: 0
