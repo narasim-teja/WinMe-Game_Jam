@@ -6,13 +6,13 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/MirrorPowerupTest/MirrorWaitingRoom.unity
+    path: Assets/Scenes/TreasureBoxTest/MirrorWaitingRoom.unity
     guid: 5ac601da00d01ad45ae71a270be4b235
   - enabled: 1
-    path: Assets/Scenes/MirrorPowerupTest/MirrorCloverStadium.unity
+    path: Assets/Scenes/TreasureBoxTest/MirrorCloverStadium.unity
     guid: 74974710d4533024da66c8eea5093621
   - enabled: 1
-    path: Assets/Scenes/MirrorPowerupTest/StoreScene.unity
+    path: Assets/Scenes/TreasureBoxTest/StoreScene.unity
     guid: 77264e09d50852845924051b50873d93
   - enabled: 0
     path: Assets/Scenes/MirrorAys/MirrorWaitingRoom.unity
