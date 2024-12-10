@@ -22,8 +22,8 @@ public class carMovement3 : NetworkBehaviour
     public bool isOnSlime = false;
 
 
-    private TrailRenderer leftTrail = new();
-    private TrailRenderer rightTrail = new();
+    [SerializeField] private TrailRenderer leftTrail;
+    [SerializeField] private TrailRenderer rightTrail;
     [SerializeField] AudioSource kartDriftAudioSource;
 
     //public Animator animator;
@@ -90,15 +90,11 @@ public class carMovement3 : NetworkBehaviour
 
         if (!IsGrounded())
         {
-            if(leftTrail != null && rightTrail != null)
-            {
-                leftTrail.emitting = false;
-                rightTrail.emitting = false;
-            }
+            leftTrail.emitting = false;
+            rightTrail.emitting = false;
 
             if (kartDriftAudioSource.isPlaying)
-                //kartDriftAudioSource.Stop();
-                CmdHandleDrift(false);
+                kartDriftAudioSource.Stop();
             return;
         }
         float currentSpeed = Vector3.Dot(rb.velocity, transform.forward);
@@ -160,8 +156,7 @@ public class carMovement3 : NetworkBehaviour
 
             if (!kartDriftAudioSource.isPlaying)
             {
-                //kartDriftAudioSource.Play();
-                CmdHandleDrift(true);
+                kartDriftAudioSource.Play();
             }
         }
         else
@@ -177,8 +172,7 @@ public class carMovement3 : NetworkBehaviour
 
             if (kartDriftAudioSource.isPlaying)
             {
-                //kartDriftAudioSource.Stop();
-                CmdHandleDrift(false);
+                kartDriftAudioSource.Stop();
             }
         }
 
@@ -186,25 +180,6 @@ public class carMovement3 : NetworkBehaviour
         rb.AddForce(lateralFrictionForce);
         //Debug.DrawRay(rayCastStartPosition.position, -transform.up * rayCastDistance, Color.yellow);
 
-    }
-
-    [Command]
-    void CmdHandleDrift(bool play)
-    {
-        if (play)
-            kartDriftAudioSource.Play();
-        else
-            kartDriftAudioSource.Stop();
-        RpcHandleDrift(play);
-    }
-
-    [ClientRpc]
-    void RpcHandleDrift(bool play)
-    {
-        if (play)
-            kartDriftAudioSource.Play();
-        else
-            kartDriftAudioSource.Stop();
     }
 
 
