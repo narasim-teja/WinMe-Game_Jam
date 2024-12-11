@@ -17,16 +17,6 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuUI : MonoBehaviour
 {
-    public Camera main_camera;
-    public GameObject main_menu_panel;
-    public GameObject treasure_box_panel;
-
-    // treasure box
-    public GameObject treasure_box_env_prefab;
-    private GameObject treasure_box_env_instance;
-    // public Camera treasure_box_camera;
-    // public ParticleSystem confeti_effect1;
-    // public ParticleSystem confeti_effect2;
     private const string SERVER_IP = "serverIP";
     private const string SERVER_PORT = "serverPort";
 
@@ -425,32 +415,6 @@ public class MainMenuUI : MonoBehaviour
         }
 
         SceneManager.LoadScene(2);
-    }
-    #endregion
-
-    #region treasure box
-    public void OpenTreasureBoxUIButton()
-    {
-        if(treasure_box_env_instance == null) treasure_box_env_instance = Instantiate(treasure_box_env_prefab);
-
-        main_camera.gameObject.SetActive(false);
-        main_menu_panel.gameObject.SetActive(false);
-        treasure_box_panel.gameObject.SetActive(true);
-
-    }
-    public void ClaimTreasureBoxButton()
-    {
-        Destroy(treasure_box_env_instance);
-        main_camera.gameObject.SetActive(true);
-        main_menu_panel.gameObject.SetActive(true);
-        treasure_box_panel.gameObject.SetActive(false);
-    }
-    public void CloseTreasureBoxButton()
-    {
-        Destroy(treasure_box_env_instance);
-        main_camera.gameObject.SetActive(true);
-        main_menu_panel.gameObject.SetActive(true);
-        treasure_box_panel.gameObject.SetActive(false);
     }
     #endregion
 }

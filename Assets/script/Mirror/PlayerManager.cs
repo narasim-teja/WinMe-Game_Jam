@@ -40,6 +40,10 @@ public class PlayerManager : NetworkBehaviour
         {
             coinCountCanvas.gameObject.SetActive(true);
         }
+        else
+        {
+            GetComponent<AudioListener>().enabled = false;
+        }
 
         // Update the player name text when the client starts
         // OnPlayerNameChanged(playerName, playerName);

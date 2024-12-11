@@ -140,7 +140,6 @@ public class CarUIManager : NetworkBehaviour
             {
                 // Local check for coin pickup, but actual logic will be handled by the server
                 // audioManager.PlaySFX(audioManager.coinPickUp);
-                coinPickUpAudioSource.Play();
                 CmdHandleCoinPickup(other.gameObject);
             }
         }
@@ -175,6 +174,7 @@ public class CarUIManager : NetworkBehaviour
     {
         if (coin != null)
         {
+            coinPickUpAudioSource.Play();
             coin.SetActive(false);
         }
     }
