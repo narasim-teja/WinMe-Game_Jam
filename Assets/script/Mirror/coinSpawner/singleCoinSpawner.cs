@@ -12,10 +12,12 @@ public class SingleCoinSpawner : NetworkBehaviour
     public float offsetFromGround = 0.7f;
 
     // Start is called before the first frame update
-    void Start()
+    public override void OnStartServer()
     {
+        base.OnStartServer();
         PositionRaycast();
     }
+
     [Server]
     void PositionRaycast()
     {

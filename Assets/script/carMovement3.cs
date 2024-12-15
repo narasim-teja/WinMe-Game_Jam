@@ -90,8 +90,11 @@ public class carMovement3 : NetworkBehaviour
 
         if (!IsGrounded())
         {
-            leftTrail.emitting = false;
-            rightTrail.emitting = false;
+            if(leftTrail != null && rightTrail != null)
+            {
+                leftTrail.emitting = false;
+                rightTrail.emitting = false;
+            }
 
             if (kartDriftAudioSource.isPlaying)
                 kartDriftAudioSource.Stop();
