@@ -1071,7 +1071,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 1128172336822154970, guid: 2b683b5056a473e418c664401475faab, type: 2}
   m_audioClip: {fileID: 8300000, guid: fa007165c173a7d469c443e090ffb21e, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -3190,6 +3190,8 @@ MonoBehaviour:
     m_Bits: 8
   isOnOil: 0
   isOnSlime: 0
+  leftTrail: {fileID: 0}
+  rightTrail: {fileID: 0}
   kartDriftAudioSource: {fileID: 8483676369493332475}
 --- !u!114 &4774128115340097857
 MonoBehaviour:

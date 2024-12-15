@@ -97,7 +97,7 @@ public class carMovement3 : NetworkBehaviour
             }
 
             if (kartDriftAudioSource.isPlaying)
-                kartDriftAudioSource.Stop();
+                CmdHandleDrift(true);
             return;
         }
         float currentSpeed = Vector3.Dot(rb.velocity, transform.forward);
@@ -159,7 +159,7 @@ public class carMovement3 : NetworkBehaviour
 
             if (!kartDriftAudioSource.isPlaying)
             {
-                kartDriftAudioSource.Play();
+                CmdHandleDrift(true);
             }
         }
         else
@@ -175,7 +175,7 @@ public class carMovement3 : NetworkBehaviour
 
             if (kartDriftAudioSource.isPlaying)
             {
-                kartDriftAudioSource.Stop();
+                CmdHandleDrift(false);
             }
         }
 
@@ -185,6 +185,24 @@ public class carMovement3 : NetworkBehaviour
 
     }
 
+    [Command]
+    void CmdHandleDrift(bool play)
+    {
+        if (play)
+            kartDriftAudioSource.Play();
+        else
+            kartDriftAudioSource.Stop();
+        RpcHandleDrift(play);
+    }
+
+    [ClientRpc]
+    void RpcHandleDrift(bool play)
+    {
+        if (play)
+            kartDriftAudioSource.Play();
+        else
+            kartDriftAudioSource.Stop();
+    }
 
     void RotateCar(Vector3 surfaceNormal, float rotationSpeed)
     {
