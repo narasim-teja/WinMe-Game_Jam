@@ -43,6 +43,22 @@ public class carMovement3 : NetworkBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
+    private void Start()
+    {
+        StartCoroutine(WaitForTrails());
+    }
+
+    IEnumerator WaitForTrails()
+    {
+        while(transform.Find("car/Wheel.RR").childCount == 0)
+        {
+            yield return null;
+        }
+
+        leftTrail = transform.Find("car/Wheel.RL").GetChild(0).GetChild(1).GetComponent<TrailRenderer>();
+        rightTrail = transform.Find("car/Wheel.RR").GetChild(0).GetChild(1).GetComponent<TrailRenderer>();
+    }
+
     void FixedUpdate()
     {
         if (!isLocalPlayer) { return; }
@@ -70,22 +86,18 @@ public class carMovement3 : NetworkBehaviour
 
     private void move(float moveInput, float turnInput)
     {
-        //animator.SetFloat(val, (turnInput + 1) / 2);
         RotateCar(new Vector3(0, 1, 0), 1f);
 
-        // preventing car from going haywire while in 
-
-
-        //rb.AddForce(-Vector3.up * extraGravity);
-        //Debug.Log("on ground");
-        // Accelerate and decelerate
         if (!IsGrounded())
         {
-            leftTrail.emitting = false;
-            rightTrail.emitting = false;
+            if(leftTrail != null && rightTrail != null)
+            {
+                leftTrail.emitting = false;
+                rightTrail.emitting = false;
+            }
 
             if (kartDriftAudioSource.isPlaying)
-                kartDriftAudioSource.Stop();
+                CmdHandleDrift(true);
             return;
         }
         float currentSpeed = Vector3.Dot(rb.velocity, transform.forward);
@@ -93,7 +105,6 @@ public class carMovement3 : NetworkBehaviour
         float accelerationForce = (desiredSpeed - currentSpeed) * acceleration;
 
 
-        //rb.AddForce(transform.forward * accelerationForce);
         if (moveInput < 0)
         {
             turnInput = -turnInput;
@@ -105,12 +116,7 @@ public class carMovement3 : NetworkBehaviour
         {
             rb.AddForce(transform.forward * accelerationForce);
         }
-        /*else if(moveInput == 0) {
-            
-        }*/
-        //rb.AddForceAtPosition(transform.forward * accelerationForce, this.transform.position - new Vector3(0, 0.5f, 0));
-        // Limit the maximum speed
-        // Debug.Log(rb.velocity.magnitude);
+
         if (rb.velocity.magnitude > maxSpeed)
         {
             rb.velocity = rb.velocity.normalized * maxSpeed;
@@ -127,8 +133,6 @@ public class carMovement3 : NetworkBehaviour
 
         if (isOnOil == true)
         {
-            //acceleration = 5f;
-            //leftTrail.emitting = true;
             rightTrail.emitting = true;
 
             leftTrail.startColor = Color.black;
@@ -136,8 +140,6 @@ public class carMovement3 : NetworkBehaviour
         }
         else if (isOnSlime == true)
         {
-            //acceleration = 0.5f;
-            //rb.velocity /= (rb.velocity.magnitude / 5f);
 
             leftTrail.emitting = true;
             rightTrail.emitting = true;
@@ -157,7 +159,7 @@ public class carMovement3 : NetworkBehaviour
 
             if (!kartDriftAudioSource.isPlaying)
             {
-                kartDriftAudioSource.Play();
+                CmdHandleDrift(true);
             }
         }
         else
@@ -173,21 +175,9 @@ public class carMovement3 : NetworkBehaviour
 
             if (kartDriftAudioSource.isPlaying)
             {
-                kartDriftAudioSource.Stop();
+                CmdHandleDrift(false);
             }
         }
-
-        // if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.RightShift)
-        //     || (rb.velocity.magnitude / 15f < 0.08))
-        // {
-        //     if (kartDriftAudioSource.isPlaying)
-        //     {
-
-        //         kartDriftAudioSource.Stop();
-        //         Debug.Log("Stop Drift");
-        //     }
-        // }
-
 
         Vector3 lateralFrictionForce = -rb.velocity.magnitude * lateralFriction * Vector3.Cross(Vector3.Cross(rb.velocity.normalized, transform.forward), transform.forward);
         rb.AddForce(lateralFrictionForce);
@@ -195,6 +185,24 @@ public class carMovement3 : NetworkBehaviour
 
     }
 
+    [Command]
+    void CmdHandleDrift(bool play)
+    {
+        if (play)
+            kartDriftAudioSource.Play();
+        else
+            kartDriftAudioSource.Stop();
+        RpcHandleDrift(play);
+    }
+
+    [ClientRpc]
+    void RpcHandleDrift(bool play)
+    {
+        if (play)
+            kartDriftAudioSource.Play();
+        else
+            kartDriftAudioSource.Stop();
+    }
 
     void RotateCar(Vector3 surfaceNormal, float rotationSpeed)
     {

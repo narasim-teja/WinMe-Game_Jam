@@ -37,7 +37,7 @@ public class GameManager : NetworkBehaviour
         {
             NetworkIdentity networkIdentity = players[x].GetComponent<NetworkIdentity>();
 
-            String playerName = players[x].GetComponent<PlayerManager>().playerName;
+            String playerName = players[x].GetComponent<PlayerManager>().playerInfo.name;
             CarUIManager carUIManager = players[x].GetComponentInChildren<CarUIManager>();
 
             if (networkIdentity != null && carUIManager != null)

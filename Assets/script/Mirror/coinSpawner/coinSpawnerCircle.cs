@@ -19,18 +19,15 @@ public class coinSpawnerCircle : NetworkBehaviour
         base.OnStartServer();
         for (int i = 0; i < numItemsToSpawn; i++)
         {
-            float angle = i * Mathf.PI * 2 / numItemsToSpawn;
-            if (angle > (maxAngle * Mathf.PI / 180))
-            {
-                break;
-            }
-            SpreadItem(angle + (offsetAngle * Mathf.PI / 180));
+            float angle = i * maxAngle / numItemsToSpawn;
+            SpreadItem((angle + transform.eulerAngles.y) * Mathf.Deg2Rad);
         }
     }
+
     [Server]
     void SpreadItem(float angle)
     {
-        Vector3 randPosition = new Vector3(Mathf.Cos(angle) * radius, Random.Range(-itemYSpread, itemYSpread), Mathf.Sin(angle) * radius) + transform.position;
+        Vector3 randPosition = new Vector3(Mathf.Sin(angle) * radius, Random.Range(-itemYSpread, itemYSpread), Mathf.Cos(angle) * radius) + transform.position;
         GameObject clone = Instantiate(itemToSpread, randPosition, itemToSpread.transform.rotation);
         NetworkServer.Spawn(clone);
     }

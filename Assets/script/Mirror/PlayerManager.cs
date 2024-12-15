@@ -1,84 +1,24 @@
-// using UnityEngine;
-// using Mirror;
-// using TMPro;
-
-// public class PlayerManager : NetworkBehaviour
-// {
-//     [SerializeField] private GameObject coinCountCanvas;
-
-//     public string playerName = "";
-
-//     public GameObject playerNameText;
-
-//     private void Start()
-//     {
-//         DontDestroyOnLoad(gameObject);
-//         // SetName();
-//     }
-
-//     public override void OnStartClient()
-//     {
-//         base.OnStartClient();
-//         Debug.Log("Client started for player: " + netId);
-
-//         DisableWaitingRoomCanvas();
-
-//         if (isLocalPlayer)
-//         {
-//             coinCountCanvas.gameObject.SetActive(true);
-//             // CmdSetPlayerName(playerName);
-//         }
-//     }
-
-//     [Command]
-//     private void CmdSetPlayerName(string name)
-//     {
-//         Debug.Log("2------:" + name);
-//         playerNameText.GetComponent<TextMeshPro>().text = name;
-//         // RpcUpdatePlayerName(name);
-//     }
-
-//     [ClientRpc]
-//     public void RpcUpdatePlayerName(string name)
-//     {
-//         Debug.Log("3:" + name);
-//         Debug.Log("___________");
-//         playerName = name;
-//         playerNameText.GetComponent<TextMeshPro>().text = playerName;
-//     }
-
-    
-//     public void SetPlayerName(string name) 
-//     {
-//         Debug.Log("0:" + name);   
-//         if (isLocalPlayer)
-//         {
-//             Debug.Log("1:" + name);
-//             playerNameText.GetComponent<TextMeshPro>().text = name;
-//         }
-//     }
-
-//     [Client]
-//     private void DisableWaitingRoomCanvas()
-//     {
-//         GameObject networkManager = GameObject.Find("NetworkManager").gameObject;
-//         Transform firstChild = networkManager.transform.GetChild(0);
-//         firstChild.gameObject.SetActive(false);
-//     }
-// }
-
-
 using UnityEngine;
 using Mirror;
 using TMPro;
 using System.Collections;
+using System.Runtime.ConstrainedExecution;
+
+public class PlayerInfo
+{
+    public string name;
+    public int wheelIndex = -1;
+    public int trailIndex = -1;
+    public int hatIndex = -1;
+}
 
 public class PlayerManager : NetworkBehaviour
 {
     [SerializeField] private GameObject coinCountCanvas;
 
-    [SyncVar(hook = nameof(OnPlayerNameChanged))]
-    public string playerName;
+
+    [SyncVar(hook = nameof(OnPlayerInfoChanged))]
+    public PlayerInfo playerInfo;
 
     public GameObject playerNameText;
 
@@ -87,16 +27,22 @@ public class PlayerManager : NetworkBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+
     public override void OnStartClient()
     {
         base.OnStartClient();
         Debug.Log("Client started for player: " + netId);
 
         DisableWaitingRoomCanvas();
+        //AssembleKart();
 
         if (isLocalPlayer)
         {
             coinCountCanvas.gameObject.SetActive(true);
+        }
+        else
+        {
+            GetComponent<AudioListener>().enabled = false;
         }
 
         // Update the player name text when the client starts
@@ -104,30 +50,53 @@ public class PlayerManager : NetworkBehaviour
     }
 
     [Command]
-    private void CmdSetPlayerName(string name)
+    void CmdAssemblePlayer(PlayerInfo cur)
     {
-        playerName = name; // This automatically updates the value on the clients because it's a SyncVar
-        Debug.Log($"player name: {name}");
-        if(playerNameText.GetComponent<TextMeshPro>() == null) Debug.Log("_player name__");
-        playerNameText.GetComponent<TextMeshPro>().text = name;
+        playerInfo = cur;  // This automatically updates the value on the clients because it's a SyncVar
+        Debug.Log($"player name: {cur.name}");
+        if (playerNameText.GetComponent<TextMeshPro>() == null) Debug.Log("_player name__");
+        playerNameText.GetComponent<TextMeshPro>().text = cur.name;
+
         Debug.Log("Server updated player name to: " + name);
+        Instantiate(StoreData.Instance.wheelList[cur.wheelIndex].obj, transform.Find("car/Wheel.FR"));
+        Instantiate(StoreData.Instance.wheelList[cur.wheelIndex].obj, transform.Find("car/Wheel.FL"));
+        Instantiate(StoreData.Instance.wheelList[cur.wheelIndex].obj, transform.Find("car/Wheel.RR"));
+        Instantiate(StoreData.Instance.wheelList[cur.wheelIndex].obj, transform.Find("car/Wheel.RL"));
+
+        Instantiate(StoreData.Instance.trailList[cur.trailIndex].obj, transform.Find("car/Wheel.RR").GetChild(0));
+        Instantiate(StoreData.Instance.trailList[cur.trailIndex].obj, transform.Find("car/Wheel.RL").GetChild(0));
+
+        Instantiate(StoreData.Instance.hatList[cur.hatIndex].obj, transform.Find("hat_loc"));
     }
 
-    private void OnPlayerNameChanged(string oldName, string newName)
+    void OnPlayerInfoChanged(PlayerInfo old, PlayerInfo cur)
     {
-        Debug.Log("Player name changed from " + oldName + " to " + newName);
-        playerNameText.GetComponent<TextMeshPro>().text = newName;
+        playerNameText.GetComponent<TextMeshPro>().text = cur.name;
+        if (transform.Find("car/Wheel.FR").childCount == 0)
+        {
+            Instantiate(StoreData.Instance.wheelList[cur.wheelIndex].obj, transform.Find("car/Wheel.FR"));
+            Instantiate(StoreData.Instance.wheelList[cur.wheelIndex].obj, transform.Find("car/Wheel.FL"));
+            Instantiate(StoreData.Instance.wheelList[cur.wheelIndex].obj, transform.Find("car/Wheel.RR"));
+            Instantiate(StoreData.Instance.wheelList[cur.wheelIndex].obj, transform.Find("car/Wheel.RL"));
+
+            Instantiate(StoreData.Instance.trailList[cur.trailIndex].obj, transform.Find("car/Wheel.RR").GetChild(0));
+            Instantiate(StoreData.Instance.trailList[cur.trailIndex].obj, transform.Find("car/Wheel.RL").GetChild(0));
+
+            Instantiate(StoreData.Instance.hatList[cur.hatIndex].obj, transform.Find("hat_loc"));
+        }
     }
 
-    public void SetPlayerName(string name) 
+
+    public void SetPlayerInfo(PlayerInfo playerInfo) 
     {
         if (isLocalPlayer)
         {
             Debug.Log("Setting player name: " + name);
             StartCoroutine(WaitForPlayerConnection());
-            if(isClient) CmdSetPlayerName(name);
-
-            
+            if(isClient)
+            {
+                CmdAssemblePlayer(playerInfo);
+            }
         }
     }
     private IEnumerator WaitForPlayerConnection()

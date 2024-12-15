@@ -13,17 +13,25 @@ using Unity.Services.Core;
 using Unity.Services.Authentication;
 using System.Threading.Tasks;
 using Mirror.SimpleWeb;
+using UnityEngine.SceneManagement;
 
 public class MainMenuUI : MonoBehaviour
 {
+    public Camera main_camera;
+    public GameObject main_menu_panel;
+    public GameObject treasure_box_panel;
+
+    // treasure box
+    public GameObject treasure_box_env_prefab;
+    private GameObject treasure_box_env_instance;
+    // public Camera treasure_box_camera;
+    // public ParticleSystem confeti_effect1;
+    // public ParticleSystem confeti_effect2;
     private const string SERVER_IP = "serverIP";
     private const string SERVER_PORT = "serverPort";
 
     NetworkManager manager;
     SimpleWebTransport transport;
-
-    [SerializeField]
-    GameObject canvasCamera;
 
     [SerializeField] private GameObject playerNameInputField;
     private string playerName;
@@ -55,9 +63,9 @@ public class MainMenuUI : MonoBehaviour
 
     void Start()
     {
-#if UNITY_SERVER
-        StartServerButtonClicked();
-#endif
+        #if UNITY_SERVER
+                StartServerButtonClicked();
+        #endif
     }
     void Awake()
     {
@@ -165,13 +173,21 @@ public class MainMenuUI : MonoBehaviour
             Debug.Log("Waiting for local player...");
             yield return null;
         }
-        canvasCamera.SetActive(false);
+        GameObject.Find("Camera").SetActive(false);
 
         PlayerManager localPlayer = NetworkClient.localPlayer.GetComponent<PlayerManager>();
         playerName = playerNameInputField.GetComponent<TMP_InputField>().text.ToString();
-        
 
-        localPlayer.SetPlayerName(playerName);
+
+        //localPlayer.SetPlayerName(playerName, kartStructure);
+        localPlayer.SetPlayerInfo(new()
+        {
+            name = playerName,
+            wheelIndex = Constants.currentWheelIndex,
+            trailIndex = Constants.currentTrailIndex,
+            hatIndex = Constants.currentHatIndex,
+        });
+
     }
 
     public void StartServerButtonClicked()
@@ -197,6 +213,7 @@ public class MainMenuUI : MonoBehaviour
             Debug.Log("recent new file");
 
         }
+
     }
     #endregion
 
@@ -398,14 +415,42 @@ public class MainMenuUI : MonoBehaviour
     #endregion
 
 
-    public string GetLocalIPv4()
+    #region Go to store
+    public void LoadStoreScene()
     {
-        string strHostName = System.Net.Dns.GetHostName();
+        // disabling component of network manager
+        if (transform.childCount > 0)
+        {
+            transform.GetChild(0).gameObject.SetActive(false);
+        }
 
-        IPHostEntry ipEntry = System.Net.Dns.GetHostEntry(strHostName);
-
-        IPAddress[] addr = ipEntry.AddressList;
-
-        return addr[addr.Length - 1].ToString();
+        SceneManager.LoadScene(2);
     }
+    #endregion
+
+    #region treasure box
+    public void OpenTreasureBoxUIButton()
+    {
+        if(treasure_box_env_instance == null) treasure_box_env_instance = Instantiate(treasure_box_env_prefab);
+
+        main_camera.gameObject.SetActive(false);
+        main_menu_panel.gameObject.SetActive(false);
+        treasure_box_panel.gameObject.SetActive(true);
+
+    }
+    public void ClaimTreasureBoxButton()
+    {
+        Destroy(treasure_box_env_instance);
+        main_camera.gameObject.SetActive(true);
+        main_menu_panel.gameObject.SetActive(true);
+        treasure_box_panel.gameObject.SetActive(false);
+    }
+    public void CloseTreasureBoxButton()
+    {
+        Destroy(treasure_box_env_instance);
+        main_camera.gameObject.SetActive(true);
+        main_menu_panel.gameObject.SetActive(true);
+        treasure_box_panel.gameObject.SetActive(false);
+    }
+    #endregion
 }
