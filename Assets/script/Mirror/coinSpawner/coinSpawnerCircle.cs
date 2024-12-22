@@ -28,7 +28,8 @@ public class coinSpawnerCircle : NetworkBehaviour
     void SpreadItem(float angle)
     {
         Vector3 randPosition = new Vector3(Mathf.Sin(angle) * radius, Random.Range(-itemYSpread, itemYSpread), Mathf.Cos(angle) * radius) + transform.position;
-        GameObject clone = Instantiate(itemToSpread, randPosition, itemToSpread.transform.rotation);
-        NetworkServer.Spawn(clone);
+        //GameObject clone = Instantiate(itemToSpread, randPosition, itemToSpread.transform.rotation);
+        //NetworkServer.Spawn(clone);
+        Spawner.SpawnCoin(randPosition);
     }
 }

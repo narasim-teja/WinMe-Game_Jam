@@ -28,7 +28,8 @@ public class PositionCoinSpawner : NetworkBehaviour
     [Server]
     void SpreadItem(Vector3 location)
     {
-        GameObject clone = Instantiate(itemToSpread, location, itemToSpread.transform.rotation);
-        NetworkServer.Spawn(clone);
+        Spawner.SpawnCoin(location);
+        //GameObject clone = Instantiate(itemToSpread, location, itemToSpread.transform.rotation);
+        //NetworkServer.Spawn(clone);
     }
 }

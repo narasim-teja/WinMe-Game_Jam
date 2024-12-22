@@ -39,7 +39,7 @@ public class SingleCoinSpawner : NetworkBehaviour
 
             if (numberOfCollidersFound == 0)
             {
-                Debug.Log("spawned robot");
+                Debug.Log($"single {spawnedObjectLayer}");
                 Pick(hit.point, spawnRotation);
             }
             else
