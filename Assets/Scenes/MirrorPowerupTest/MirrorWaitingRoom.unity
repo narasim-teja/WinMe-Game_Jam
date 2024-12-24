@@ -2526,7 +2526,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 37.1
+  m_fontSize: 43.85
   m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -13839,8 +13839,6 @@ MonoBehaviour:
   playerSpawnMethod: 1
   spawnPrefabs:
   - {fileID: 1643588665180250320, guid: b50b454b720408c4aa12c8bc35c068f7, type: 3}
-  - {fileID: 1205363166874645003, guid: fe5c650b3ab388441948e86038d50cf9, type: 3}
-  - {fileID: 1205363166874645003, guid: de1e190141bde7e489ba1485f51496b1, type: 3}
   - {fileID: 2997814991494087685, guid: 06fb2b4e77e87a546bfc8c91dc204f4d, type: 3}
   - {fileID: 6005500290872442030, guid: 0345b005f36a0a1429a1b62e7a5748e1, type: 3}
   - {fileID: 8876113136581083759, guid: a3dc9a1b16ebd5742b9237f6df24c02b, type: 3}
@@ -15561,7 +15559,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 63.2
+  m_fontSize: 58.8
   m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -16641,7 +16639,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 57.65
+  m_fontSize: 56.25
   m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -17536,7 +17534,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 32.2
+  m_fontSize: 28.1
   m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 1
