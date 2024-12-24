@@ -6,11 +6,15 @@ using System.Collections;
 
 public class MirrorNetworkManager : NetworkManager
 {
+    public GameObject coinPrefab;
+    public GameObject [] pickupList;
+
     private int playerCount = 0;
     public int noOfPlayers = 1;
 
     private readonly int waitForSecondsBeforeWhenNoPlayers = 60;
     private StoreData storeData;
+    public static new MirrorNetworkManager singleton => NetworkManager.singleton as MirrorNetworkManager;
 
     public struct CreateKartMessage : NetworkMessage
     {

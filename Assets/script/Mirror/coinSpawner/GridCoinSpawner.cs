@@ -5,7 +5,6 @@ using Mirror;
 
 public class GridCoinSpawner : NetworkBehaviour
 {
-    [SerializeField] private GameObject itemToSpread;
     [SerializeField] private int xcount;
     [SerializeField] private int zcount;
     [SerializeField] private int xspacing;
@@ -29,7 +28,8 @@ public class GridCoinSpawner : NetworkBehaviour
         Vector3 basePos = new(xspacing * i, 0, zspacing * j);
         Vector3 rotatedPos = transform.rotation * basePos + transform.position; // Rotate relative to original position
 
-        GameObject clone = Instantiate(itemToSpread, rotatedPos, Quaternion.identity);
-        NetworkServer.Spawn(clone);
+        Spawner.SpawnCoin(rotatedPos);
+        //GameObject clone = Instantiate(itemToSpread, rotatedPos, Quaternion.identity);
+        //NetworkServer.Spawn(clone);
     }
 }

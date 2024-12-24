@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: a4f07d9717a22cb4d85342d486c8ced4, type: 3}
       propertyPath: m_Name
-      value: coin
+      value: coin 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: a4f07d9717a22cb4d85342d486c8ced4, type: 3}
       propertyPath: m_TagString
@@ -65,10 +65,10 @@ PrefabInstance:
       addedObject: {fileID: 1332833479714084370}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a4f07d9717a22cb4d85342d486c8ced4, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8137293931436479674}
+      addedObject: {fileID: 4625758902531888009}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a4f07d9717a22cb4d85342d486c8ced4, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4625758902531888009}
+      addedObject: {fileID: -5034836746842227912}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a4f07d9717a22cb4d85342d486c8ced4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3325446124163983133}
@@ -99,22 +99,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8137293931436479674
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1643588665180250320}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68d5def72d26e894b864fb4c503dbf78, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  degreesPerSecond: 15
-  amplitude: 0.25
-  frequency: 1
-  isPicked: 0
 --- !u!114 &4625758902531888009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,10 +112,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 0
-  _assetId: 1538788948
+  _assetId: 4134528464
   serverOnly: 0
   visibility: 0
   hasSpawned: 0
+--- !u!114 &-5034836746842227912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1643588665180250320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bca5e949157b6d4f901b79d5d216ae0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  degreesPerSecond: 15
+  amplitude: 0.25
+  frequency: 1
+  isPicked: 0
 --- !u!82 &3325446124163983133
 AudioSource:
   m_ObjectHideFlags: 0
