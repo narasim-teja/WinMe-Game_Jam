@@ -5,7 +5,6 @@ using Mirror;
 
 public class GridCoinSpawner : NetworkBehaviour
 {
-    [SerializeField] private GameObject itemToSpread;
     [SerializeField] private int xcount;
     [SerializeField] private int zcount;
     [SerializeField] private int xspacing;

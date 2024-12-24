@@ -5,7 +5,6 @@ using Mirror;
 
 public class PositionCoinSpawner : NetworkBehaviour
 {
-    [SerializeField] GameObject itemToSpread;
     [SerializeField] Transform spawnerParent;
     [SerializeField] float spacing;
     [SerializeField] int numberOfColumns;

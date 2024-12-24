@@ -24,7 +24,6 @@ internal class Spawner
             Collider[] collidersInsideOverlapBox = new Collider[1];
             int numberOfCollidersFound = Physics.OverlapBoxNonAlloc(hit.point, overlapTestBoxScale, collidersInsideOverlapBox, spawnRotation, spawnedObjectLayer);
 
-            Debug.Log("number of colliders found " + numberOfCollidersFound);
 
             if (numberOfCollidersFound == 0)
             {

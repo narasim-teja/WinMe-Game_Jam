@@ -3,7 +3,6 @@ using Mirror;
 
 public class coinSpawnerCircle : NetworkBehaviour
 {
-    public GameObject itemToSpread;
     public int numItemsToSpawn = 10;
     public float itemYSpread = 0;
 
