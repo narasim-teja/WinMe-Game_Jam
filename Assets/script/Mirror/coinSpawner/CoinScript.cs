@@ -53,6 +53,7 @@ public class CoinScript : NetworkBehaviour
     void RespawnCoin()
     {
         Spawner.SpawnCoin(transform.position);
+        // We can re-enable instead of respawn
         NetworkServer.Destroy(gameObject);
     }
 

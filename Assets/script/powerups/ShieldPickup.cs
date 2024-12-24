@@ -13,21 +13,37 @@ public class ShieldPickup : NetworkBehaviour
         transform.Rotate(Vector3.forward * rotationSpeed * Time.deltaTime);
     }
 
-    [Server]
+    [ServerCallback]
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
+            gameObject.SetActive(false);
+            DisablePowerup();
             CmdSpawnActiveShield(other.gameObject);
+            Invoke(nameof(RespawnPowerup), 5f);
         }
     }
-    [Server]
+
+    [ServerCallback]
     void CmdSpawnActiveShield(GameObject other){
         NetworkIdentity networkIdentity = other.GetComponent<NetworkIdentity>();
         if (networkIdentity != null)
         {
-            other.GetComponent<CarPowerupManager>().SetEquippedPickupSyncVar(networkIdentity.connectionToClient , Powerups.shield);
-        }   
+            other.GetComponent<CarPowerupManager>().SetEquippedPickupSyncVar(networkIdentity.connectionToClient, Powerups.shield);
+        }
+    }
+
+    [ClientRpc]
+    void DisablePowerup()
+    {
+        gameObject.SetActive(false);
+    }
+
+    [ServerCallback]
+    void RespawnPowerup()
+    {
+        Spawner.SpawnRandomPowerup(transform.position);
         NetworkServer.Destroy(this.gameObject);
     }
 }

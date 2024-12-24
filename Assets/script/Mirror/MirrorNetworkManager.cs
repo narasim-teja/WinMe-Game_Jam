@@ -7,6 +7,7 @@ using System.Collections;
 public class MirrorNetworkManager : NetworkManager
 {
     public GameObject coinPrefab;
+    public GameObject [] pickupList;
 
     private int playerCount = 0;
     public int noOfPlayers = 1;

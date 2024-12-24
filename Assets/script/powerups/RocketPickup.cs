@@ -15,21 +15,37 @@ public class RocketPickup : NetworkBehaviour
         transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
     }
 
-    [Server]
+    [ServerCallback]
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
+            gameObject.SetActive(false);
+            DisablePowerup();
             CmdSpawnActiveRocket(other.gameObject);
+            Invoke(nameof(RespawnPowerup), 5f);
         }
     }
-    [Server]
+    [ServerCallback]
     void CmdSpawnActiveRocket(GameObject other){
         NetworkIdentity networkIdentity = other.GetComponent<NetworkIdentity>();
         if (networkIdentity != null)
         {
-            other.GetComponent<CarPowerupManager>().SetEquippedPickupSyncVar(networkIdentity.connectionToClient , Powerups.rocket);
-        }   
+            other.GetComponent<CarPowerupManager>().SetEquippedPickupSyncVar(networkIdentity.connectionToClient, Powerups.rocket);
+        }
+        gameObject.SetActive(false);
+    }
+
+    [ClientRpc]
+    void DisablePowerup()
+    {
+        gameObject.SetActive(false);
+    }
+
+    [ServerCallback]
+    void RespawnPowerup()
+    {
+        Spawner.SpawnRandomPowerup(transform.position);
         NetworkServer.Destroy(this.gameObject);
     }
 }

@@ -10,12 +10,17 @@ public class GameManager : NetworkBehaviour
 {
     GameObject[] players;
 
+    [SerializeField]
+    GameObject pickUpLocationParent;
+
     
     public GameObject winnerUI;
     // Start is called before the first frame update
     public override void OnStartServer()
     {
+        base.OnStartServer();
         players = GameObject.FindGameObjectsWithTag("Player");
+        InitPowerups();
     }
 
     [Server]
@@ -68,5 +73,14 @@ public class GameManager : NetworkBehaviour
         winnerUI.transform.Find("winnerCoinCount").GetComponent<TextMeshProUGUI>().text = coinAmount.ToString();
 
         winnerUI.gameObject.SetActive(true);
+    }
+
+    [Server]
+    void InitPowerups()
+    {
+        foreach (Transform child in pickUpLocationParent.transform)
+        {
+            Spawner.SpawnRandomPowerup(child.position);
+        }
     }
 }

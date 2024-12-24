@@ -47,4 +47,12 @@ internal class Spawner
         NetworkServer.Spawn(
             Object.Instantiate(MirrorNetworkManager.singleton.coinPrefab, pos, rot));
     }
+
+    [ServerCallback]
+    internal static void SpawnRandomPowerup(Vector3 position)
+    {
+        var (pos, rot) = PositionRaycast(position);
+        NetworkServer.Spawn(Object.Instantiate(MirrorNetworkManager.singleton
+            .pickupList[Random.Range(0, MirrorNetworkManager.singleton.pickupList.Length)], pos, rot));
+    }
 }
