@@ -9,6 +9,9 @@ public class MirrorNetworkManager : NetworkManager
     public GameObject coinPrefab;
     public GameObject [] pickupList;
 
+    [SerializeField]
+    private int waitTimeForSceneChange = 5;
+
     private int playerCount = 0;
     public int noOfPlayers = 1;
 
@@ -54,10 +57,6 @@ public class MirrorNetworkManager : NetworkManager
 
     void OnCreateKart(NetworkConnectionToClient conn, CreateKartMessage msg)
     {
-
-        //Debug.Log("Entered OnServerAddPlayer");
-
-        // Check if the connection already has a player
         if (conn.identity != null)
         {
             Debug.LogWarning("Connection already has a player");
@@ -65,9 +64,11 @@ public class MirrorNetworkManager : NetworkManager
         }
 
 
-        Vector3 start = new(0, 40f, 0);
         GameObject player = Instantiate(StoreData.Instance.kartList[msg.kartIndex].obj,
-            start, Quaternion.identity);
+            startPositions[startPositionIndex].position, Quaternion.identity);
+
+        startPositionIndex = (startPositionIndex + 1) % startPositions.Count;
+
 
         NetworkServer.AddPlayerForConnection(conn, player);
         Debug.Log("Player spawned");
@@ -77,8 +78,14 @@ public class MirrorNetworkManager : NetworkManager
         playerCount++;
         if (playerCount == noOfPlayers)
         {
-            LoadGameScene();
+            StartCoroutine(WaitBeforeSceneStart());
         }
+    }
+
+    IEnumerator WaitBeforeSceneStart()
+    {
+        yield return new WaitForSeconds(waitTimeForSceneChange);
+        LoadGameScene();
     }
 
     public override void OnServerConnect(NetworkConnectionToClient conn)
@@ -150,6 +157,29 @@ public class MirrorNetworkManager : NetworkManager
     {
         string newSceneName = "MirrorCloverStadium"; // Replace with your scene name
         ServerChangeScene(newSceneName);
+    }
+
+    // Reset position and velocity when scene change
+    public override void OnServerSceneChanged(string newSceneName)
+    {
+        base.OnServerSceneChanged(newSceneName);
+        foreach (var connection in NetworkServer.connections.Values)
+        {
+            if (connection.identity != null)
+            {
+                GameObject playerObject = connection.identity.gameObject;
+                playerObject.transform.position = startPositions[startPositionIndex].position;
+
+                Rigidbody rb = playerObject.GetComponent<Rigidbody>();
+                if (rb != null)
+                {
+                    rb.velocity = Vector3.zero;
+                    rb.angularVelocity = Vector3.zero;
+                }
+
+                startPositionIndex = (startPositionIndex + 1) % startPositions.Count;
+            }
+        }
     }
 
     public override void OnStopClient()

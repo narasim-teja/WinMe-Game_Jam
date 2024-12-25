@@ -276,7 +276,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  itemToSpread: {fileID: 1205363166874645003, guid: de1e190141bde7e489ba1485f51496b1, type: 3}
   xcount: 3
   zcount: 3
   xspacing: 7
@@ -597,7 +596,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  itemToSpread: {fileID: 1205363166874645003, guid: de1e190141bde7e489ba1485f51496b1, type: 3}
   xcount: 8
   zcount: 3
   xspacing: 5
@@ -831,6 +829,41 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &223703519
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 223703520}
+  m_Layer: 0
+  m_Name: Start Positions
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &223703520
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 223703519}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 10.3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1819799267}
+  - {fileID: 1242215926}
+  - {fileID: 1677128411}
+  - {fileID: 1658500803}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &240087250
@@ -1322,7 +1355,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  itemToSpread: {fileID: 1205363166874645003, guid: de1e190141bde7e489ba1485f51496b1, type: 3}
   numItemsToSpawn: 5
   itemYSpread: 0
   radius: 5
@@ -1566,7 +1598,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  itemToSpread: {fileID: 1205363166874645003, guid: de1e190141bde7e489ba1485f51496b1, type: 3}
   xcount: 3
   zcount: 3
   xspacing: 6
@@ -1701,7 +1732,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  itemToSpread: {fileID: 1205363166874645003, guid: de1e190141bde7e489ba1485f51496b1, type: 3}
   xcount: 3
   zcount: 4
   xspacing: 6
@@ -3061,7 +3091,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  itemToSpread: {fileID: 1205363166874645003, guid: de1e190141bde7e489ba1485f51496b1, type: 3}
   xcount: 4
   zcount: 1
   xspacing: 7
@@ -3914,7 +3943,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  itemToSpread: {fileID: 1205363166874645003, guid: de1e190141bde7e489ba1485f51496b1, type: 3}
   numItemsToSpawn: 13
   itemYSpread: 0
   radius: 10
@@ -4476,7 +4504,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  itemToSpread: {fileID: 1205363166874645003, guid: de1e190141bde7e489ba1485f51496b1, type: 3}
   numItemsToSpawn: 10
   itemYSpread: 0
   radius: 5
@@ -4677,7 +4704,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  itemToSpread: {fileID: 1205363166874645003, guid: de1e190141bde7e489ba1485f51496b1, type: 3}
   xcount: 5
   zcount: 5
   xspacing: 7
@@ -4729,7 +4755,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  itemToSpread: {fileID: 1205363166874645003, guid: de1e190141bde7e489ba1485f51496b1, type: 3}
   xcount: 3
   zcount: 4
   xspacing: 6
@@ -5464,7 +5489,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  itemToSpread: {fileID: 1205363166874645003, guid: de1e190141bde7e489ba1485f51496b1, type: 3}
   numItemsToSpawn: 25
   itemYSpread: 0
   radius: 18
@@ -6703,7 +6727,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  itemToSpread: {fileID: 1205363166874645003, guid: de1e190141bde7e489ba1485f51496b1, type: 3}
   numItemsToSpawn: 13
   itemYSpread: 0
   radius: 10
@@ -7459,6 +7482,50 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1234819758}
   m_Mesh: {fileID: -6514945659500235045, guid: f05e1bf94d68cbd48a787e3932be107c, type: 3}
+--- !u!1 &1242215925
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1242215926}
+  - component: {fileID: 1242215927}
+  m_Layer: 0
+  m_Name: Start
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1242215926
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1242215925}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 58.1, y: 0, z: -8.3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 223703520}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1242215927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1242215925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41f84591ce72545258ea98cb7518d8b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1250043249
 GameObject:
   m_ObjectHideFlags: 0
@@ -7612,7 +7679,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  itemToSpread: {fileID: 1205363166874645003, guid: de1e190141bde7e489ba1485f51496b1, type: 3}
   xcount: 3
   zcount: 3
   xspacing: 6
@@ -8745,7 +8811,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  itemToSpread: {fileID: 1205363166874645003, guid: de1e190141bde7e489ba1485f51496b1, type: 3}
   numItemsToSpawn: 10
   itemYSpread: 0
   radius: 10
@@ -9818,6 +9883,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 519813212}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1658500802
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1658500803}
+  - component: {fileID: 1658500804}
+  m_Layer: 0
+  m_Name: Start
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1658500803
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1658500802}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.3, y: 0, z: -28.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 223703520}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1658500804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1658500802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41f84591ce72545258ea98cb7518d8b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1675224422
 GameObject:
   m_ObjectHideFlags: 0
@@ -9880,6 +9989,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 519813212}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1677128410
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1677128411}
+  - component: {fileID: 1677128412}
+  m_Layer: 0
+  m_Name: Start
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1677128411
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1677128410}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.8, y: 0, z: 22.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 223703520}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1677128412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1677128410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41f84591ce72545258ea98cb7518d8b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1680091863
 GameObject:
   m_ObjectHideFlags: 0
@@ -10065,7 +10218,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  itemToSpread: {fileID: 1205363166874645003, guid: de1e190141bde7e489ba1485f51496b1, type: 3}
   xcount: 3
   zcount: 3
   xspacing: 7
@@ -10783,7 +10935,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  itemToSpread: {fileID: 1205363166874645003, guid: de1e190141bde7e489ba1485f51496b1, type: 3}
   xcount: 4
   zcount: 1
   xspacing: 7
@@ -10866,7 +11017,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  itemToSpread: {fileID: 1205363166874645003, guid: de1e190141bde7e489ba1485f51496b1, type: 3}
   xcount: 3
   zcount: 3
   xspacing: 6
@@ -11283,6 +11433,50 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1817462040}
   m_Mesh: {fileID: -8653240853820919204, guid: f05e1bf94d68cbd48a787e3932be107c, type: 3}
+--- !u!1 &1819799266
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1819799267}
+  - component: {fileID: 1819799268}
+  m_Layer: 0
+  m_Name: Start
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1819799267
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1819799266}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -43.5, y: 0, z: -8.3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 223703520}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1819799268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1819799266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41f84591ce72545258ea98cb7518d8b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1844306064
 GameObject:
   m_ObjectHideFlags: 0
@@ -11739,7 +11933,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  itemToSpread: {fileID: 1205363166874645003, guid: de1e190141bde7e489ba1485f51496b1, type: 3}
   numItemsToSpawn: 25
   itemYSpread: 0
   radius: 18
@@ -12304,7 +12497,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  itemToSpread: {fileID: 1205363166874645003, guid: de1e190141bde7e489ba1485f51496b1, type: 3}
   numItemsToSpawn: 10
   itemYSpread: 0
   radius: 5
@@ -12864,7 +13056,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  itemToSpread: {fileID: 1205363166874645003, guid: de1e190141bde7e489ba1485f51496b1, type: 3}
   numItemsToSpawn: 25
   itemYSpread: 0
   radius: 60
@@ -13282,7 +13473,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  itemToSpread: {fileID: 1205363166874645003, guid: de1e190141bde7e489ba1485f51496b1, type: 3}
   numItemsToSpawn: 10
   itemYSpread: 0
   radius: 12
@@ -13370,7 +13560,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  itemToSpread: {fileID: 1205363166874645003, guid: de1e190141bde7e489ba1485f51496b1, type: 3}
   numItemsToSpawn: 10
   itemYSpread: 0
   radius: 5
@@ -13424,7 +13613,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  itemToSpread: {fileID: 1205363166874645003, guid: de1e190141bde7e489ba1485f51496b1, type: 3}
   spawnerParent: {fileID: 2829432957057074397}
   spacing: 5
   numberOfColumns: 1
@@ -13611,7 +13799,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  itemToSpread: {fileID: 1205363166874645003, guid: de1e190141bde7e489ba1485f51496b1, type: 3}
   numItemsToSpawn: 18
   itemYSpread: 0
   radius: 20
@@ -13668,7 +13855,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  itemToSpread: {fileID: 1205363166874645003, guid: de1e190141bde7e489ba1485f51496b1, type: 3}
   numItemsToSpawn: 25
   itemYSpread: 0
   radius: 52
@@ -13990,7 +14176,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  itemToSpread: {fileID: 1205363166874645003, guid: de1e190141bde7e489ba1485f51496b1, type: 3}
   numItemsToSpawn: 15
   itemYSpread: 0
   radius: 25
@@ -14134,7 +14319,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  itemToSpread: {fileID: 1205363166874645003, guid: de1e190141bde7e489ba1485f51496b1, type: 3}
   numItemsToSpawn: 10
   itemYSpread: 0
   radius: 10
@@ -14172,7 +14356,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  itemToSpread: {fileID: 1205363166874645003, guid: de1e190141bde7e489ba1485f51496b1, type: 3}
   numItemsToSpawn: 45
   itemYSpread: 0
   radius: 58
@@ -14375,7 +14558,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  itemToSpread: {fileID: 1205363166874645003, guid: de1e190141bde7e489ba1485f51496b1, type: 3}
   numItemsToSpawn: 20
   itemYSpread: 0
   radius: 40
@@ -14565,7 +14747,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  itemToSpread: {fileID: 1205363166874645003, guid: de1e190141bde7e489ba1485f51496b1, type: 3}
   numItemsToSpawn: 30
   itemYSpread: 0
   radius: 48
@@ -14696,7 +14877,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  itemToSpread: {fileID: 1205363166874645003, guid: de1e190141bde7e489ba1485f51496b1, type: 3}
   numItemsToSpawn: 10
   itemYSpread: 0
   radius: 41
@@ -15033,7 +15213,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  itemToSpread: {fileID: 1205363166874645003, guid: de1e190141bde7e489ba1485f51496b1, type: 3}
   numItemsToSpawn: 20
   itemYSpread: 0
   radius: 68
@@ -15104,7 +15283,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  itemToSpread: {fileID: 1205363166874645003, guid: de1e190141bde7e489ba1485f51496b1, type: 3}
   numItemsToSpawn: 15
   itemYSpread: 0
   radius: 15
@@ -15284,7 +15462,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  itemToSpread: {fileID: 1205363166874645003, guid: de1e190141bde7e489ba1485f51496b1, type: 3}
   numItemsToSpawn: 18
   itemYSpread: 0
   radius: 20
@@ -15322,7 +15499,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  itemToSpread: {fileID: 1205363166874645003, guid: de1e190141bde7e489ba1485f51496b1, type: 3}
   numItemsToSpawn: 20
   itemYSpread: 0
   radius: 20
@@ -15358,7 +15534,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  itemToSpread: {fileID: 1205363166874645003, guid: de1e190141bde7e489ba1485f51496b1, type: 3}
   numItemsToSpawn: 10
   itemYSpread: 0
   radius: 10
@@ -15394,7 +15569,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  itemToSpread: {fileID: 1205363166874645003, guid: de1e190141bde7e489ba1485f51496b1, type: 3}
   numItemsToSpawn: 25
   itemYSpread: 0
   radius: 18
@@ -15503,7 +15677,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  itemToSpread: {fileID: 1205363166874645003, guid: de1e190141bde7e489ba1485f51496b1, type: 3}
   numItemsToSpawn: 10
   itemYSpread: 0
   radius: 50
@@ -15956,7 +16129,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  itemToSpread: {fileID: 1205363166874645003, guid: de1e190141bde7e489ba1485f51496b1, type: 3}
   numItemsToSpawn: 13
   itemYSpread: 0
   radius: 10
@@ -16235,7 +16407,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  itemToSpread: {fileID: 1205363166874645003, guid: de1e190141bde7e489ba1485f51496b1, type: 3}
   numItemsToSpawn: 20
   itemYSpread: 0
   radius: 73
@@ -16271,7 +16442,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  itemToSpread: {fileID: 1205363166874645003, guid: de1e190141bde7e489ba1485f51496b1, type: 3}
   numItemsToSpawn: 10
   itemYSpread: 0
   radius: 33
@@ -16389,7 +16559,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  itemToSpread: {fileID: 1205363166874645003, guid: de1e190141bde7e489ba1485f51496b1, type: 3}
   numItemsToSpawn: 30
   itemYSpread: 0
   radius: 28
@@ -16442,7 +16611,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  itemToSpread: {fileID: 1205363166874645003, guid: de1e190141bde7e489ba1485f51496b1, type: 3}
   numItemsToSpawn: 10
   itemYSpread: 0
   radius: 33
@@ -16494,7 +16662,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  itemToSpread: {fileID: 1205363166874645003, guid: de1e190141bde7e489ba1485f51496b1, type: 3}
   numItemsToSpawn: 10
   itemYSpread: 0
   radius: 10
@@ -16543,7 +16710,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  itemToSpread: {fileID: 1205363166874645003, guid: de1e190141bde7e489ba1485f51496b1, type: 3}
   numItemsToSpawn: 18
   itemYSpread: 0
   radius: 20
@@ -16579,7 +16745,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  itemToSpread: {fileID: 1205363166874645003, guid: de1e190141bde7e489ba1485f51496b1, type: 3}
   numItemsToSpawn: 10
   itemYSpread: 0
   radius: 41
@@ -16621,3 +16786,4 @@ SceneRoots:
   - {fileID: 519813212}
   - {fileID: 7583778616303668165}
   - {fileID: 945813134}
+  - {fileID: 223703520}
