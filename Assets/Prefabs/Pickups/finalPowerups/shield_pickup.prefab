@@ -99,6 +99,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18ebba4c2017d5a4bbe4cdb5d9a99eed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   rotationSpeed: 50
   shield_active_prefab: {fileID: 5362694043938906329, guid: 0f452b715bc3f0846a0e05c418cb15fb, type: 3}
 --- !u!65 &7897837039980766843

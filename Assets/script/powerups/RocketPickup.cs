@@ -21,7 +21,7 @@ public class RocketPickup : NetworkBehaviour
         if (other.CompareTag("Player"))
         {
             gameObject.SetActive(false);
-            DisablePowerup();
+            DisablePowerup(other.gameObject);
             CmdSpawnActiveRocket(other.gameObject);
             Invoke(nameof(RespawnPowerup), 5f);
         }
@@ -37,8 +37,9 @@ public class RocketPickup : NetworkBehaviour
     }
 
     [ClientRpc]
-    void DisablePowerup()
+    void DisablePowerup(GameObject player)
     {
+        player.transform.Find("Audio").GetComponent<CarAudio>().PlayPowerup();
         gameObject.SetActive(false);
     }
 
