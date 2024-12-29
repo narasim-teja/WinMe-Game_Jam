@@ -20,7 +20,7 @@ public class BurgerPickup : NetworkBehaviour
         if (other.CompareTag("Player"))
         {
             gameObject.SetActive(false);
-            DisablePowerup();
+            DisablePowerup(other.gameObject);
             CmdSpawnActiveBurger(other.gameObject);
             Invoke(nameof(RespawnPowerup), 5f);
         }
@@ -35,8 +35,9 @@ public class BurgerPickup : NetworkBehaviour
     }
 
     [ClientRpc]
-    void DisablePowerup()
+    void DisablePowerup(GameObject player)
     {
+        player.transform.Find("Audio").GetComponent<CarAudio>().PlayPowerup();
         gameObject.SetActive(false);
     }
 

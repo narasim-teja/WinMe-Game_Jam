@@ -45,7 +45,7 @@ public class CoinScript : NetworkBehaviour
         {
             isPicked = true;
             player.GetComponent<CarUIManager>().coinCount += 1;
-            RpcDisableCoin();
+            RpcDisableCoin(player);
             Invoke(nameof(RespawnCoin), 5f);
         }
     }
@@ -57,17 +57,10 @@ public class CoinScript : NetworkBehaviour
         NetworkServer.Destroy(gameObject);
     }
 
-    //[ClientRpc]
-    //void RpcEnableCoin()
-    //{
-    //    isPicked=false;
-    //    gameObject.SetActive(true);
-    //}
-
     [ClientRpc]
-    void RpcDisableCoin()
+    void RpcDisableCoin(GameObject player)
     {
-        //isPicked = true;
+        player.transform.Find("Audio").GetComponent<CarAudio>().PlayCoinPickUp();
         gameObject.SetActive(false);
     }
 }
