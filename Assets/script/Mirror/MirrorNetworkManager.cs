@@ -163,22 +163,28 @@ public class MirrorNetworkManager : NetworkManager
     public override void OnServerSceneChanged(string newSceneName)
     {
         base.OnServerSceneChanged(newSceneName);
-        foreach (var connection in NetworkServer.connections.Values)
+        if(newSceneName == "MirrorCloverStadium")
         {
-            if (connection.identity != null)
+            foreach (var connection in NetworkServer.connections.Values)
             {
-                GameObject playerObject = connection.identity.gameObject;
-                playerObject.transform.position = startPositions[startPositionIndex].position;
-
-                Rigidbody rb = playerObject.GetComponent<Rigidbody>();
-                if (rb != null)
+                if (connection.identity != null)
                 {
-                    rb.velocity = Vector3.zero;
-                    rb.angularVelocity = Vector3.zero;
-                }
+                    GameObject playerObject = connection.identity.gameObject;
+                    playerObject.transform.position = startPositions[startPositionIndex].position;
 
-                startPositionIndex = (startPositionIndex + 1) % startPositions.Count;
+                    Rigidbody rb = playerObject.GetComponent<Rigidbody>();
+                    if (rb != null)
+                    {
+                        rb.velocity = Vector3.zero;
+                        rb.angularVelocity = Vector3.zero;
+                    }
+
+                    startPositionIndex = (startPositionIndex + 1) % startPositions.Count;
+                }
             }
+        }else if(newSceneName == "MirrorWaitingRoom")
+        {
+            Debug.Log("Scene changed");
         }
     }
 
