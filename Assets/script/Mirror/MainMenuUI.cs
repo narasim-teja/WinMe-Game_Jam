@@ -14,7 +14,8 @@ using Unity.Services.Authentication;
 using System.Threading.Tasks;
 using Mirror.SimpleWeb;
 using UnityEngine.SceneManagement;
-
+using Thirdweb;
+using UnityEngine.Networking;
 public class MainMenuUI : MonoBehaviour
 {
     public Camera main_camera;
@@ -61,6 +62,8 @@ public class MainMenuUI : MonoBehaviour
     GameObject loadingPanel;
     private bool isLoading = false;
 
+    
+
     void Start()
     {
         #if UNITY_SERVER
@@ -82,12 +85,68 @@ public class MainMenuUI : MonoBehaviour
 
     }
 
-    private void Update()
+    private  void Update()
     {
         HandleHeartbeat();
     }
 
+    public async void CheckAuthentication()
+    {
+        string walletAddress = await ThirdwebManager.Instance.SDK.Wallet.GetAddress();
 
+        string id = ThirdwebManager.Instance.clientId;
+
+        print(walletAddress);
+        print(id);
+
+        if (walletAddress!="")
+        {
+            Debug.Log($"User is logged in! Wallet Address: {walletAddress}");
+        }
+        else
+        {
+            Debug.Log("Please connect a wallet"); 
+        }
+
+        bool token = await ThirdwebManager.Instance.SDK.Wallet.IsConnected();
+        string data = await ThirdwebManager.Instance.SDK.Wallet.Sign("5fe69c95ed70a9869d9f9ayush27f7d8400a6673bb9ce9");
+
+        StartCoroutine(SendRequestToServer(walletAddress,data));
+
+    }
+    [System.Serializable]
+    public class AuthPayload
+    {
+        public string walletAddress;
+        public string encryptedmessage;
+}
+    private IEnumerator SendRequestToServer(string walletAddress, string message)
+    {
+        string payload = JsonUtility.ToJson(new AuthPayload
+        {
+            walletAddress = walletAddress,
+            encryptedmessage = message
+        });
+
+        Debug.Log("Payload: " + payload);
+
+        UnityWebRequest request = new UnityWebRequest("http://localhost:3001/mintItem", "POST");
+        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(payload);
+        request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+        request.downloadHandler = new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+            Debug.Log("Server Response: " + request.downloadHandler.text);
+        }
+        else
+        {
+            Debug.LogError("Error: " + request.error);
+        }
+    }
     private void HandleHeartbeat()
     {
         if (IsLobbyHost())
@@ -209,6 +268,8 @@ public class MainMenuUI : MonoBehaviour
             {
                 Debug.Log(portTransport.Port);
             }
+
+            Debug.Log("recent new file");
 
         }
 
@@ -438,6 +499,7 @@ public class MainMenuUI : MonoBehaviour
     }
     public void ClaimTreasureBoxButton()
     {
+        CheckAuthentication();
         Destroy(treasure_box_env_instance);
         main_camera.gameObject.SetActive(true);
         main_menu_panel.gameObject.SetActive(true);
