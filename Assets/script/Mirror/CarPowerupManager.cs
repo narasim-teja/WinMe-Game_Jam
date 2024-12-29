@@ -93,14 +93,15 @@ public class CarPowerupManager : NetworkBehaviour
         {
             
             case Powerups.rocket:
-                Quaternion adjustedRotation = this.transform.rotation * Quaternion.Euler(90f, 0f, 0f);
+                Quaternion rocketAdjustedRotation = this.transform.rotation * Quaternion.Euler(90f, 0f, 0f);
 
-                Instantiate(rocketPrefab,powerupHolder.transform.position, adjustedRotation, powerupHolder.transform);
+                Instantiate(rocketPrefab,powerupHolder.transform.position, rocketAdjustedRotation, powerupHolder.transform);
                 if(isLocalPlayer) CmdSpawnRocketOnServer();
                 
                 break;
             case Powerups.shield:
-                Instantiate(shieldPrefab,powerupHolder.transform.position,shieldPrefab.transform.rotation , powerupHolder.transform);
+                Quaternion shieldAdjustedRotation = this.transform.rotation * Quaternion.Euler(-60f, 0f, 0f);
+                Instantiate(shieldPrefab,powerupHolder.transform.position, shieldAdjustedRotation , powerupHolder.transform);
                 if(isLocalPlayer) CmdSpawnShieldOnServer();
                 
                 break;

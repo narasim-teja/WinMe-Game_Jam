@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class CountDownTimer : NetworkBehaviour
 {
     [SyncVar(hook = nameof(OnTimerUpdate))]
-    private int timeRemaining = 5; 
+    private int timeRemaining = 60; 
 
     public Text timerText;
     GameManager gameManager;

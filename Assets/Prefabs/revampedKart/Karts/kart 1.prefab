@@ -3253,7 +3253,7 @@ MonoBehaviour:
   powerupHolder: {fileID: 3143852379618444781}
   rocketPrefab: {fileID: 5394374899766560922, guid: 87fd0398a41f3f74a8444a89a20e531d, type: 3}
   rocketPrefabNetwokred: {fileID: 5394374899766560922, guid: fc6e642a0d249844d959d4205b49ca6c, type: 3}
-  shieldPrefab: {fileID: 5362694043938906329, guid: 0f452b715bc3f0846a0e05c418cb15fb, type: 3}
+  shieldPrefab: {fileID: 3932046165361090311, guid: 0f452b715bc3f0846a0e05c418cb15fb, type: 3}
   burgerPrefab: {fileID: 49677859448093925, guid: 982e8cf45195c1348ba24500391fb05c, type: 3}
   explosionEffect: {fileID: 198000012777718758, guid: acf39d9f4addf294d93fa56fa373961b, type: 3}
   shieldPowerupParticleEffect: {fileID: 7047901910090771416, guid: d2ffbc8b168cdf74a9dbb7c6c1cfdf2f, type: 3}
