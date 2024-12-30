@@ -94,29 +94,26 @@ public class MainMenuUI : MonoBehaviour
         HandleHeartbeat();
     }
 
-    public async void CheckAuthentication()
+    public async void ValidateWalletAndMintNFT()
     {
-        string walletAddress = await ThirdwebManager.Instance.SDK.Wallet.GetAddress();
+        string walletAddress = string.Empty;
 
-        string id = ThirdwebManager.Instance.clientId;
-
-        print(walletAddress);
-        print(id);
-
-        if (walletAddress!="")
+        try
         {
-            Debug.Log($"User is logged in! Wallet Address: {walletAddress}");
+            walletAddress = await ThirdwebManager.Instance.SDK.Wallet.GetAddress();
         }
-        else
+        catch (Exception ex)
         {
-            Debug.Log("Please connect a wallet"); 
+            Debug.LogError($"Error retrieving wallet address: {ex.Message}");
         }
 
-        bool token = await ThirdwebManager.Instance.SDK.Wallet.IsConnected();
-        string data = await ThirdwebManager.Instance.SDK.Wallet.Sign("5fe69c95ed70a9869d9f9ayush27f7d8400a6673bb9ce9");
+        if (!string.IsNullOrEmpty(walletAddress))
+        {
+            bool token = await ThirdwebManager.Instance.SDK.Wallet.IsConnected();
+            string data = await ThirdwebManager.Instance.SDK.Wallet.Sign("5fe69c95ed70a9869d9f9ayush27f7d8400a6673bb9ce9");
 
-        StartCoroutine(SendRequestToServer(walletAddress,data));
-
+            StartCoroutine(ServerRequestToMintNFT(walletAddress,data));
+        }
     }
     [System.Serializable]
     public class AuthPayload
@@ -124,7 +121,7 @@ public class MainMenuUI : MonoBehaviour
         public string walletAddress;
         public string encryptedmessage;
 }
-    private IEnumerator SendRequestToServer(string walletAddress, string message)
+    private IEnumerator ServerRequestToMintNFT(string walletAddress, string message)
     {
         string payload = JsonUtility.ToJson(new AuthPayload
         {
@@ -487,7 +484,7 @@ public class MainMenuUI : MonoBehaviour
     }
     public void ClaimTreasureBoxButton()
     {
-        CheckAuthentication();
+        ValidateWalletAndMintNFT();
         Destroy(treasure_box_env_instance);
         main_camera.gameObject.SetActive(true);
         main_menu_panel.gameObject.SetActive(true);
