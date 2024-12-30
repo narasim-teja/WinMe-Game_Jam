@@ -1448,7 +1448,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2331078832082510095, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
       propertyPath: wheelList.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2331078832082510095, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
       propertyPath: hatList.Array.data[0]
@@ -1490,6 +1490,10 @@ PrefabInstance:
       propertyPath: wheelList.Array.data[2]
       value: 
       objectReference: {fileID: 11400000, guid: 65f88ea3343b77a4284fa733b4212b7c, type: 2}
+    - target: {fileID: 2331078832082510095, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
+      propertyPath: wheelList.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 93021527f576a9146aa7b47c7cb139cb, type: 2}
     - target: {fileID: 4829437656189325627, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
       propertyPath: m_Name
       value: Store Data Prefab

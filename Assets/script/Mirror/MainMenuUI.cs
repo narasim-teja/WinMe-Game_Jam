@@ -16,6 +16,7 @@ using Mirror.SimpleWeb;
 using UnityEngine.SceneManagement;
 using Thirdweb;
 using UnityEngine.Networking;
+
 public class MainMenuUI : MonoBehaviour
 {
     public Camera main_camera;
@@ -36,6 +37,7 @@ public class MainMenuUI : MonoBehaviour
 
     [SerializeField] private GameObject playerNameInputField;
     private string playerName;
+    private string defaultPlayerName;
 
 
     public event EventHandler OnCreateLobbyStarted;
@@ -82,6 +84,8 @@ public class MainMenuUI : MonoBehaviour
         }
 
         InitializeUnityAuthentication();
+
+        defaultPlayerName = "Player"+ UnityEngine.Random.Range(1000, 10000).ToString();
 
     }
 
@@ -211,22 +215,6 @@ public class MainMenuUI : MonoBehaviour
     #region Server fucntions
     private IEnumerator WaitForLocalPlayerAndSetPlayerName()
     {
-        
-        // while (!NetworkClient.ready)
-        // {
-        //     Debug.Log("Waiting for local readyyy...");
-        //     yield return null;
-        // }
-        // if (!NetworkClient.ready)
-        // {
-        //     // NetworkClient.Ready();
-        // }
-        // if (NetworkClient.localPlayer == null )
-        // {
-        //     Debug.Log("Attempting to add player");
-
-        //     // NetworkClient.AddPlayer();
-        // }
         while (NetworkClient.localPlayer == null)   
         {
             Debug.Log("Waiting for local player...");
@@ -238,7 +226,7 @@ public class MainMenuUI : MonoBehaviour
         playerName = playerNameInputField.GetComponent<TMP_InputField>().text.ToString();
 
 
-        //localPlayer.SetPlayerName(playerName, kartStructure);
+        if(playerName == "") playerName = defaultPlayerName;
         localPlayer.SetPlayerInfo(new()
         {
             name = playerName,
