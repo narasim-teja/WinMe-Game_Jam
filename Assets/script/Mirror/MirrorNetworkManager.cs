@@ -191,6 +191,10 @@ public class MirrorNetworkManager : NetworkManager
     public override void OnStopClient()
     {
         base.OnStopClient();
+        //Clean Up
+        GameObject kartCamera = GameObject.Find("KartCamera(Clone)");
+        if (kartCamera != null)
+            Destroy(kartCamera);
         Debug.Log("Client has stopped.");
     }
 }

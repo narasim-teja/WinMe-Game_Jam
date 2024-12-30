@@ -2250,7 +2250,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 48.35
+  m_fontSize: 41.65
   m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -8653,7 +8653,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1334776423}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.008556907, y: 0.011789535, z: -0.00010089266, w: 0.9998939}
+  m_LocalRotation: {x: 0.0085568875, y: 0.01178957, z: -0.00010089273, w: 0.9998939}
   m_LocalPosition: {x: -28.161636, y: 20.193237, z: -189.40105}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -12645,7 +12645,7 @@ MonoBehaviour:
   - {fileID: 6005500290872442030, guid: 0345b005f36a0a1429a1b62e7a5748e1, type: 3}
   - {fileID: 2525408349467009658, guid: a3dc9a1b16ebd5742b9237f6df24c02b, type: 3}
   waitTimeForSceneChange: 2
-  noOfPlayers: 1
+  noOfPlayers: 2
 --- !u!114 &1945648348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14337,7 +14337,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 52.05
+  m_fontSize: 56.6
   m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -15649,7 +15649,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30.95
+  m_fontSize: 54.05
   m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -16544,7 +16544,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18
+  m_fontSize: 27
   m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -16661,7 +16661,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2813857112049238015}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.008556907, y: 0.011789535, z: -0.00010089266, w: 0.9998939}
+  m_LocalRotation: {x: 0.0085568875, y: 0.01178957, z: -0.00010089273, w: 0.9998939}
   m_LocalPosition: {x: -28.161636, y: 17.414597, z: -189.40105}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

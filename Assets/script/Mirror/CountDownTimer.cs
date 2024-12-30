@@ -48,7 +48,7 @@ public class CountDownTimer : NetworkBehaviour
     [ClientRpc]
     void StopClients()
     {
-        networkManager.StopClient();
+        MirrorNetworkManager.singleton.StopClient();
     }
 
     void OnTimerUpdate(int oldTime, int newTime) 
