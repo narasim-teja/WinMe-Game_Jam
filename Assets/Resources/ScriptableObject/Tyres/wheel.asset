@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa7f494275d86324c9de81fc6683f6b3, type: 3}
-  m_Name: banana hat
+  m_Name: wheel
   m_EditorClassIdentifier: 
-  title: banana hat
-  desc: so premium item
-  cost: 1000
+  title: wheel
+  desc: cool wheels
+  cost: 3
   contractAddress: 
   contractAbi: 
   imageUrl: 
-  obj: {fileID: 3414240469354110503, guid: be6b791b8be8d3c4a9d7b74ea3656e1d, type: 3}
-  type: 3
+  obj: {fileID: 4266727502796744808, guid: 503b26ad1528c4846aa88f0f6d895beb, type: 3}
+  type: 1

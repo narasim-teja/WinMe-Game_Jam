@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa7f494275d86324c9de81fc6683f6b3, type: 3}
-  m_Name: defaul trail
+  m_Name: wheel2
   m_EditorClassIdentifier: 
-  title: 
-  desc: 
-  cost: 0
+  title: wheel2
+  desc: wheel 2 desc
+  cost: 56
   contractAddress: 
   contractAbi: 
   imageUrl: 
-  obj: {fileID: 765190240496230043, guid: 4f7f11ef8d3154343874d40116fed402, type: 3}
-  type: 2
+  obj: {fileID: 4266727502796744808, guid: c3741c4bc85467148ac295e3541ef185, type: 3}
+  type: 1

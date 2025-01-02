@@ -11,7 +11,7 @@ public enum StoreItemType
 }
 
 [CreateAssetMenu(fileName = "Shop Item", menuName = "Scriptable objects/New Shop Item", order = 1)]
-public class Storeitem : ScriptableObject
+public class StoreItem : ScriptableObject
 {
     public string title;
     public string desc;

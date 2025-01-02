@@ -49453,7 +49453,7 @@ MonoBehaviour:
   confeti_particle_effect1: {fileID: 7274207220679997391}
   confeti_particle_effect2: {fileID: 6137795295468000256}
   aura_particle_effect: {fileID: 7938384439400024400, guid: b6e54acc881a03c4a9719b161a25a3e3, type: 3}
-  temporaryObject: {fileID: 8046274694963244343, guid: 3d3ca9c1cc1c9e646bbcaa412e5e9b71, type: 3}
+  ObtainedItem: {fileID: 7185201331772998483, guid: f507c1cb53da3b84aa0477d3276f4ff5, type: 3}
 --- !u!1 &8111844399583475687
 GameObject:
   m_ObjectHideFlags: 0

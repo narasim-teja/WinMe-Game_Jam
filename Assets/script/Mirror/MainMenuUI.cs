@@ -16,6 +16,7 @@ using Mirror.SimpleWeb;
 using UnityEngine.SceneManagement;
 using Thirdweb;
 using UnityEngine.Networking;
+using Org.BouncyCastle.Asn1.Ocsp;
 
 public class MainMenuUI : MonoBehaviour
 {
@@ -475,12 +476,70 @@ public class MainMenuUI : MonoBehaviour
     #region treasure box
     public void OpenTreasureBoxUIButton()
     {
-        if(treasure_box_env_instance == null) treasure_box_env_instance = Instantiate(treasure_box_env_prefab);
+        // if(treasure_box_env_instance == null) treasure_box_env_instance = Instantiate(treasure_box_env_prefab);
+        StartCoroutine(getRandomItemFromServer());
 
         main_camera.gameObject.SetActive(false);
         main_menu_panel.gameObject.SetActive(false);
         treasure_box_panel.gameObject.SetActive(true);
 
+    }
+
+    [System.Serializable]
+    public class ServerResponse
+    {
+        public string type;
+        public Item item;
+
+        [System.Serializable]
+        public class Item
+        {
+            public string title;      // Corresponds to "title" in the JSON
+            public string rarity;     // Corresponds to "rarity" in the JSON
+            public float probability; // Corresponds to "probability" in the JSON
+        }
+    }
+    private IEnumerator getRandomItemFromServer(){ 
+        UnityWebRequest request = new UnityWebRequest("http://localhost:3001/random-item", "GET");
+        request.downloadHandler = new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+            string jsonResponse = request.downloadHandler.text;
+            Debug.Log("Server Response: " + jsonResponse);
+
+            ServerResponse serverResponse = JsonUtility.FromJson<ServerResponse>(jsonResponse);
+            Debug.Log("Type: " + serverResponse.type);
+            Debug.Log("Item Name: " + serverResponse.item.title);
+
+            StoreItem[] allItems = Resources.LoadAll<StoreItem>("ScriptableObject/"+serverResponse.type);
+            foreach (StoreItem item in allItems)
+            {
+                print(serverResponse.item.title+"---" + item.title);
+
+                if(serverResponse.item.title == item.title){
+                    if(treasure_box_env_instance == null) {
+                        treasure_box_env_instance = Instantiate(treasure_box_env_prefab);
+                        treasure_box_env_instance.GetComponent<treasure_box_script>().ObtainedItem = item.obj;
+                    }
+                }
+            }
+        }
+        else
+        {
+            Debug.LogError("Error: " + request.error);
+        }
+
+        // StoreItem[] allItems = Resources.LoadAll<StoreItem>("ScriptableObject/Tyres");
+        // foreach (var item in allItems)
+        // {
+        //     print(item.title);
+        // }
+
+        print(request);
     }
     public void ClaimTreasureBoxButton()
     {

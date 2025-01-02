@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa7f494275d86324c9de81fc6683f6b3, type: 3}
-  m_Name: wheel 3
+  m_Name: defaulTrail
   m_EditorClassIdentifier: 
-  title: wheel 3
-  desc: new wheel
-  cost: 2456
+  title: defaultTrail
+  desc: 
+  cost: 0
   contractAddress: 
   contractAbi: 
   imageUrl: 
-  obj: {fileID: 4331361501969871254, guid: 62f17d9b22d75764c97a143033f19e90, type: 3}
-  type: 1
+  obj: {fileID: 765190240496230043, guid: 4f7f11ef8d3154343874d40116fed402, type: 3}
+  type: 2

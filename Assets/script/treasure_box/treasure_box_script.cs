@@ -15,7 +15,8 @@ public class treasure_box_script : MonoBehaviour
     Rigidbody treasure_box_rb;
     Rigidbody treasure_box_top_rb;
 
-    public GameObject temporaryObject;
+    public GameObject ObtainedItem;
+
     void Start()
     {
         treasure_box_top_rb = treasure_box_top.GetComponent<Rigidbody>();
@@ -41,7 +42,7 @@ public class treasure_box_script : MonoBehaviour
         instance1.Play();
         Destroy(instance1.gameObject, instance1.main.duration);
 
-        GameObject temp = Instantiate(temporaryObject, treasure_box_top.transform.position, Quaternion.identity,this.transform);
+        GameObject temp = Instantiate(ObtainedItem, treasure_box_top.transform.position, Quaternion.identity,this.transform);
         temp.AddComponent<RotateObject>().rotationSpeed = 50f;
         Instantiate(aura_particle_effect,treasure_box_top.transform.position,Quaternion.identity,temp.transform);
 

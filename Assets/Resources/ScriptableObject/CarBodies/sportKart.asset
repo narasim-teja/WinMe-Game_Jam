@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa7f494275d86324c9de81fc6683f6b3, type: 3}
-  m_Name: Sport Kart
+  m_Name: sportKart
   m_EditorClassIdentifier: 
-  title: sport
+  title: sportKart
   desc: this is super sport kart
   cost: 20
   contractAddress: 0xD9F7415Faa1fd9eF4D7741cC774Fe92443535B57
