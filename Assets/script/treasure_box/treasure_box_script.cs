@@ -42,12 +42,14 @@ public class treasure_box_script : MonoBehaviour
         instance1.Play();
         Destroy(instance1.gameObject, instance1.main.duration);
 
-        GameObject temp = Instantiate(ObtainedItem, treasure_box_top.transform.position, Quaternion.identity,this.transform);
+        GameObject temp = Instantiate(ObtainedItem, treasure_box_top.transform.position, ObtainedItem.transform.rotation,this.transform);
         temp.AddComponent<RotateObject>().rotationSpeed = 50f;
-        Instantiate(aura_particle_effect,treasure_box_top.transform.position,Quaternion.identity,temp.transform);
-
-        StartCoroutine(SmoothMove(temp.transform, temp.transform.position, temp.transform.position + new Vector3(0, 2f, 0), 1f));
-        StartCoroutine(SmoothMove(treasure_box_cam.transform, treasure_box_cam.transform.position, treasure_box_cam.transform.position + new Vector3(0, 3f, -5f), 1f));
+        // Instantiate(aura_particle_effect,treasure_box_top.transform.position,Quaternion.identity,temp.transform);
+        ParticleSystem particleEffect = Instantiate(aura_particle_effect, treasure_box_top.transform.position, Quaternion.identity);
+        particleEffect.transform.SetParent(temp.transform, worldPositionStays: true);
+        
+        StartCoroutine(SmoothMove(temp.transform, temp.transform.position, temp.transform.position + new Vector3(0, 0.5f, 0), 1f));
+        StartCoroutine(SmoothMove(treasure_box_cam.transform, treasure_box_cam.transform.position, treasure_box_cam.transform.position + new Vector3(0, 0.6f, -1f), 1f));
     }
 
     IEnumerator SmoothMove(Transform target, Vector3 start, Vector3 end, float duration)
@@ -56,7 +58,7 @@ public class treasure_box_script : MonoBehaviour
         while (elapsed < duration)
         {
             target.position = Vector3.Lerp(start, end, elapsed / duration);
-            elapsed += Time.deltaTime/4;
+            elapsed += Time.deltaTime/5;
             yield return null; 
         }
         target.position = end; 
