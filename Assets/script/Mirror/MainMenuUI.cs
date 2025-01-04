@@ -23,6 +23,7 @@ public class MainMenuUI : MonoBehaviour
     public Camera main_camera;
     public GameObject main_menu_panel;
     public GameObject treasure_box_panel;
+    public GameObject PopUpPrefab;
 
     // treasure box
     public GameObject treasure_box_env_prefab;
@@ -64,7 +65,6 @@ public class MainMenuUI : MonoBehaviour
     [SerializeField]
     GameObject loadingPanel;
     private bool isLoading = false;
-
     
 
     void Start()
@@ -463,6 +463,11 @@ public class MainMenuUI : MonoBehaviour
     #region Go to store
     public void LoadStoreScene()
     {
+        if(!ThirdwebManager.Instance.SDK.Wallet.IsConnected().Result){
+            GameObject PopUpInstance = Instantiate(PopUpPrefab);
+            PopUpInstance.GetComponent<PopUpMessage>().UpdatePopUpMessage("Connect your wallet first to go to the shop.");
+            return;
+        }
         // disabling component of network manager
         if (transform.childCount > 0)
         {
@@ -476,7 +481,12 @@ public class MainMenuUI : MonoBehaviour
     #region treasure box
     public void OpenTreasureBoxUIButton()
     {
-        // if(treasure_box_env_instance == null) treasure_box_env_instance = Instantiate(treasure_box_env_prefab);
+        if(!ThirdwebManager.Instance.SDK.Wallet.IsConnected().Result){
+            GameObject PopUpInstance = Instantiate(PopUpPrefab);
+            PopUpInstance.GetComponent<PopUpMessage>().UpdatePopUpMessage("Connect your wallet first to unlock the treasure box.");
+            return;
+        }
+
         StartCoroutine(getRandomItemFromServer());
 
         main_camera.gameObject.SetActive(false);
@@ -486,7 +496,7 @@ public class MainMenuUI : MonoBehaviour
     }
 
     [System.Serializable]
-    public class ServerResponse
+    public class TreasureBoxItemServerResponse
     {
         public string type;
         public Item item;
@@ -494,9 +504,9 @@ public class MainMenuUI : MonoBehaviour
         [System.Serializable]
         public class Item
         {
-            public string title;      // Corresponds to "title" in the JSON
-            public string rarity;     // Corresponds to "rarity" in the JSON
-            public float probability; // Corresponds to "probability" in the JSON
+            public string title;
+            public string rarity;
+            public float probability; 
         }
     }
     private IEnumerator getRandomItemFromServer(){ 
@@ -511,7 +521,7 @@ public class MainMenuUI : MonoBehaviour
             string jsonResponse = request.downloadHandler.text;
             Debug.Log("Server Response: " + jsonResponse);
 
-            ServerResponse serverResponse = JsonUtility.FromJson<ServerResponse>(jsonResponse);
+            TreasureBoxItemServerResponse serverResponse = JsonUtility.FromJson<TreasureBoxItemServerResponse>(jsonResponse);
             Debug.Log("Type: " + serverResponse.type);
             Debug.Log("Item Name: " + serverResponse.item.title);
 
@@ -532,14 +542,6 @@ public class MainMenuUI : MonoBehaviour
         {
             Debug.LogError("Error: " + request.error);
         }
-
-        // StoreItem[] allItems = Resources.LoadAll<StoreItem>("ScriptableObject/Tyres");
-        // foreach (var item in allItems)
-        // {
-        //     print(item.title);
-        // }
-
-        print(request);
     }
     public void ClaimTreasureBoxButton()
     {
