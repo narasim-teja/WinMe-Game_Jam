@@ -11090,7 +11090,7 @@ GameObject:
   - component: {fileID: 1650641250}
   - component: {fileID: 1650641249}
   m_Layer: 5
-  m_Name: Store Btn
+  m_Name: StoreBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
