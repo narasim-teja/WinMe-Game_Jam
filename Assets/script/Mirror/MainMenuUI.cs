@@ -463,11 +463,11 @@ public class MainMenuUI : MonoBehaviour
     #region Go to store
     public void LoadStoreScene()
     {
-        if(!ThirdwebManager.Instance.SDK.Wallet.IsConnected().Result){
-            GameObject PopUpInstance = Instantiate(PopUpPrefab);
-            PopUpInstance.GetComponent<PopUpMessage>().UpdatePopUpMessage("Connect your wallet first to go to the shop.");
-            return;
-        }
+        // if(!ThirdwebManager.Instance.SDK.Wallet.IsConnected().Result){
+        //     GameObject PopUpInstance = Instantiate(PopUpPrefab);
+        //     PopUpInstance.GetComponent<PopUpMessage>().UpdatePopUpMessage("Connect your wallet first to go to the shop.");
+        //     return;
+        // }
         // disabling component of network manager
         if (transform.childCount > 0)
         {
@@ -481,11 +481,11 @@ public class MainMenuUI : MonoBehaviour
     #region treasure box
     public void OpenTreasureBoxUIButton()
     {
-        if(!ThirdwebManager.Instance.SDK.Wallet.IsConnected().Result){
-            GameObject PopUpInstance = Instantiate(PopUpPrefab);
-            PopUpInstance.GetComponent<PopUpMessage>().UpdatePopUpMessage("Connect your wallet first to unlock the treasure box.");
-            return;
-        }
+        // if(!ThirdwebManager.Instance.SDK.Wallet.IsConnected().Result){
+        //     GameObject PopUpInstance = Instantiate(PopUpPrefab);
+        //     PopUpInstance.GetComponent<PopUpMessage>().UpdatePopUpMessage("Connect your wallet first to unlock the treasure box.");
+        //     return;
+        // }
 
         StartCoroutine(getRandomItemFromServer());
 
