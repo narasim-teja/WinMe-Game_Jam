@@ -49,6 +49,7 @@ public class treasure_box_script : MonoBehaviour
         particleEffect.transform.SetParent(temp.transform, worldPositionStays: true);
         
         StartCoroutine(SmoothMove(temp.transform, temp.transform.position, temp.transform.position + new Vector3(0, 0.5f, 0), 1f));
+        StartCoroutine(SmoothScale(temp.transform, temp.transform.localScale, temp.transform.localScale + new Vector3(2, 2, 2), 1f));
         StartCoroutine(SmoothMove(treasure_box_cam.transform, treasure_box_cam.transform.position, treasure_box_cam.transform.position + new Vector3(0, 0.6f, -1f), 1f));
     }
 
@@ -62,5 +63,16 @@ public class treasure_box_script : MonoBehaviour
             yield return null; 
         }
         target.position = end; 
+    }
+
+    IEnumerator SmoothScale(Transform target, Vector3 start, Vector3 end, float duration)
+    {
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            target.localScale = Vector3.Lerp(start, end, elapsed / duration);
+            elapsed += Time.deltaTime/5;
+            yield return null; 
+        }
     }
 }
