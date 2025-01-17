@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa7f494275d86324c9de81fc6683f6b3, type: 3}
-  m_Name: wheel2
+  m_Name: blackTire
   m_EditorClassIdentifier: 
-  title: wheel2
-  desc: wheel 2 desc
-  cost: 56
+  title: blackTire
+  desc: cool wheels
+  cost: 3
   contractAddress: 
   contractAbi: 
   imageUrl: 
-  obj: {fileID: 2805018832764796561, guid: bbbafa35fe0dba54aadf17f912de67e6, type: 3}
+  obj: {fileID: 3808892231757687439, guid: 4aef39f4aa5b96d4e9b26a11fb3a3577, type: 3}
   type: 1

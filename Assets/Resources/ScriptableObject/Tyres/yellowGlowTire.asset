@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa7f494275d86324c9de81fc6683f6b3, type: 3}
-  m_Name: wheel
+  m_Name: yellowGlowTire
   m_EditorClassIdentifier: 
-  title: wheel
-  desc: cool wheels
-  cost: 3
+  title: yellowGlowTire
+  desc: new wheel
+  cost: 2456
   contractAddress: 
   contractAbi: 
   imageUrl: 
-  obj: {fileID: 2805018832764796561, guid: bbbafa35fe0dba54aadf17f912de67e6, type: 3}
+  obj: {fileID: 5435753581313933186, guid: feb1f881a1935604cac28f5b4296246a, type: 3}
   type: 1
