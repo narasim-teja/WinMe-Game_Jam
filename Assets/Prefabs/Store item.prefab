@@ -84,7 +84,7 @@ GameObject:
   - component: {fileID: 7692483120107418098}
   - component: {fileID: 6717006830151783604}
   - component: {fileID: 1786083790995199799}
-  - component: {fileID: 5045922010257059787}
+  - component: {fileID: 2936202259235703195}
   m_Layer: 5
   m_Name: Store item
   m_TagString: Untagged
@@ -173,7 +173,7 @@ MonoBehaviour:
   index: 0
   image: {fileID: 6154321749625567828}
   type: 0
---- !u!114 &5045922010257059787
+--- !u!114 &2936202259235703195
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -192,7 +192,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 1786083790995199799}
           m_TargetAssemblyTypeName: StoreTemplate, Assembly-CSharp
-          m_MethodName: SelectKart
+          m_MethodName: SelectItem
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

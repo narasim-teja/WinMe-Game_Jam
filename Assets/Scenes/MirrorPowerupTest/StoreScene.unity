@@ -1705,7 +1705,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2331078832082510095, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
       propertyPath: hatList.Array.size
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2331078832082510095, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
       propertyPath: kartList.Array.size
@@ -1731,6 +1731,14 @@ PrefabInstance:
       propertyPath: hatList.Array.data[2]
       value: 
       objectReference: {fileID: 11400000, guid: 4a2a8d91b21c2624594fef7c196b14a4, type: 2}
+    - target: {fileID: 2331078832082510095, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
+      propertyPath: hatList.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: d5b6369fa68c3be4e9e543154853ae9c, type: 2}
+    - target: {fileID: 2331078832082510095, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
+      propertyPath: hatList.Array.data[4]
+      value: 
+      objectReference: {fileID: 11400000, guid: c21c8e5ff096a3446a8b121175f812fe, type: 2}
     - target: {fileID: 2331078832082510095, guid: cc59df2ec9516774cbdd268796d0ddf4, type: 3}
       propertyPath: kartList.Array.data[0]
       value: 
@@ -2961,7 +2969,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1856928903}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &1856928905
 Camera:
   m_ObjectHideFlags: 0

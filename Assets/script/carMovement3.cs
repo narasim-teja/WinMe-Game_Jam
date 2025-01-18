@@ -55,8 +55,9 @@ public class carMovement3 : NetworkBehaviour
             yield return null;
         }
 
-        leftTrail = transform.Find("car/Wheel.RL").GetChild(0).GetChild(1).GetComponent<TrailRenderer>();
-        rightTrail = transform.Find("car/Wheel.RR").GetChild(0).GetChild(1).GetComponent<TrailRenderer>();
+        int trailIndex = transform.Find("car/Wheel.RL").GetChild(0).childCount - 1;
+        leftTrail = transform.Find("car/Wheel.RL").GetChild(0).GetChild(trailIndex).GetComponent<TrailRenderer>();
+        rightTrail = transform.Find("car/Wheel.RR").GetChild(0).GetChild(trailIndex).GetComponent<TrailRenderer>();
     }
 
     void FixedUpdate()

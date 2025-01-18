@@ -16,25 +16,27 @@ public class StoreTemplate : MonoBehaviour
     public RawImage image;
     public StoreItemType type;
 
-    public void SelectKart()
+    public void SelectItem()
     {
         GameObject kartPrefabParent = GameObject.Find(Constants.currentKartGameObject);
+        int bodyIndex = kartPrefabParent.transform.childCount - 1;
 
         StoreManager storeManager = GameObject.Find("Shop")
             .GetComponent<StoreManager>();
 
         if (type == StoreItemType.Kart)
         {
-            DestroyImmediate(kartPrefabParent.transform.GetChild(0).gameObject);
+            DestroyImmediate(kartPrefabParent.transform.GetChild(bodyIndex).gameObject);
             storeManager.currentKartIndex = index;
 
             GameObject body = InstantiateBody(storeManager);
             InstantiateWheel(body.transform, storeManager);
             InstantiateTrail(body.transform, storeManager);
+            InstantiateHat(body.transform, storeManager);
         }
         else if (type == StoreItemType.Wheel)
         {
-            Transform body = kartPrefabParent.transform.GetChild(0);
+            Transform body = kartPrefabParent.transform.GetChild(bodyIndex);
             foreach (Transform child in body.Find("car/Wheel.FR"))
                 DestroyImmediate(child.gameObject);
             foreach (Transform child in body.Find("car/Wheel.FL"))
@@ -48,20 +50,21 @@ public class StoreTemplate : MonoBehaviour
 
             InstantiateWheel(body.transform, storeManager);
             InstantiateTrail(body.transform, storeManager);
-            InstantiateHat(body.transform, storeManager);
         }
         else if (type == StoreItemType.Trail)
         {
-            Transform body = kartPrefabParent.transform.GetChild(0);
-            DestroyImmediate(body.Find("car/Wheel.RL").GetChild(0).GetChild(1).gameObject);
-            DestroyImmediate(body.Find("car/Wheel.RR").GetChild(0).GetChild(1).gameObject);
+            Transform body = kartPrefabParent.transform.GetChild(bodyIndex);
+            int trailIndex = body.Find("car/Wheel.RL").GetChild(0).childCount - 1;
+            DestroyImmediate(body.Find("car/Wheel.RL").GetChild(0).GetChild(trailIndex).gameObject);
+            DestroyImmediate(body.Find("car/Wheel.RR").GetChild(0).GetChild(trailIndex).gameObject);
 
             storeManager.currentTrailIndex = index;
 
             InstantiateTrail(body, storeManager);
-        }else if(type == StoreItemType.Hat)
+        }
+        else if(type == StoreItemType.Hat)
         {
-            Transform body = kartPrefabParent.transform.GetChild(0);
+            Transform body = kartPrefabParent.transform.GetChild(bodyIndex);
             DestroyImmediate(body.Find("hat_loc").GetChild(0).gameObject);
 
             storeManager.currentHatIndex = index;

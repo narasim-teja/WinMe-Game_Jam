@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa7f494275d86324c9de81fc6683f6b3, type: 3}
-  m_Name: testItem
+  m_Name: cap
   m_EditorClassIdentifier: 
-  title: test
-  desc: sad
-  cost: 1
+  title: cool cap
+  desc: 
+  cost: 49
   contractAddress: 
   contractAbi: 
   imageUrl: 
-  obj: {fileID: 1664925297243333614, guid: 1727426bc7c48024a9cb740cf3e6bd42, type: 3}
-  type: 1
+  obj: {fileID: 3055942277989849160, guid: c76a697ed18e91243af9f1b8314a7eb5, type: 3}
+  type: 3
