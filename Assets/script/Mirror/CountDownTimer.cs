@@ -5,15 +5,15 @@ using UnityEngine.UI;
 public class CountDownTimer : NetworkBehaviour
 {
     [SyncVar(hook = nameof(OnTimerUpdate))]
-    private int timeRemaining = 60; 
+    private int timeRemaining = 10;
+    private readonly int gameDuration = 60;
+    private bool isCountDown = true;
 
     public Text timerText;
     GameManager gameManager;
-    MirrorNetworkManager networkManager;
 
     public override void OnStartServer()
     {
-        networkManager = GameObject.Find("NetworkManager").GetComponent<MirrorNetworkManager>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
         if (gameManager == null)
@@ -27,7 +27,13 @@ public class CountDownTimer : NetworkBehaviour
     void UpdateTimer()
     {
         timeRemaining -= 1;
-        if (timeRemaining == 0)
+        if (timeRemaining == 0 && isCountDown)
+        {
+            isCountDown = false;
+            timeRemaining = gameDuration;
+            BeginKartMove();
+        }
+        else if (timeRemaining == 0)
         {
             gameManager.GameEnded();
         }
@@ -36,6 +42,15 @@ public class CountDownTimer : NetworkBehaviour
             CancelInvoke(nameof(UpdateTimer));
             StopClients();
             StopServer();
+        }
+    }
+
+    [ClientRpc]
+    void BeginKartMove()
+    {
+        if (NetworkClient.localPlayer.TryGetComponent<carMovement3>(out carMovement3 moveScript))
+        {
+            moveScript.SetKartPausedState(false);
         }
     }
 
@@ -58,20 +73,12 @@ public class CountDownTimer : NetworkBehaviour
 
     void UpdateTimerText(int time) 
     {
-        if (timeRemaining >= 0)
+        if (timeRemaining >= 0 && !isServer)
         {
             int minutes = time / 60;
             int seconds = time % 60;
             string text = string.Format("{0:0}:{1:00}", minutes, seconds);
             timerText.text = text;
-        }
-    }
-
-    void Update()
-    {
-        if (!isServer)
-        {
-            UpdateTimerText(timeRemaining); // Update the UI for clients
         }
     }
 }

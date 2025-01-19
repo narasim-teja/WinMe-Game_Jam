@@ -21,13 +21,11 @@ public class carMovement3 : NetworkBehaviour
     public bool isOnOil = false;
     public bool isOnSlime = false;
 
+    private bool movePaused = false;
 
     [SerializeField] private TrailRenderer leftTrail;
     [SerializeField] private TrailRenderer rightTrail;
     [SerializeField] AudioSource kartDriftAudioSource;
-
-    //public Animator animator;
-    int val;
 
     private Rigidbody rb;
     private float originalAcceleration;
@@ -39,7 +37,6 @@ public class carMovement3 : NetworkBehaviour
     {
         originalAcceleration = acceleration;
         originalLaterationFriction = lateralFriction;
-        val = Animator.StringToHash("horizontal");
         rb = GetComponent<Rigidbody>();
     }
 
@@ -63,6 +60,7 @@ public class carMovement3 : NetworkBehaviour
     void FixedUpdate()
     {
         if (!isLocalPlayer) { return; }
+        if (movePaused) return;
         Vector3 worldCenterOfMass = rb.transform.TransformPoint(rb.centerOfMass);
         //Debug.DrawRay(worldCenterOfMass, transform.up * raycastDistance, Color.red);
 
@@ -213,4 +211,11 @@ public class carMovement3 : NetworkBehaviour
         // Smoothly rotate the car towards the target rotation
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
+
+    #region Getter & Setters
+    public void SetKartPausedState(bool isPaused)
+    {
+        movePaused = isPaused;
+    }
+    #endregion
 }

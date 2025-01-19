@@ -155,6 +155,19 @@ public class MirrorNetworkManager : NetworkManager
     [Server]
     private void LoadGameScene()
     {
+        // Pausing Kart movement
+        foreach (var connection in NetworkServer.connections.Values)
+        {
+            if (connection.identity != null)
+            {
+                GameObject playerObject = connection.identity.gameObject;
+
+                if (playerObject.TryGetComponent<PlayerManager>(out PlayerManager playerManager))
+                {
+                    playerManager.StopKartMove();
+                }
+            }
+        }
         string newSceneName = "MirrorCloverStadium"; // Replace with your scene name
         ServerChangeScene(newSceneName);
     }
@@ -171,20 +184,15 @@ public class MirrorNetworkManager : NetworkManager
                 {
                     GameObject playerObject = connection.identity.gameObject;
                     playerObject.transform.position = startPositions[startPositionIndex].position;
-
-                    Rigidbody rb = playerObject.GetComponent<Rigidbody>();
-                    if (rb != null)
-                    {
-                        rb.velocity = Vector3.zero;
-                        rb.angularVelocity = Vector3.zero;
-                    }
+                    playerObject.transform.rotation = Quaternion.identity;
 
                     startPositionIndex = (startPositionIndex + 1) % startPositions.Count;
                 }
             }
-        }else if(newSceneName == "MirrorWaitingRoom")
+        }
+        else if(newSceneName == "MirrorWaitingRoom")
         {
-            Debug.Log("Scene changed");
+            // Write your logic
         }
     }
 

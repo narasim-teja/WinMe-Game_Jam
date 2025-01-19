@@ -255,8 +255,6 @@ public class MainMenuUI : MonoBehaviour
                 Debug.Log(portTransport.Port);
             }
 
-            Debug.Log("recent new file");
-
         }
 
     }

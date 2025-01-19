@@ -123,4 +123,20 @@ public class PlayerManager : NetworkBehaviour
         lobbyPanel.gameObject.SetActive(true);
         //firstChild.gameObject.SetActive(false);
     }
+
+
+    [ClientRpc]
+    public void StopKartMove()
+    {
+        if (NetworkClient.localPlayer.TryGetComponent<carMovement3>(out carMovement3 moveScript))
+        {
+            moveScript.SetKartPausedState(true);
+        }
+
+        if (NetworkClient.localPlayer.TryGetComponent<Rigidbody>(out Rigidbody rb))
+        {
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+        }
+    }
 }
