@@ -3,7 +3,8 @@ using Mirror;
 using TMPro;
 using System.Collections;
 using System.Runtime.ConstrainedExecution;
-
+using Thirdweb;
+using Unity.VisualScripting;
 public class PlayerInfo
 {
     public string name;
@@ -67,6 +68,8 @@ public class PlayerManager : NetworkBehaviour
         Instantiate(StoreData.Instance.trailList[cur.trailIndex].obj, transform.Find("car/Wheel.RL").GetChild(0));
 
         Instantiate(StoreData.Instance.hatList[cur.hatIndex].obj, transform.Find("hat_loc"));
+
+        MirrorNetworkManager.singleton.spawnPrefabs.Add(gameObject);
     }
 
     void OnPlayerInfoChanged(PlayerInfo old, PlayerInfo cur)
@@ -122,5 +125,40 @@ public class PlayerManager : NetworkBehaviour
         Transform lobbyPanel = mainMenuCanvas.transform.GetChild(2);
         lobbyPanel.gameObject.SetActive(true);
         //firstChild.gameObject.SetActive(false);
+    }
+    [TargetRpc]
+    public async void CheckForThirdWebAuth(NetworkConnectionToClient conn, int connId){
+        if (ThirdwebManager.Instance == null)
+        {
+            Debug.LogError("ThirdwebManager.Instance is null.");
+            return; 
+        }
+
+        if (ThirdwebManager.Instance.SDK == null)
+        {
+            Debug.LogError("ThirdwebManager.SDK is null.");
+            return;
+        }
+
+        if (ThirdwebManager.Instance.SDK.Wallet == null)
+        {
+            Debug.LogError("ThirdwebManager.SDK.Wallet is null.");
+            return;
+        }
+        bool isConnected = await ThirdwebManager.Instance.SDK.Wallet.IsConnected();
+        
+        if (isConnected){
+            string walletAddress = await ThirdwebManager.Instance.SDK.Wallet.GetAddress();
+
+            CmdUpdateConnToWalletMap(connId , walletAddress);
+        }
+        else{
+            CmdUpdateConnToWalletMap(connId , null);
+        }
+    }
+
+    [Command]
+    public void CmdUpdateConnToWalletMap(int connId, string wallet_address){
+        MirrorNetworkManager.singleton.connToWalletMap.Add(connId , wallet_address);
     }
 }

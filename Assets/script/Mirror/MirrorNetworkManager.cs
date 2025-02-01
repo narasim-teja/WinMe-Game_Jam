@@ -3,6 +3,8 @@ using Mirror;
 using UnityEngine.SceneManagement;
 using TMPro;
 using System.Collections;
+using Thirdweb;
+using System.Collections.Generic;
 
 public class MirrorNetworkManager : NetworkManager
 {
@@ -17,6 +19,8 @@ public class MirrorNetworkManager : NetworkManager
 
     private readonly int waitForSecondsBeforeWhenNoPlayers = 60;
     private StoreData storeData;
+    public Dictionary<int, string> connToWalletMap = new Dictionary<int, string>();
+
     public static new MirrorNetworkManager singleton => NetworkManager.singleton as MirrorNetworkManager;
 
     public struct CreateKartMessage : NetworkMessage
@@ -40,6 +44,7 @@ public class MirrorNetworkManager : NetworkManager
 
     public override void OnStartServer()
     {
+        
         base.OnStartServer();
         NetworkServer.RegisterHandler<CreateKartMessage>(OnCreateKart);
     }
@@ -159,33 +164,45 @@ public class MirrorNetworkManager : NetworkManager
         ServerChangeScene(newSceneName);
     }
 
+    
+
     // Reset position and velocity when scene change
     public override void OnServerSceneChanged(string newSceneName)
     {
         base.OnServerSceneChanged(newSceneName);
         if(newSceneName == "MirrorCloverStadium")
         {
-            foreach (var connection in NetworkServer.connections.Values)
+            foreach (NetworkConnectionToClient connection in NetworkServer.connections.Values)
             {
+                Debug.Log("Number of connections: " + NetworkServer.connections.Count);
+
                 if (connection.identity != null)
                 {
+                    SetClientTransform(connection);
                     GameObject playerObject = connection.identity.gameObject;
-                    playerObject.transform.position = startPositions[startPositionIndex].position;
-
-                    Rigidbody rb = playerObject.GetComponent<Rigidbody>();
-                    if (rb != null)
-                    {
-                        rb.velocity = Vector3.zero;
-                        rb.angularVelocity = Vector3.zero;
-                    }
-
-                    startPositionIndex = (startPositionIndex + 1) % startPositions.Count;
+                    playerObject.GetComponent<PlayerManager>().CheckForThirdWebAuth(connection, connection.connectionId);
                 }
             }
         }else if(newSceneName == "MirrorWaitingRoom")
         {
             Debug.Log("Scene changed");
         }
+    }
+
+    
+
+    public void SetClientTransform(NetworkConnection connection){
+        GameObject playerObject = connection.identity.gameObject;
+        playerObject.transform.position = startPositions[startPositionIndex].position;
+
+        Rigidbody rb = playerObject.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+        }
+
+        startPositionIndex = (startPositionIndex + 1) % startPositions.Count;
     }
 
     public override void OnStopClient()

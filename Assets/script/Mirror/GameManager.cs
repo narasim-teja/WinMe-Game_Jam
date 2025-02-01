@@ -5,7 +5,15 @@ using Mirror;
 using TMPro;
 using System;
 using Org.BouncyCastle.Crypto.Paddings;
+using UnityEngine.SocialPlatforms;
+using Thirdweb;
+using System.Threading.Tasks;
 
+public class UserData{
+    public string user_name;
+    public int coinCount;
+    public string walletAddress=null;
+}
 public class GameManager : NetworkBehaviour
 {
     GameObject[] players;
@@ -13,6 +21,7 @@ public class GameManager : NetworkBehaviour
     [SerializeField]
     GameObject pickUpLocationParent;
 
+    List<UserData> userDataList = new List<UserData>();
     
     public GameObject winnerUI;
     // Start is called before the first frame update
@@ -27,8 +36,42 @@ public class GameManager : NetworkBehaviour
     public void GameEnded()
     {
         Debug.Log("-----------");
+        GetUserData();
         Tuple<uint, string, int> winner = calculateWinner();
+
         showWinner(winner.Item1, winner.Item2 ,winner.Item3);
+    }
+
+    [Server]
+    public void GetUserData(){
+        
+        for (int x = 0; x < players.Length; x++)
+        {
+            
+            NetworkIdentity networkIdentity = players[x].GetComponent<NetworkIdentity>();
+            CarUIManager carUIManager = players[x].GetComponentInChildren<CarUIManager>();
+            NetworkConnection conn = networkIdentity.connectionToClient;
+
+            string playerName = players[x].GetComponent<PlayerManager>().playerInfo.name;
+            int coin_count = carUIManager.coinCount;
+            
+            string walletAddress = MirrorNetworkManager.singleton.connToWalletMap[conn.connectionId];
+            CmdSetWalletAddressForClient(walletAddress,playerName,coin_count);
+        }
+    }
+
+
+    [Server]
+    public void CmdSetWalletAddressForClient(string walletAddress,string playerName, int coin_count){
+        UserData currentUser = new UserData();
+        currentUser.walletAddress = walletAddress;
+        currentUser.user_name = playerName;
+        currentUser.coinCount = coin_count;
+        print(currentUser.walletAddress + currentUser.coinCount+currentUser.user_name);
+
+        if(walletAddress != null )  SupaBaseClient.addMoneyToDb(currentUser.walletAddress,currentUser.coinCount,currentUser.user_name); 
+        
+        userDataList.Add(currentUser);
     }
 
     [Server]
