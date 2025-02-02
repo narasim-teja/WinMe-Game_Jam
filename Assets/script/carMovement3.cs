@@ -55,6 +55,8 @@ public class carMovement3 : NetworkBehaviour
         int trailIndex = transform.Find("car/Wheel.RL").GetChild(0).childCount - 1;
         leftTrail = transform.Find("car/Wheel.RL").GetChild(0).GetChild(trailIndex).GetComponent<TrailRenderer>();
         rightTrail = transform.Find("car/Wheel.RR").GetChild(0).GetChild(trailIndex).GetComponent<TrailRenderer>();
+        leftTrail.emitting = false;
+        rightTrail.emitting = false;
     }
 
     void FixedUpdate()

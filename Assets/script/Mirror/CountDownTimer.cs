@@ -1,15 +1,18 @@
 using UnityEngine;
 using Mirror;
 using UnityEngine.UI;
+using TMPro;
 
 public class CountDownTimer : NetworkBehaviour
 {
     [SyncVar(hook = nameof(OnTimerUpdate))]
-    private int timeRemaining = 10;
-    private readonly int gameDuration = 60;
+    private int timeRemaining = 3;
+    private readonly int gameDuration = 10;
     private bool isCountDown = true;
 
     public Text timerText;
+    [SerializeField]
+    private GameObject dialogueMessage;
     GameManager gameManager;
 
     public override void OnStartServer()
@@ -37,7 +40,13 @@ public class CountDownTimer : NetworkBehaviour
         {
             gameManager.GameEnded();
         }
-        else if (timeRemaining == -7)
+        else if(timeRemaining == -5)
+        {
+            Debug.Log(dialogueMessage);
+            Debug.Log(dialogueMessage.name);
+            dialogueMessage.SetActive(true);
+        }
+        else if (timeRemaining == -15)
         {
             CancelInvoke(nameof(UpdateTimer));
             StopClients();
@@ -66,19 +75,34 @@ public class CountDownTimer : NetworkBehaviour
         MirrorNetworkManager.singleton.StopClient();
     }
 
+    public void ReturnToMainMenu()
+    {
+        MirrorNetworkManager.singleton.StopClient();
+    }
+
+    #region Timer Functions
     void OnTimerUpdate(int oldTime, int newTime) 
     {
         UpdateTimerText(newTime);
     }
 
-    void UpdateTimerText(int time) 
+    void UpdateTimerText(int time)
     {
+        int minutes = time / 60;
+        int seconds = time % 60;
         if (timeRemaining >= 0 && !isServer)
         {
-            int minutes = time / 60;
-            int seconds = time % 60;
             string text = string.Format("{0:0}:{1:00}", minutes, seconds);
             timerText.text = text;
+        } 
+        else if(timeRemaining <= -5)
+        {
+            TextMeshProUGUI messageText = dialogueMessage.GetComponent<TextMeshProUGUI>();
+            if (messageText != null)
+            {
+                messageText.text = $"Returning to main menu in {seconds + 15}s";
+            }
         }
     }
+    #endregion
 }

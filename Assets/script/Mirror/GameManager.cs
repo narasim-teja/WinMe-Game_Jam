@@ -15,6 +15,9 @@ public class GameManager : NetworkBehaviour
 
     
     public GameObject winnerUI;
+    [SerializeField] private TextMeshProUGUI winnerText;
+    [SerializeField] private TextMeshProUGUI amountText;
+    [SerializeField] private Canvas canvas2;
     // Start is called before the first frame update
     public override void OnStartServer()
     {
@@ -42,7 +45,7 @@ public class GameManager : NetworkBehaviour
         {
             NetworkIdentity networkIdentity = players[x].GetComponent<NetworkIdentity>();
 
-            String playerName = players[x].GetComponent<PlayerManager>().playerInfo.name;
+            string playerName = players[x].GetComponent<PlayerManager>().playerInfo.name;
             CarUIManager carUIManager = players[x].GetComponentInChildren<CarUIManager>();
 
             if (networkIdentity != null && carUIManager != null)
@@ -69,10 +72,29 @@ public class GameManager : NetworkBehaviour
     [ClientRpc]
     public void showWinner(uint winnerId, string winnerName ,int coinAmount)
     {
-        winnerUI.transform.Find("winnerId").GetComponent<TextMeshProUGUI>().text = winnerName;
-        winnerUI.transform.Find("winnerCoinCount").GetComponent<TextMeshProUGUI>().text = coinAmount.ToString();
+        winnerText.text = winnerName;
+        amountText.text = coinAmount.ToString();
 
-        winnerUI.gameObject.SetActive(true);
+        winnerUI.SetActive(true);
+        EnableWinEffect();
+    }
+
+    private void EnableWinEffect()
+    {
+        GameObject kartCamera = GameObject.Find(Constants.KART_CAMERA);
+        if (kartCamera != null)
+        {
+            Transform winEffectTransform = kartCamera.transform.Find(Constants.WIN_EFFECT_OBJ);
+            if (winEffectTransform != null)
+            {
+                GameObject WinObj = winEffectTransform.gameObject;
+                Camera winObjCam = WinObj.GetComponent<Camera>();
+
+                canvas2.renderMode = RenderMode.ScreenSpaceCamera;
+                canvas2.worldCamera = winObjCam;
+                WinObj.SetActive(true);
+            }
+        }
     }
 
     [Server]

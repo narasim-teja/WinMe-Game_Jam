@@ -43,8 +43,15 @@ public class treasure_box_script : MonoBehaviour
         Destroy(instance1.gameObject, instance1.main.duration);
 
         GameObject temp = Instantiate(ObtainedItem, treasure_box_top.transform.position, ObtainedItem.transform.rotation,this.transform);
-        temp.AddComponent<RotateObject>().rotationSpeed = 50f;
-        // Instantiate(aura_particle_effect,treasure_box_top.transform.position,Quaternion.identity,temp.transform);
+        if (temp.TryGetComponent<TrailRenderer>(out _))
+        {
+            temp.AddComponent<RotateObject>().isTrail = true;
+        }
+        else
+        {
+            temp.AddComponent<RotateObject>().isTrail = false;
+        }
+
         ParticleSystem particleEffect = Instantiate(aura_particle_effect, treasure_box_top.transform.position, Quaternion.identity);
         particleEffect.transform.SetParent(temp.transform, worldPositionStays: true);
         
