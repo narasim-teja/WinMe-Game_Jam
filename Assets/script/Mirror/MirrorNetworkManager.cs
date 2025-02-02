@@ -3,6 +3,8 @@ using Mirror;
 using UnityEngine.SceneManagement;
 using TMPro;
 using System.Collections;
+using Thirdweb;
+using System.Collections.Generic;
 
 public class MirrorNetworkManager : NetworkManager
 {
@@ -17,6 +19,7 @@ public class MirrorNetworkManager : NetworkManager
 
     private readonly int waitForSecondsBeforeWhenNoPlayers = 60;
     private StoreData storeData;
+    public Dictionary<int, string> connToWalletMap = new Dictionary<int, string>();
     public static new MirrorNetworkManager singleton => NetworkManager.singleton as MirrorNetworkManager;
 
     public struct CreateKartMessage : NetworkMessage
@@ -187,6 +190,8 @@ public class MirrorNetworkManager : NetworkManager
                     playerObject.transform.rotation = Quaternion.identity;
 
                     startPositionIndex = (startPositionIndex + 1) % startPositions.Count;
+
+                    playerObject.GetComponent<PlayerManager>().CheckForThirdWebAuth(connection, connection.connectionId);
                 }
             }
         }
