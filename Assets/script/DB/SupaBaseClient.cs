@@ -83,4 +83,20 @@ public static class SupaBaseClient
         
 
     }
+
+    public static async Task<int> GetCoinCount(string walletAddress)
+    {
+        if (supabaseClient == null) InitializeAsync();
+
+        User existingUser = await WalletAddressExists(walletAddress);
+
+        if (existingUser != null)
+        {
+            return existingUser.coin_count; 
+        }
+        else
+        {
+            return 0; 
+        }
+    }
 }

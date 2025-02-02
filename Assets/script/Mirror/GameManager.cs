@@ -8,6 +8,7 @@ using Org.BouncyCastle.Crypto.Paddings;
 using UnityEngine.SocialPlatforms;
 using Thirdweb;
 using System.Threading.Tasks;
+using Unity.Collections;
 
 public class UserData{
 
@@ -24,6 +25,7 @@ public class GameManager : NetworkBehaviour
 
     [SerializeField]
     GameObject pickUpLocationParent;
+    public GameObject mainMenuUI;
 
     List<UserData> userDataList = new List<UserData>();
 
@@ -44,8 +46,11 @@ public class GameManager : NetworkBehaviour
     {
         Debug.Log("-----GAME ENDED------");
         GetUserData();
-        Tuple<uint, string, int> winner = calculateWinner();
-        showWinner(winner.Item1, winner.Item2 ,winner.Item3);
+        userDataList.Sort((user1, user2) => user2.coinCount.CompareTo(user1.coinCount));
+        UserData winner = userDataList[0];
+        showWinner(winner.user_name ,winner.coinCount);
+
+        UpdateCoinsEarned();
     }
     
     [Server]
@@ -66,50 +71,30 @@ public class GameManager : NetworkBehaviour
     [Server]
     public void CmdSetWalletAddressForClient(string walletAddress,string playerName, int coin_count){
         UserData currentUser = new UserData();
+
         currentUser.walletAddress = walletAddress;
         currentUser.user_name = playerName;
         currentUser.coinCount = coin_count;
-        if(walletAddress != null )  SupaBaseClient.addMoneyToDb(currentUser.walletAddress,currentUser.coinCount,currentUser.user_name); 
 
         userDataList.Add(currentUser);
     }
     [Server]
-    public Tuple<uint, string ,int> calculateWinner()
+    public void UpdateCoinsEarned()
     {
-        uint winnerNetId = 0;
-        string winnerName = "";
-        int highestCoinCount = -1;
-
-        for (int x = 0; x < players.Length; x++)
+        for(int x = 0 ; x < userDataList.Count ; x++)
         {
-            NetworkIdentity networkIdentity = players[x].GetComponent<NetworkIdentity>();
+            UserData currentUser = userDataList[x];
 
-            string playerName = players[x].GetComponent<PlayerManager>().playerInfo.name;
-            CarUIManager carUIManager = players[x].GetComponentInChildren<CarUIManager>();
+            int coins_earned = 0;
+            if(x == 0) coins_earned = userDataList[x].coinCount;
+            else if(x > 0 && x < 5) coins_earned = userDataList[x].coinCount / (2*x);
+            
+            if(currentUser.walletAddress != null )  SupaBaseClient.addMoneyToDb(currentUser.walletAddress,coins_earned,currentUser.user_name); 
 
-            if (networkIdentity != null && carUIManager != null)
-            {
-                int coinCount = carUIManager.coinCount;
-                Debug.Log(networkIdentity.netId + "----" + coinCount);
-
-                if (coinCount > highestCoinCount)
-                {
-                    highestCoinCount = coinCount;
-                    winnerName = playerName;
-                    winnerNetId = networkIdentity.netId;
-                }
-            }
-            else
-            {
-                Debug.LogError("Missing NetworkIdentity or CarUIManager component on player " + players[x].name);
-            }
         }
-
-        Debug.Log("Winner name: " + winnerName + " with coin count: " + highestCoinCount);
-        return new Tuple<uint , string, int>(winnerNetId, winnerName ,highestCoinCount);
     }
     [ClientRpc]
-    public void showWinner(uint winnerId, string winnerName ,int coinAmount)
+    public void showWinner(string winnerName ,int coinAmount)
     {
         winnerText.text = winnerName;
         amountText.text = coinAmount.ToString();

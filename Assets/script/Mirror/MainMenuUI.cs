@@ -65,6 +65,9 @@ public class MainMenuUI : MonoBehaviour
     [SerializeField]
     GameObject loadingPanel;
     private bool isLoading = false;
+
+    private int user_coins = 0 ;
+    public TextMeshProUGUI user_coins_UI ;
     
 
     void Start()
@@ -557,4 +560,14 @@ public class MainMenuUI : MonoBehaviour
         treasure_box_panel.gameObject.SetActive(false);
     }
     #endregion
+    
+    public async void UpdateCoinAmount(string walletAddress){
+        if(ThirdwebManager.Instance.SDK.Wallet.IsConnected().Result){
+            user_coins = await SupaBaseClient.GetCoinCount(walletAddress);
+            UpdateCoinUI();
+        }
+    }
+    public void UpdateCoinUI(){
+        user_coins_UI.text = user_coins.ToString();
+    }
 }
