@@ -1,47 +1,37 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
 
 public class RotateObject : MonoBehaviour
 {
     public bool isTrail = false;
 
-    public float speed = 2f;  // Speed of movement
-    public float radius = 2f; // Radius of spiral
-    public float heightLimit = 2f; // Max Y position
-    public int rings = 2; // Number of spiral rings per up/down cycle
-
-    private float angle = 0f;
-    private int direction = 1; // 1 for up, -1 for down
-    private float heightStep;
-
+    public float radius = 0.5f;       // Radius of the spiral
+    public float cycleDuration = 8f; // Time for one full up-down cycle (seconds)
+    public float distance = 2f;
+    public Vector3 treasureBoxPosition;
 
     // Other object variables
     private float rotationSpeed = 50f;
-    void Start()
-    {
-        heightStep = heightLimit / rings; // Calculate height change per ring
-    }
 
     void Update()
     {
         if (isTrail)
         {
-            // Spiral motion
-            angle += speed * Time.deltaTime;
-            float x = Mathf.Cos(angle) * radius;
-            float z = Mathf.Sin(angle) * radius;
-            float y = direction * (angle / (2 * Mathf.PI)) * heightStep;
+            float verticalSpeed = distance / cycleDuration;
+            float y = Mathf.PingPong(Time.time * verticalSpeed, 1f);
 
-            // Reverse direction when reaching the top or bottom
-            if (Mathf.Abs(y) >= heightLimit)
-            {
-                direction *= -1; // Flip direction (up/down)
-                angle = 0f; // Reset angle to start a new spiral cycle
-            }
+            // Calculate angle based on time (continuous spiral)
+            float angularSpeed = (8 * Mathf.PI) / cycleDuration; // 8π radians per cycle
+            float theta = angularSpeed * Time.time;
 
-            transform.position = new Vector3(x, y, z);
+            // Convert polar coordinates (theta, radius) to Cartesian (x, z)
+            float x = radius * Mathf.Cos(theta);
+            float z = radius * Mathf.Sin(theta);
+
+            // Update position
+            //transform.position = new Vector3(x, y, z);
+            transform.localPosition = treasureBoxPosition + new Vector3(x, y, z);
         }
         else
         {

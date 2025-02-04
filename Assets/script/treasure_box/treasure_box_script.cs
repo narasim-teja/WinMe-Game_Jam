@@ -45,7 +45,9 @@ public class treasure_box_script : MonoBehaviour
         GameObject temp = Instantiate(ObtainedItem, treasure_box_top.transform.position, ObtainedItem.transform.rotation,this.transform);
         if (temp.TryGetComponent<TrailRenderer>(out _))
         {
-            temp.AddComponent<RotateObject>().isTrail = true;
+            RotateObject itemObject = temp.AddComponent<RotateObject>();
+            itemObject.isTrail = true;
+            itemObject.treasureBoxPosition = treasure_box_cam.transform.localPosition + new Vector3(0, -0.25f, 1.5f);
         }
         else
         {
@@ -53,8 +55,10 @@ public class treasure_box_script : MonoBehaviour
         }
 
         ParticleSystem particleEffect = Instantiate(aura_particle_effect, treasure_box_top.transform.position, Quaternion.identity);
-        particleEffect.transform.SetParent(temp.transform, worldPositionStays: true);
-        
+        particleEffect.transform.SetParent(transform);
+
+        StartCoroutine(SmoothMove(particleEffect.transform, particleEffect.transform.position, particleEffect.transform.position + new Vector3(0, 0.4f, 0), 1f));
+        StartCoroutine(SmoothScale(particleEffect.transform, particleEffect.transform.localScale, particleEffect.transform.localScale + new Vector3(0.1f, 0.1f, 0.1f), 1f));
         StartCoroutine(SmoothMove(temp.transform, temp.transform.position, temp.transform.position + new Vector3(0, 0.5f, 0), 1f));
         StartCoroutine(SmoothScale(temp.transform, temp.transform.localScale, temp.transform.localScale + new Vector3(2, 2, 2), 1f));
         StartCoroutine(SmoothMove(treasure_box_cam.transform, treasure_box_cam.transform.position, treasure_box_cam.transform.position + new Vector3(0, 0.6f, -1f), 1f));
