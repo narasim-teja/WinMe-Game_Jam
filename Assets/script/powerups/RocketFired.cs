@@ -58,6 +58,7 @@ public class RocketFired : NetworkBehaviour
     [ClientRpc]
     void ClientRpcPlayExplosionEffect(){
         ParticleSystem instance = Instantiate(explosionEffect, this.transform.position, Quaternion.identity);
+        instance.GetComponent<AudioSource>().Play();
         instance.Play();
         Destroy(instance.gameObject, instance.main.duration);
     }

@@ -15,7 +15,8 @@ public class treasure_box_script : MonoBehaviour
     Rigidbody treasure_box_rb;
     Rigidbody treasure_box_top_rb;
 
-    public GameObject temporaryObject;
+    public GameObject ObtainedItem;
+
     void Start()
     {
         treasure_box_top_rb = treasure_box_top.GetComponent<Rigidbody>();
@@ -41,12 +42,26 @@ public class treasure_box_script : MonoBehaviour
         instance1.Play();
         Destroy(instance1.gameObject, instance1.main.duration);
 
-        GameObject temp = Instantiate(temporaryObject, treasure_box_top.transform.position, Quaternion.identity,this.transform);
-        temp.AddComponent<RotateObject>().rotationSpeed = 50f;
-        Instantiate(aura_particle_effect,treasure_box_top.transform.position,Quaternion.identity,temp.transform);
+        GameObject temp = Instantiate(ObtainedItem, treasure_box_top.transform.position, ObtainedItem.transform.rotation,this.transform);
+        if (temp.TryGetComponent<TrailRenderer>(out _))
+        {
+            RotateObject itemObject = temp.AddComponent<RotateObject>();
+            itemObject.isTrail = true;
+            itemObject.treasureBoxPosition = treasure_box_cam.transform.localPosition + new Vector3(0, -0.25f, 1.5f);
+        }
+        else
+        {
+            temp.AddComponent<RotateObject>().isTrail = false;
+        }
 
-        StartCoroutine(SmoothMove(temp.transform, temp.transform.position, temp.transform.position + new Vector3(0, 2f, 0), 1f));
-        StartCoroutine(SmoothMove(treasure_box_cam.transform, treasure_box_cam.transform.position, treasure_box_cam.transform.position + new Vector3(0, 3f, -5f), 1f));
+        ParticleSystem particleEffect = Instantiate(aura_particle_effect, treasure_box_top.transform.position, Quaternion.identity);
+        particleEffect.transform.SetParent(transform);
+
+        StartCoroutine(SmoothMove(particleEffect.transform, particleEffect.transform.position, particleEffect.transform.position + new Vector3(0, 0.4f, 0), 1f));
+        StartCoroutine(SmoothScale(particleEffect.transform, particleEffect.transform.localScale, particleEffect.transform.localScale + new Vector3(0.1f, 0.1f, 0.1f), 1f));
+        StartCoroutine(SmoothMove(temp.transform, temp.transform.position, temp.transform.position + new Vector3(0, 0.5f, 0), 1f));
+        StartCoroutine(SmoothScale(temp.transform, temp.transform.localScale, temp.transform.localScale + new Vector3(2, 2, 2), 1f));
+        StartCoroutine(SmoothMove(treasure_box_cam.transform, treasure_box_cam.transform.position, treasure_box_cam.transform.position + new Vector3(0, 0.6f, -1f), 1f));
     }
 
     IEnumerator SmoothMove(Transform target, Vector3 start, Vector3 end, float duration)
@@ -55,9 +70,20 @@ public class treasure_box_script : MonoBehaviour
         while (elapsed < duration)
         {
             target.position = Vector3.Lerp(start, end, elapsed / duration);
-            elapsed += Time.deltaTime/4;
+            elapsed += Time.deltaTime/5;
             yield return null; 
         }
         target.position = end; 
+    }
+
+    IEnumerator SmoothScale(Transform target, Vector3 start, Vector3 end, float duration)
+    {
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            target.localScale = Vector3.Lerp(start, end, elapsed / duration);
+            elapsed += Time.deltaTime/5;
+            yield return null; 
+        }
     }
 }

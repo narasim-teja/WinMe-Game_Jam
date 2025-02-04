@@ -23,4 +23,7 @@ public static class Constants
     public static int currentWheelIndex = 0;
     public static int currentTrailIndex = 0;
     public static int currentHatIndex = 0;
+
+    public const string KART_CAMERA = "KartCamera(Clone)";
+    public const string WIN_EFFECT_OBJ = "win_effect";
 }

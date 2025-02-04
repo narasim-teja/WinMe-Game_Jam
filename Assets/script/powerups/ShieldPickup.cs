@@ -10,7 +10,7 @@ public class ShieldPickup : NetworkBehaviour
 
     void Update()
     {
-        transform.Rotate(Vector3.forward * rotationSpeed * Time.deltaTime);
+        transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
     }
 
     [ServerCallback]
@@ -19,7 +19,7 @@ public class ShieldPickup : NetworkBehaviour
         if (other.CompareTag("Player"))
         {
             gameObject.SetActive(false);
-            DisablePowerup();
+            DisablePowerup(other.gameObject);
             CmdSpawnActiveShield(other.gameObject);
             Invoke(nameof(RespawnPowerup), 5f);
         }
@@ -35,8 +35,9 @@ public class ShieldPickup : NetworkBehaviour
     }
 
     [ClientRpc]
-    void DisablePowerup()
+    void DisablePowerup(GameObject player)
     {
+        player.transform.Find("Audio").GetComponent<CarAudio>().PlayPowerup();
         gameObject.SetActive(false);
     }
 

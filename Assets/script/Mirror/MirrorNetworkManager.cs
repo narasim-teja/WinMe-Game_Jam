@@ -3,17 +3,23 @@ using Mirror;
 using UnityEngine.SceneManagement;
 using TMPro;
 using System.Collections;
+using Thirdweb;
+using System.Collections.Generic;
 
 public class MirrorNetworkManager : NetworkManager
 {
     public GameObject coinPrefab;
     public GameObject [] pickupList;
 
+    [SerializeField]
+    private int waitTimeForSceneChange = 5;
+
     private int playerCount = 0;
     public int noOfPlayers = 1;
 
     private readonly int waitForSecondsBeforeWhenNoPlayers = 60;
     private StoreData storeData;
+    public Dictionary<int, string> connToWalletMap = new Dictionary<int, string>();
     public static new MirrorNetworkManager singleton => NetworkManager.singleton as MirrorNetworkManager;
 
     public struct CreateKartMessage : NetworkMessage
@@ -54,10 +60,6 @@ public class MirrorNetworkManager : NetworkManager
 
     void OnCreateKart(NetworkConnectionToClient conn, CreateKartMessage msg)
     {
-
-        //Debug.Log("Entered OnServerAddPlayer");
-
-        // Check if the connection already has a player
         if (conn.identity != null)
         {
             Debug.LogWarning("Connection already has a player");
@@ -65,9 +67,11 @@ public class MirrorNetworkManager : NetworkManager
         }
 
 
-        Vector3 start = new(0, 40f, 0);
         GameObject player = Instantiate(StoreData.Instance.kartList[msg.kartIndex].obj,
-            start, Quaternion.identity);
+            startPositions[startPositionIndex].position, Quaternion.identity);
+
+        startPositionIndex = (startPositionIndex + 1) % startPositions.Count;
+
 
         NetworkServer.AddPlayerForConnection(conn, player);
         Debug.Log("Player spawned");
@@ -77,8 +81,14 @@ public class MirrorNetworkManager : NetworkManager
         playerCount++;
         if (playerCount == noOfPlayers)
         {
-            LoadGameScene();
+            StartCoroutine(WaitBeforeSceneStart());
         }
+    }
+
+    IEnumerator WaitBeforeSceneStart()
+    {
+        yield return new WaitForSeconds(waitTimeForSceneChange);
+        LoadGameScene();
     }
 
     public override void OnServerConnect(NetworkConnectionToClient conn)
@@ -148,13 +158,56 @@ public class MirrorNetworkManager : NetworkManager
     [Server]
     private void LoadGameScene()
     {
+        // Pausing Kart movement
+        foreach (var connection in NetworkServer.connections.Values)
+        {
+            if (connection.identity != null)
+            {
+                GameObject playerObject = connection.identity.gameObject;
+
+                if (playerObject.TryGetComponent<PlayerManager>(out PlayerManager playerManager))
+                {
+                    playerManager.StopKartMove();
+                }
+            }
+        }
         string newSceneName = "MirrorCloverStadium"; // Replace with your scene name
         ServerChangeScene(newSceneName);
+    }
+
+    // Reset position and velocity when scene change
+    public override void OnServerSceneChanged(string newSceneName)
+    {
+        base.OnServerSceneChanged(newSceneName);
+        if(newSceneName == "MirrorCloverStadium")
+        {
+            foreach (var connection in NetworkServer.connections.Values)
+            {
+                if (connection.identity != null)
+                {
+                    GameObject playerObject = connection.identity.gameObject;
+                    playerObject.transform.position = startPositions[startPositionIndex].position;
+                    playerObject.transform.rotation = Quaternion.identity;
+
+                    startPositionIndex = (startPositionIndex + 1) % startPositions.Count;
+
+                    playerObject.GetComponent<PlayerManager>().CheckForThirdWebAuth(connection, connection.connectionId);
+                }
+            }
+        }
+        else if(newSceneName == "MirrorWaitingRoom")
+        {
+            // Write your logic
+        }
     }
 
     public override void OnStopClient()
     {
         base.OnStopClient();
+        //Clean Up
+        GameObject kartCamera = GameObject.Find("KartCamera(Clone)");
+        if (kartCamera != null)
+            Destroy(kartCamera);
         Debug.Log("Client has stopped.");
     }
 }

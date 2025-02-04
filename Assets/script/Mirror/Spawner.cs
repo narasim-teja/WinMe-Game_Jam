@@ -39,6 +39,7 @@ internal class Spawner
             return (Vector3.negativeInfinity, Quaternion.identity);
         }
     }
+    
     [ServerCallback]
     internal static void SpawnCoin(Vector3 position)
     {

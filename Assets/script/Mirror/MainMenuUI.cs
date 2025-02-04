@@ -14,12 +14,16 @@ using Unity.Services.Authentication;
 using System.Threading.Tasks;
 using Mirror.SimpleWeb;
 using UnityEngine.SceneManagement;
+using Thirdweb;
+using UnityEngine.Networking;
+using Org.BouncyCastle.Asn1.Ocsp;
 
 public class MainMenuUI : MonoBehaviour
 {
     public Camera main_camera;
     public GameObject main_menu_panel;
     public GameObject treasure_box_panel;
+    public GameObject PopUpPrefab;
 
     // treasure box
     public GameObject treasure_box_env_prefab;
@@ -35,6 +39,7 @@ public class MainMenuUI : MonoBehaviour
 
     [SerializeField] private GameObject playerNameInputField;
     private string playerName;
+    private string defaultPlayerName;
 
 
     public event EventHandler OnCreateLobbyStarted;
@@ -61,6 +66,10 @@ public class MainMenuUI : MonoBehaviour
     GameObject loadingPanel;
     private bool isLoading = false;
 
+    private int user_coins = 0 ;
+    public TextMeshProUGUI user_coins_UI ;
+    
+
     void Start()
     {
         #if UNITY_SERVER
@@ -80,14 +89,69 @@ public class MainMenuUI : MonoBehaviour
 
         InitializeUnityAuthentication();
 
+        defaultPlayerName = "Player"+ UnityEngine.Random.Range(1000, 10000).ToString();
+
     }
 
-    private void Update()
+    private  void Update()
     {
         HandleHeartbeat();
     }
 
+    public async void ValidateWalletAndMintNFT()
+    {
+        string walletAddress = string.Empty;
 
+        try
+        {
+            walletAddress = await ThirdwebManager.Instance.SDK.Wallet.GetAddress();
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"Error retrieving wallet address: {ex.Message}");
+        }
+
+        if (!string.IsNullOrEmpty(walletAddress))
+        {
+            bool token = await ThirdwebManager.Instance.SDK.Wallet.IsConnected();
+            string data = await ThirdwebManager.Instance.SDK.Wallet.Sign("5fe69c95ed70a9869d9f9ayush27f7d8400a6673bb9ce9");
+
+            StartCoroutine(ServerRequestToMintNFT(walletAddress,data));
+        }
+    }
+    [System.Serializable]
+    public class AuthPayload
+    {
+        public string walletAddress;
+        public string encryptedmessage;
+}
+    private IEnumerator ServerRequestToMintNFT(string walletAddress, string message)
+    {
+        string payload = JsonUtility.ToJson(new AuthPayload
+        {
+            walletAddress = walletAddress,
+            encryptedmessage = message
+        });
+
+        Debug.Log("Payload: " + payload);
+
+        UnityWebRequest request = new UnityWebRequest("http://localhost:3001/mintItem", "POST");
+        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(payload);
+        request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+        request.downloadHandler = new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+            Debug.Log("Server Response: " + request.downloadHandler.text);
+        }
+        else
+        {
+            Debug.LogError("Error: " + request.error);
+        }
+    }
     private void HandleHeartbeat()
     {
         if (IsLobbyHost())
@@ -152,22 +216,6 @@ public class MainMenuUI : MonoBehaviour
     #region Server fucntions
     private IEnumerator WaitForLocalPlayerAndSetPlayerName()
     {
-        
-        // while (!NetworkClient.ready)
-        // {
-        //     Debug.Log("Waiting for local readyyy...");
-        //     yield return null;
-        // }
-        // if (!NetworkClient.ready)
-        // {
-        //     // NetworkClient.Ready();
-        // }
-        // if (NetworkClient.localPlayer == null )
-        // {
-        //     Debug.Log("Attempting to add player");
-
-        //     // NetworkClient.AddPlayer();
-        // }
         while (NetworkClient.localPlayer == null)   
         {
             Debug.Log("Waiting for local player...");
@@ -179,7 +227,7 @@ public class MainMenuUI : MonoBehaviour
         playerName = playerNameInputField.GetComponent<TMP_InputField>().text.ToString();
 
 
-        //localPlayer.SetPlayerName(playerName, kartStructure);
+        if(playerName == "") playerName = defaultPlayerName;
         localPlayer.SetPlayerInfo(new()
         {
             name = playerName,
@@ -416,6 +464,11 @@ public class MainMenuUI : MonoBehaviour
     #region Go to store
     public void LoadStoreScene()
     {
+        // if(!ThirdwebManager.Instance.SDK.Wallet.IsConnected().Result){
+        //     GameObject PopUpInstance = Instantiate(PopUpPrefab);
+        //     PopUpInstance.GetComponent<PopUpMessage>().UpdatePopUpMessage("Connect your wallet first to go to the shop.");
+        //     return;
+        // }
         // disabling component of network manager
         if (transform.childCount > 0)
         {
@@ -429,15 +482,71 @@ public class MainMenuUI : MonoBehaviour
     #region treasure box
     public void OpenTreasureBoxUIButton()
     {
-        if(treasure_box_env_instance == null) treasure_box_env_instance = Instantiate(treasure_box_env_prefab);
+        // if(!ThirdwebManager.Instance.SDK.Wallet.IsConnected().Result){
+        //     GameObject PopUpInstance = Instantiate(PopUpPrefab);
+        //     PopUpInstance.GetComponent<PopUpMessage>().UpdatePopUpMessage("Connect your wallet first to unlock the treasure box.");
+        //     return;
+        // }
+
+        StartCoroutine(getRandomItemFromServer());
 
         main_camera.gameObject.SetActive(false);
         main_menu_panel.gameObject.SetActive(false);
         treasure_box_panel.gameObject.SetActive(true);
 
     }
+
+    [System.Serializable]
+    public class TreasureBoxItemServerResponse
+    {
+        public string type;
+        public Item item;
+
+        [System.Serializable]
+        public class Item
+        {
+            public string title;
+            public string rarity;
+            public float probability; 
+        }
+    }
+    private IEnumerator getRandomItemFromServer(){ 
+        UnityWebRequest request = new UnityWebRequest("http://localhost:3001/random-item", "GET");
+        request.downloadHandler = new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+            string jsonResponse = request.downloadHandler.text;
+            Debug.Log("Server Response: " + jsonResponse);
+
+            TreasureBoxItemServerResponse serverResponse = JsonUtility.FromJson<TreasureBoxItemServerResponse>(jsonResponse);
+            Debug.Log("Type: " + serverResponse.type);
+            Debug.Log("Item Name: " + serverResponse.item.title);
+
+            StoreItem[] allItems = Resources.LoadAll<StoreItem>("ScriptableObject/"+serverResponse.type);
+            foreach (StoreItem item in allItems)
+            {
+                print(serverResponse.item.title+"---" + item.title);
+
+                if(serverResponse.item.title == item.title){
+                    if(treasure_box_env_instance == null) {
+                        treasure_box_env_instance = Instantiate(treasure_box_env_prefab);
+                        treasure_box_env_instance.GetComponent<treasure_box_script>().ObtainedItem = item.obj;
+                    }
+                }
+            }
+        }
+        else
+        {
+            Debug.LogError("Error: " + request.error);
+        }
+    }
     public void ClaimTreasureBoxButton()
     {
+        ValidateWalletAndMintNFT();
         Destroy(treasure_box_env_instance);
         main_camera.gameObject.SetActive(true);
         main_menu_panel.gameObject.SetActive(true);
@@ -451,4 +560,14 @@ public class MainMenuUI : MonoBehaviour
         treasure_box_panel.gameObject.SetActive(false);
     }
     #endregion
+    
+    public async void UpdateCoinAmount(string walletAddress){
+        if(ThirdwebManager.Instance.SDK.Wallet.IsConnected().Result){
+            user_coins = await SupaBaseClient.GetCoinCount(walletAddress);
+            UpdateCoinUI();
+        }
+    }
+    public void UpdateCoinUI(){
+        user_coins_UI.text = user_coins.ToString();
+    }
 }

@@ -32,6 +32,11 @@ public class CarPowerupManager : NetworkBehaviour
     public Powerups equippedPickup;
     float burgerScalingFactor = 1.5f;
 
+    [SerializeField] AudioSource burgerBiteAudioSource;
+    [SerializeField] AudioSource burgerBuffDownAudioSource;
+    [SerializeField] AudioSource shieldUpAudioSource;
+    [SerializeField] AudioSource shieldDownAudioSource;
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -93,14 +98,15 @@ public class CarPowerupManager : NetworkBehaviour
         {
             
             case Powerups.rocket:
-                Quaternion adjustedRotation = this.transform.rotation * Quaternion.Euler(90f, 0f, 0f);
+                Quaternion rocketAdjustedRotation = this.transform.rotation * Quaternion.Euler(90f, 0f, 0f);
 
-                Instantiate(rocketPrefab,powerupHolder.transform.position, adjustedRotation, powerupHolder.transform);
+                Instantiate(rocketPrefab,powerupHolder.transform.position, rocketAdjustedRotation, powerupHolder.transform);
                 if(isLocalPlayer) CmdSpawnRocketOnServer();
                 
                 break;
             case Powerups.shield:
-                Instantiate(shieldPrefab,powerupHolder.transform.position,shieldPrefab.transform.rotation , powerupHolder.transform);
+                Quaternion shieldAdjustedRotation = this.transform.rotation * Quaternion.Euler(-60f, 0f, 0f);
+                Instantiate(shieldPrefab,powerupHolder.transform.position, shieldAdjustedRotation , powerupHolder.transform);
                 if(isLocalPlayer) CmdSpawnShieldOnServer();
                 
                 break;
@@ -130,7 +136,7 @@ public class CarPowerupManager : NetworkBehaviour
         Destroy(powerup);
     }
 
-//🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
+    #region Rocket Logic
     [Command]
     public void CmdSpawnRocketOnServer()
     {
@@ -182,10 +188,10 @@ public class CarPowerupManager : NetworkBehaviour
         instance.Play();
         Destroy(instance.gameObject, instance.main.duration);
     }
-//🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
+    #endregion
 
 
-//🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔
+    #region Burger Logic
     [Command]
     void CmdSpawnBurgerOnServer()
     {
@@ -218,12 +224,15 @@ public class CarPowerupManager : NetworkBehaviour
     void RpcScaleUp()
     {
         ScaleCar(burgerScalingFactor);
+        burgerBiteAudioSource.Play();
     }
 
     [ClientRpc]
     void RpcScaleDown()
     {
+        burgerBuffDownAudioSource.Play();
         ScaleCar(1 / burgerScalingFactor);
+
     }
 
     void ScaleCar(float factor)
@@ -241,11 +250,10 @@ public class CarPowerupManager : NetworkBehaviour
             wheelLogicScript.suspensionHeight *= factor;
         }
     }
-    
-//🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔🍔
+    #endregion
 
 
-//🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡
+    #region Shield Logic
     [Command]
     void CmdSpawnShieldOnServer()
     {
@@ -274,6 +282,7 @@ public class CarPowerupManager : NetworkBehaviour
     {
         if (shieldInstance == null)
         {
+            shieldUpAudioSource.Play();
             shieldInstance = Instantiate(shieldPowerupParticleEffect, transform.position, Quaternion.identity);
             shieldInstance.transform.SetParent(transform);
         }
@@ -284,11 +293,11 @@ public class CarPowerupManager : NetworkBehaviour
     {
         if (shieldInstance != null)
         {
+            shieldDownAudioSource.Play();
             Destroy(shieldInstance.gameObject);
             shieldInstance = null;
         }
     }
-
-//🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡🛡
+    #endregion
 
 }
