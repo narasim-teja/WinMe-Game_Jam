@@ -76,12 +76,11 @@ public static class SupaBaseClient
                 .Where(x => x.wallet_address == data.wallet_address)
                 .Set(x => x.coin_count, exsitingUser.coin_count + data.coin_count)
                 .Update();
+            Debug.Log(exsitingUser.coin_count+" -- "+ data.coin_count+" -- "+ data.user_name);
         }
         else{
             var response = await supabaseClient.From<User>().Insert(new[] { data });
         }
-        
-
     }
 
     public static async Task<int> GetCoinCount(string walletAddress)

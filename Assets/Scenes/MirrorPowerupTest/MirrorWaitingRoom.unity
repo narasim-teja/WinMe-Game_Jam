@@ -13150,7 +13150,7 @@ MonoBehaviour:
   - {fileID: 6005500290872442030, guid: 0345b005f36a0a1429a1b62e7a5748e1, type: 3}
   - {fileID: 2525408349467009658, guid: a3dc9a1b16ebd5742b9237f6df24c02b, type: 3}
   waitTimeForSceneChange: 5
-  noOfPlayers: 2
+  noOfPlayers: 1
 --- !u!114 &1945648348
 MonoBehaviour:
   m_ObjectHideFlags: 0

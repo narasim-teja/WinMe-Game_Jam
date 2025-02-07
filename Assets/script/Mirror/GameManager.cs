@@ -33,6 +33,7 @@ public class GameManager : NetworkBehaviour
     [SerializeField] private TextMeshProUGUI winnerText;
     [SerializeField] private TextMeshProUGUI amountText;
     [SerializeField] private Canvas canvas2;
+    bool gameEnded = false;
     // Start is called before the first frame update
     public override void OnStartServer()
     {
@@ -44,12 +45,13 @@ public class GameManager : NetworkBehaviour
     [Server]
     public void GameEnded()
     {
+        if(gameEnded == true) return;
+        gameEnded = true;
         Debug.Log("-----GAME ENDED------");
         GetUserData();
         userDataList.Sort((user1, user2) => user2.coinCount.CompareTo(user1.coinCount));
         UserData winner = userDataList[0];
         showWinner(winner.user_name ,winner.coinCount);
-
         UpdateCoinsEarned();
     }
     
@@ -88,7 +90,7 @@ public class GameManager : NetworkBehaviour
             int coins_earned = 0;
             if(x == 0) coins_earned = userDataList[x].coinCount;
             else if(x > 0 && x < 5) coins_earned = userDataList[x].coinCount / (2*x);
-            
+
             if(currentUser.walletAddress != null )  SupaBaseClient.addMoneyToDb(currentUser.walletAddress,coins_earned,currentUser.user_name); 
 
         }
