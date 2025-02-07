@@ -46,8 +46,6 @@ public class StoreManager : MonoBehaviour
     void AssembleKart()
     {
         GameObject body = Instantiate(StoreData.Instance.kartList[currentKartIndex].obj, kartModelParent.transform);
-
-        Debug.Log(body.transform.Find("car/Wheel.FR"));
         
         Instantiate(StoreData.Instance.wheelList[currentWheelIndex].obj, body.transform.Find("car/Wheel.FR"));
         Instantiate(StoreData.Instance.wheelList[currentWheelIndex].obj, body.transform.Find("car/Wheel.FL"));

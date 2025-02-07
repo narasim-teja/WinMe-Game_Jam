@@ -42,9 +42,7 @@ public class CountDownTimer : NetworkBehaviour
         }
         else if(timeRemaining == -5)
         {
-            Debug.Log(dialogueMessage);
-            Debug.Log(dialogueMessage.name);
-            dialogueMessage.SetActive(true);
+            ShowReturningMessage();
         }
         else if (timeRemaining == -15)
         {
@@ -52,6 +50,12 @@ public class CountDownTimer : NetworkBehaviour
             StopClients();
             StopServer();
         }
+    }
+
+    [ClientRpc]
+    void ShowReturningMessage()
+    {
+        dialogueMessage.SetActive(true);
     }
 
     [ClientRpc]
