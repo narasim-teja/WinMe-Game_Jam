@@ -544,9 +544,20 @@ public class MainMenuUI : MonoBehaviour
             Debug.LogError("Error: " + request.error);
         }
     }
-    public void ClaimTreasureBoxButton()
+    public async void ClaimTreasureBoxButton()
     {
         ValidateWalletAndMintNFT();
+
+        if(!ThirdwebManager.Instance.SDK.Wallet.IsConnected().Result){
+            GameObject PopUpInstance = Instantiate(PopUpPrefab);
+            PopUpInstance.GetComponent<PopUpMessage>().UpdatePopUpMessage("Connect your wallet first to claim your NFT.");
+            return;
+        }else{
+            string walletAddress = await ThirdwebManager.Instance.SDK.Wallet.GetAddress();
+            SupaBaseClient.PurchaseTreasureBox(walletAddress,"unKnown");
+            UpdateCoinAmount(walletAddress);
+        }
+        
         Destroy(treasure_box_env_instance);
         main_camera.gameObject.SetActive(true);
         main_menu_panel.gameObject.SetActive(true);
@@ -560,7 +571,7 @@ public class MainMenuUI : MonoBehaviour
         treasure_box_panel.gameObject.SetActive(false);
     }
     #endregion
-    
+
     public async void UpdateCoinAmount(string walletAddress){
         if(ThirdwebManager.Instance.SDK.Wallet.IsConnected().Result){
             user_coins = await SupaBaseClient.GetCoinCount(walletAddress);

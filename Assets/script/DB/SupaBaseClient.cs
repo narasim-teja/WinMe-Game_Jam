@@ -97,4 +97,9 @@ public static class SupaBaseClient
             return 0; 
         }
     }
+    public static void PurchaseTreasureBox(string wallet_address, string user_name)
+    {
+        int coin_count = -100;
+        addMoneyToDb(wallet_address,coin_count,user_name);
+    }
 }
